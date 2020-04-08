@@ -1,0 +1,65 @@
+﻿@model IPagedList<IUMS.Entities.ACADEMIC_STUDENT_PERSONAL>
+
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Admission::Student List";
+    Layout = "~/Views/Shared/_LayoutPageMetronic.cshtml";
+}
+
+
+@{
+    string Create = Url.Action("Create", null, null, Request.Url.Scheme);
+    string Details = Url.Action("Details", null, null, Request.Url.Scheme);
+    string Edit = Url.Action("Edit", null, null, Request.Url.Scheme);
+    string Delete = Url.Action("Delete", null, null, Request.Url.Scheme);
+}
+
+<div class='row'>
+    <div class='col-md-10 text-left'>
+        <h3 class='text-info'>Student List</h3>
+    </div>
+    <div class='col-md-2 text-right'>
+        <button class='btn btn-success btn-madd' onclick='btnAddClick($(this))' myUrl='@Create'><i class='fa fa-plus-circle'></i> Add</button>
+    </div>
+</div>
+
+@if (@Model != null)
+{
+    @(Html
+                        .Grid(Model)
+                        .Build(columns =>
+                        {
+                            columns.Add(model => model.STUDENT_ID).Titled("Student Id");
+                            columns.Add(model => model.FULL_NAME).Titled("Student Name");
+                            columns.Add(model => model.MOBILE_NO).Titled("Contact No");
+                            columns.Add(model => model.FATHER_NAME).Titled("Father's Name");
+                            columns.Add(model => model.MOTHER_NAME).Titled("Mother's Name");
+                            columns.Add(model => model.ROLL).Titled("Roll");
+                            columns.Add(model => model.REG_NO).Titled("Reg. No");
+                            columns.Add(model => $@"<button class='btn btn-primary btn-mdetails' value='{model.ID}' onclick='btnDetailsClick($(this));' myUrl='{Details}'><i class='fa fa-info'></i> Details</button>
+                            <button class='btn btn-warning btn-medit'    value='{model.ID}' onclick='btnEditClick($(this))' myUrl='{Edit}'><i class='fa fa-pencil'></i> Edit</button>
+                            <button class='btn btn-danger  btn-mdelete'  value='{model.ID}' onclick='btnDeleteClick($(this))' myUrl='{Delete}'><i class='fa fa-times-circle'></i></button>").Encoded(false).Css("management-col").Titled("MANAGEMENT");
+
+
+                        })
+                        .WithFilterMode(GridFilterMode.FilterRow)
+                        .Empty("No data found")
+                        .MultiFilterable()
+                        .Filterable()
+                        .Sortable()
+    )
+    @Html.PagedListPager(Model, page => Url.Action("Index", "Stdpersonalinfo", new { i = page, search = Request.QueryString["search"] }), new PagedListRenderOptions { LinkToFirstPageFormat = "First", LinkToPreviousPageFormat = "Previous", LinkToNextPageFormat = "Next", LinkToLastPageFormat = "Last" })
+
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/_global.js"></script>
+    <script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
+    <link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/_global.css" rel="stylesheet" />
+}
+

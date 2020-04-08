@@ -1,0 +1,196 @@
+﻿@model IPagedList<IUEMS.Models.Reports.TabulationsheetModel>
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageMetronic.cshtml";
+}
+<div class='row'>
+    <div class='col-md-10 text-left'>
+    <h3 class='text-info'>Tabulation Sheet</h3>
+    </div>
+    @*<div class='col-md-2 text-right'>
+            <button class='btn btn-success btn-madd' onclick='btnAddClick($(this))' myUrl='@Create'><i class='fa fa-plus-circle'></i> Add</button>
+        </div>*@
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped table-hover table-bordered" style="background-color:white !important;">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Faculty</th>
+                    <th scope="col">@Html.LabelFor(model => model.First().DEPARTMENT_NAME, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                    <th scope="col">@Html.LabelFor(model => model.First().PROGRAM_NAME, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                    <th scope="col">@Html.LabelFor(model => model.First().SEMESTER_NAME, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                    <th scope="col">@Html.LabelFor(model => model.First().YEAR, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DropDownList("FACULTY_ID", (IEnumerable<SelectListItem>)ViewData["faculty_list"], "Select Type", new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.DropDownList("DEPARTMENT_ID", (IEnumerable<SelectListItem>)ViewData["dept_list"], "Select Type", new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.DropDownList("PROGRAM_ID", (IEnumerable<SelectListItem>)ViewData["program_list"], "Select Type", new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.DropDownList("SEMESTER_ID", (IEnumerable<SelectListItem>)ViewData["semester_list"], "Select Type", new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.DropDownList("YEAR", (IEnumerable<SelectListItem>)ViewData["exam_year"], "Select Type", new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr style="text-align: right;">
+                    <td colspan="5"><input type="button" name="btn_src" class="btn btn-info SearchReport" value="Search" /></td>
+                </tr>
+            </thead>
+
+        </table>
+    </div>
+</div>
+
+<div class="row" id="div_result" style="display:none;width:100%;">
+    <div class="col-md-12">
+        <table width="60%" style="border-collapse:collapse;text-align: center;" align="center" class="short_tbl_key_info">
+            <tr>
+                <td><img height="50px" src="" /><span style="font-weight:bold;font-size:34px;text-align:center;margin-left:10px;">ISLAMIC UNIVERSITY</span></td>
+            </tr>
+            <tr><td colspan="4"><span id="faculty_name"></span></td></tr>
+            <tr><td colspan="4"><span id="dept_name"></span></td></tr>
+            <tr><td colspan="4"><span id="program_name"></span> </td></tr>
+            <tr><td colspan="4"><span id="session_year"></span>,<span id="semester"></span><span id="exam_year"></span></td></tr>
+            <tr><td colspan="4"><h3>Tabulation Sheet</h3></td></tr>
+        </table>
+
+        <table width="98%" class="" style="border-collapse:collapse;text-align: center;background-color:white !important;" border="1">
+            <thead id="report_head"></thead>
+            <tbody id="report_body"></tbody>
+        </table>
+        <table style="width:100%; align:center;text-align:center;margin-top:30px;background-color:white !important;">
+            <tr>
+                <td><span id="exam_com_head"></span><br><b>Head of Examination Committee</b></td>
+                <td><span id="exam_com_member1"></span><br><b>Member-I</b></td>
+                <td><span id="exam_com_member2"></span><br><b>Member-II</b></td>
+                <td><span id="exam_com_member3"></span><br><b>Member-III</b></td>
+            </tr>
+        </table>
+    </div>
+</div>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/_global.js"></script>
+    <script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
+    <link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/_global.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var getUrl = window.location;
+
+            $(document).on("click", ".SearchReport", function () {
+                var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/get_result";
+
+                var FACULTY_ID=$("#FACULTY_ID").val();
+                var DEPARTMENT_ID=$("#DEPARTMENT_ID").val();
+                var PROGRAM_ID=$("#PROGRAM_ID").val();
+                var SEMESTER_ID=$("#SEMESTER_ID").val();
+                var YEAR=$("#YEAR").val();
+
+                var fls = { FACULTY_ID: FACULTY_ID, DEPARTMENT_ID: DEPARTMENT_ID, PROGRAM_ID: PROGRAM_ID, SEMESTER_ID: SEMESTER_ID, YEAR: YEAR }
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: fls,
+                    beforeSend: function () {
+                        // $("#loader_view").show();
+                    },
+                    success: function (data) {
+                        $("#div_result").show();
+                        $("#report_head").html('');
+                        $("#report_body").html('');
+                        
+                        var courses = data.courses;
+                        
+                        $("#exam_com_head").html(data.head_name);
+                        $("#exam_com_member1").html(data.member1_name);
+                        $("#exam_com_member2").html(data.member2_name);
+                        $("#exam_com_member3").html(data.member3_name);
+                        var result = data.result;
+                        $("#report_head").append("<tr style='text-align:center' id='tr'><th style='text-align:center' rowspan='2'>Roll No.</th></tr>");
+                        var th = "<tr>";
+
+                        var nm = 0;
+                        var tr = "";
+                       
+                        $.each(courses, function (key, val) {
+                            debugger;
+                            var course_credit = val.COURSE_CREDIT;
+                            var course_type = Number(val.COURSE_TYPE);
+                            
+                            if (course_credit == 0 && course_type < 6) {
+                                nm = nm + 1;
+                            }
+                            
+                            if (course_credit > 0 && nm<1) {
+                                tr = "<th style='text-align:center' colspan='6'>" + val.COURSE_CODE + "<br>Credit:" + val.COURSE_CREDIT + "</th>";
+                                th += "<td>Theory</td><td>Internal</td><td>Total</td><td>LG</td><td>GP</td><td>PS</td>";
+                                $("#tr").append(tr);
+                            }
+                            if (nm ==2) {
+                                tr = "<th style='text-align:center' colspan='6'>Non Credit<br>Credit:0</th>";
+                                th += "<td>Theory</td><td>Internal</td><td>Total</td><td>LG</td><td>GP</td><td>PS</td>";
+                                $("#tr").append(tr);
+                            }
+                        });
+                        tr = "<th style='text-align:center' colspan='6'>Semester Final</th>";
+                        $("#tr").append(tr);
+                        th += "<td>TPS</td><td>GPA</td><td>LG</td>";
+                        th + "</tr>";
+
+                        $("#report_head").append(th);
+
+                        $.each(result, function (index, value) {
+                            debugger;
+                            var td = "";
+                            td += "<td>" + value.stdid + "</td>";
+                            var course_res = value.my_courses;
+                            var summery = value.summery;
+                            var tps = summery.TPS;
+                            var gpa = summery.AVG_POINT;
+                            var gpl = value.lg;
+                            
+                            var total_subject = Number(course_res.length);
+                            $.each(course_res, function (index1, value1) {
+                                
+                                var avg_mark = parseFloat(value1.AVG_MARKS);
+                                var internal_mark = parseFloat(value1.INTERNAL_MARKS);
+                                var gp = parseFloat(value1.GRADE_POINT);
+                                var credit = parseFloat(value1.CREDIT_EARNED);
+                                var lg = value1.LETTER_GRADE;
+                                var ps = parseFloat(value1.PS);
+                                
+                                var final_mark = (avg_mark + internal_mark);
+
+                                td += "<td>" + avg_mark + "</td>";
+                                td += "<td>" + internal_mark + "</td>";
+                                td += "<td>" + final_mark + "</td>";
+                                td += "<td>" + lg + "</td>";
+                                td += "<td>" + gp + "</td>";
+                                td += "<td>" + ps + "</td>";
+                            });
+                            
+                            td += "<td>" + tps + "</td><td>" + gpa + "</td><td>" + gpl +"</td>";
+                            var tr_cr = "<tr>"+td+"</tr>";
+                            $("#report_body").append(tr_cr);
+                        });
+                    }
+                    //data: JSON.stringify(person)
+                });
+            });
+        });
+    </script>
+}
+

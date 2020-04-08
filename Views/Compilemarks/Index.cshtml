@@ -1,0 +1,245 @@
+﻿@model IPagedList<IUEMS.Models.ExammarksModel>
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    /**/
+
+    ViewBag.Title = "IURPS::Compile Marks";
+    Layout = "~/Views/Shared/_LayoutPageMetronic.cshtml";
+}
+
+
+@{
+    string Create = Url.Action("Create", null, null, Request.Url.Scheme);
+    string Details = Url.Action("Details", null, null, Request.Url.Scheme);
+    string Edit = Url.Action("Edit", null, null, Request.Url.Scheme);
+    string Delete = Url.Action("Delete", null, null, Request.Url.Scheme);
+}
+
+<div class='row'>
+    <div class='col-md-10 text-left'>
+        <h3 class='text-info'>Compile Marks</h3>
+    </div>
+    @*<div class='col-md-2 text-right'>
+            <button class='btn btn-success btn-madd' onclick='btnAddClick($(this))' myUrl='@Create'><i class='fa fa-plus-circle'></i> Add</button>
+        </div>*@
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">@Html.LabelFor(model => model.First().FACULTY_ID, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                    <th scope="col">@Html.LabelFor(model => model.First().DEPARTMENT_ID, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                    <th scope="col">@Html.LabelFor(model => model.First().PROGRAM_ID, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                    <th scope="col">@Html.LabelFor(model => model.First().SEMESTER_ID, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                    <th scope="col">@Html.LabelFor(model => model.First().YEAR, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                    @*<th scope="col">@Html.LabelFor(model => model.First().SESSION_ID, htmlAttributes: new { @class = "control-label col-md-2" })</th>*@
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DropDownList("FACULTY_ID", (IEnumerable<SelectListItem>)ViewData["faculty_list"], "Select Faculty", new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.DropDownList("DEPARTMENT_ID", (IEnumerable<SelectListItem>)ViewData["dept_list"], "Select Department", new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.DropDownList("PROGRAM_ID", (IEnumerable<SelectListItem>)ViewData["program_list"], "Select Program", new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.DropDownList("SEMESTER_ID", (IEnumerable<SelectListItem>)ViewData["semester_list"], "Select Semester", new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.DropDownList("YEAR", (IEnumerable<SelectListItem>)ViewData["exam_year"], "Select Year", new { @class = "form-control" })
+                    </td>
+                    
+                </tr>
+                <tr style="text-align: right;">
+                    <td colspan="6"><a class="btn btn-info SearchStudent">Search</a></td>
+                </tr>
+            </thead>
+
+        </table>
+    </div>
+</div>
+
+@if (@Model != null)
+{
+    @(Html
+                .Grid(Model)
+                .Build(columns =>
+                {
+                    columns.Add(model => model.PROGRAM_NAME).Titled("Program");
+                    columns.Add(model => model.COURSE_CODE).Titled("Course Code");
+                    columns.Add(model => model.COURSE_NAME).Titled("Course Name");
+                    columns.Add(model => model.FIRST_EXAMINER_STATUS).Titled("First Examiner");
+                    columns.Add(model => model.SECOND_EXAMINER_STATUS).Titled("Second Examiner");
+                    columns.Add(model => model.THIRD_EXAMINER_STATUS).Titled("Third Examiner");
+                    columns.Add(model => $@"<button class='btn btn-success btn-madd' value='{model.ID}' onclick='btnAddClick($(this))' myUrl='{Create}/{model.ID}'><i class='fa fa-eye'></i> View Marks</button>").Encoded(false).Css("management-col").Titled("Action");
+                
+    //            columns.Add(model => $@"<button class='btn btn-primary btn-mdetails' value='{model.ID}' onclick='btnDetailsClick($(this));' myUrl='{Details}'><i class='fa fa-info'></i> Details</button>
+    //<button class='btn btn-warning btn-medit'    value='{model.ID}' onclick='btnEditClick($(this))' myUrl='{Edit}'><i class='fa fa-pencil'></i> Edit</button>
+    //<button class='btn btn-danger  btn-mdelete'  value='{model.ID}' onclick='btnDeleteClick($(this))' myUrl='{Delete}'><i class='fa fa-times-circle'></i></button>").Encoded(false).Css("management-col").Titled("MANAGEMENT");
+
+})
+                //.WithFilterMode(GridFilterMode.FilterRow)
+                .Empty("No data found")
+                //.MultiFilterable()
+                //.Filterable()
+                //.Sortable()
+    )
+    @Html.PagedListPager(Model, page => Url.Action("Index", "Compilemarks", new { i = page, search = Request.QueryString["search"] }), new PagedListRenderOptions { LinkToFirstPageFormat = "First", LinkToPreviousPageFormat = "Previous", LinkToNextPageFormat = "Next", LinkToLastPageFormat = "Last" })
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/_global.js"></script>
+    <script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
+    <link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/_global.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var getUrl = window.location;
+            //Get Programe
+            $(document).on("change", "#DEPARTMENT_ID", function () {
+
+                var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/get_programme";
+                var FACULTY_ID = $("#FACULTY_ID").val();
+                var DEPARTMENT_ID = $("#DEPARTMENT_ID").val();
+                var PROGRAM_ID = $("#PROGRAM_ID").val();
+                var SEMESTER_ID = $("#SEMESTER_ID").val();
+                var YEAR = $("#YEAR").val();
+                var fls = { FACULTY_ID: FACULTY_ID, DEPARTMENT_ID: DEPARTMENT_ID, PROGRAM_ID: PROGRAM_ID, SEMESTER_ID: SEMESTER_ID, YEAR: YEAR }
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: fls,
+                    beforeSend: function () {
+                        // $("#loader_view").show();
+                    },
+                    success: function (data) {
+                        $("#PROGRAM_ID").html('<option>--Select--</option>');
+                        $.each(data, function (key, val) {
+                            var ID = val.ID;
+
+                            var tr = "<option value='" + val.ID + "'>" + val.PROGRAM_NAME + "</option>";
+                            $("#PROGRAM_ID").append(tr);
+                        });
+                    }
+                    //data: JSON.stringify(person)
+                });
+            });
+
+            //Get Departments
+            $(document).on("change", "#FACULTY_ID", function () {
+
+                var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/get_dept";
+                var FACULTY_ID = $("#FACULTY_ID").val();
+                var DEPARTMENT_ID = $("#DEPARTMENT_ID").val();
+                var PROGRAM_ID = $("#PROGRAM_ID").val();
+                var SEMESTER_ID = $("#SEMESTER_ID").val();
+                var YEAR = $("#YEAR").val();
+                var fls = { FACULTY_ID: FACULTY_ID, DEPARTMENT_ID: DEPARTMENT_ID, PROGRAM_ID: PROGRAM_ID, SEMESTER_ID: SEMESTER_ID, YEAR: YEAR }
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: fls,
+                    beforeSend: function () {
+                        // $("#loader_view").show();
+                    },
+                    success: function (data) {
+                        $("#DEPARTMENT_ID").html('<option>--Select--</option>');
+                        $.each(data, function (key, val) {
+                            var ID = val.ID;
+
+                            var tr = "<option value='" + val.ID + "'>" + val.DEPARTMENT_NAME + "</option>";
+                            $("#DEPARTMENT_ID").append(tr);
+                        });
+                    }
+                    //data: JSON.stringify(person)
+                });
+            });
+
+            
+
+            $(document).on("click", ".is_final", function () {
+                if (confirm("Are you sure you want to submit? If you submit you do not edit more.")) {
+                    debugger;
+                    $("#is_final").val('2');
+                    formValidSend();
+                    //$("#btn_submit").click();
+                }
+                else {
+                    return false;
+                }
+            });
+
+
+            //Get Courses
+            $(document).on("click", ".SearchStudent", function () {
+
+                var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/get_courses";
+                var create = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/Create";
+                
+                var FACULTY_ID = $("#FACULTY_ID").val();
+                var DEPARTMENT_ID = $("#DEPARTMENT_ID").val();
+                var PROGRAM_ID = $("#PROGRAM_ID").val();
+                var SEMESTER_ID = $("#SEMESTER_ID").val();
+                var YEAR = $("#YEAR").val();
+                var SESSION_ID = $("#SESSION_ID").val();
+
+                var fls = { FACULTY_ID: FACULTY_ID, DEPARTMENT_ID: DEPARTMENT_ID, PROGRAM_ID: PROGRAM_ID, SEMESTER_ID: SEMESTER_ID, YEAR: YEAR, SESSION_ID: SESSION_ID }
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: fls,
+                    beforeSend: function () {
+                        // $("#loader_view").show();
+                    },
+                    success: function (data) {
+                        var table = '<table>' +
+                            '<thead>' +
+                            '<th>SL</th>' +
+                            '<th>Program</th>' +
+                            '<th>Course Code</th>' +
+                            '<th>Course Name</th>' +
+                            '<th>First Examiner</th>' +
+                            '<th>Second Examiner</th>' +
+                            '<th>Third Examiner</th>' +
+                            '<th>Action</th>' +
+                            '</thead>' +
+                            '<tbody id="tbody"></tbody>' +
+                        '</table > ';
+                        $(".mvc-grid").html(table);
+                        var i = 0;
+                        $.each(data, function (key, val) {
+                            i++;
+                            var ID = val.ID;
+                            debugger;
+                            var tr = "<tr>" +
+                                "<td>" + i + "</td>" +
+                                "<td>" + val.PROGRAM_NAME + "</td>" +
+                                "<td>" + val.COURSE_CODE + "</td>" +
+                                "<td>" + val.COURSE_NAME + "</td>" +
+                                "<td>" + val.FIRST_EXAMINER_STATUS + "</td>" +
+                                "<td>" + val.SECOND_EXAMINER_STATUS + "</td>" +
+                                "<td>" + val.THIRD_EXAMINER_STATUS + "</td>" +
+                                "<td><a href=''><button class='btn btn-success btn-medit' value='241' onclick='btnEditClick($(this))' myurl='" + create+"'><i class='fa fa-eye'></i> View Marks</button></a></td>" +
+                                "</tr>";
+                            $("#tbody").append(tr);
+                        });
+                    }
+                    //data: JSON.stringify(person)
+                });
+            });
+
+        });
+    </script>
+}
+
