@@ -1,0 +1,579 @@
+﻿@model IUMS.Entities.HR_PERSONALINFO
+@{
+	Layout = null;
+}
+
+<div class="modal" id="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="col-md-10">
+					<h3>Employee Details
+					</h3>
+				</div>
+				<div class="col-md-2">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			</div>
+			<div class="modal-body">
+				<table class="table table-striped table-hover table-bordered">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">DisplayNameFor</th>
+							<th scope="col">DisplayFor</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.EMPLOYEE_ID)</td>
+							<td>@Html.DisplayFor(model => model.EMPLOYEE_ID)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.EMPLOYEE_TYPE)</td>
+							<td>@Html.DisplayFor(model => model.EMPLOYEE_TYPE)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.TITLE)</td>
+							<td>@Html.DisplayFor(model => model.TITLE)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.TITLE_BN)</td>
+							<td>@Html.DisplayFor(model => model.TITLE_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.EMPLOYEE_NAME)</td>
+							<td>@Html.DisplayFor(model => model.EMPLOYEE_NAME)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.NAME_BN)</td>
+							<td>@Html.DisplayFor(model => model.NAME_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.DESIGNATION)</td>
+							<td>@Html.DisplayFor(model => model.DESIGNATION)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.DESIGNATION_BN)</td>
+							<td>@Html.DisplayFor(model => model.DESIGNATION_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.FACULTY)</td>
+							<td>@Html.DisplayFor(model => model.FACULTY)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.FACULTY_BN)</td>
+							<td>@Html.DisplayFor(model => model.FACULTY_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.DEPARTMENT)</td>
+							<td>@Html.DisplayFor(model => model.DEPARTMENT)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.DEPARTMENT_BN)</td>
+							<td>@Html.DisplayFor(model => model.DEPARTMENT_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.FATHER_NAME)</td>
+							<td>@Html.DisplayFor(model => model.FATHER_NAME)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.FATHER_NAME_BN)</td>
+							<td>@Html.DisplayFor(model => model.FATHER_NAME_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.MOTHER_NAME)</td>
+							<td>@Html.DisplayFor(model => model.MOTHER_NAME)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.MOTHER_NAME_BN)</td>
+							<td>@Html.DisplayFor(model => model.MOTHER_NAME_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PRESENT_HOUSE_NO)</td>
+							<td>@Html.DisplayFor(model => model.PRESENT_HOUSE_NO)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PRESENT_HOUSE_NO_BN)</td>
+							<td>@Html.DisplayFor(model => model.PRESENT_HOUSE_NO_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PRESENT_POST_OFFICE)</td>
+							<td>@Html.DisplayFor(model => model.PRESENT_POST_OFFICE)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PRESENT_POST_OFFICE_BN)</td>
+							<td>@Html.DisplayFor(model => model.PRESENT_POST_OFFICE_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PRESENT_THANA)</td>
+							<td>@Html.DisplayFor(model => model.PRESENT_THANA)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PRESENT_THANA_BN)</td>
+							<td>@Html.DisplayFor(model => model.PRESENT_THANA_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PRESENT_ZILA)</td>
+							<td>@Html.DisplayFor(model => model.PRESENT_ZILA)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PRESENT_ZILA_BN)</td>
+							<td>@Html.DisplayFor(model => model.PRESENT_ZILA_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PRESENT_POST_CODE)</td>
+							<td>@Html.DisplayFor(model => model.PRESENT_POST_CODE)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PRESENT_POST_CODE_BN)</td>
+							<td>@Html.DisplayFor(model => model.PRESENT_POST_CODE_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PERMANENT_HOUSE_NO)</td>
+							<td>@Html.DisplayFor(model => model.PERMANENT_HOUSE_NO)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PERMANENT_HOUSE_NO_BN)</td>
+							<td>@Html.DisplayFor(model => model.PERMANENT_HOUSE_NO_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PERMANENT_POST_OFFICE)</td>
+							<td>@Html.DisplayFor(model => model.PERMANENT_POST_OFFICE)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PERMANENT_POST_OFFICE_BN)</td>
+							<td>@Html.DisplayFor(model => model.PERMANENT_POST_OFFICE_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PERMANENT_THANA)</td>
+							<td>@Html.DisplayFor(model => model.PERMANENT_THANA)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PERMANENT_THANA_BN)</td>
+							<td>@Html.DisplayFor(model => model.PERMANENT_THANA_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PERMANENT_ZILA)</td>
+							<td>@Html.DisplayFor(model => model.PERMANENT_ZILA)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PERMANENT_ZILA_BN)</td>
+							<td>@Html.DisplayFor(model => model.PERMANENT_ZILA_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PERMANENT_POST_CODE)</td>
+							<td>@Html.DisplayFor(model => model.PERMANENT_POST_CODE)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PERMANENT_POST_CODE_BN)</td>
+							<td>@Html.DisplayFor(model => model.PERMANENT_POST_CODE_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.DATE_OF_BIRTH)</td>
+							<td>@Html.DisplayFor(model => model.DATE_OF_BIRTH)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.DATE_OF_BIRTH_BN)</td>
+							<td>@Html.DisplayFor(model => model.DATE_OF_BIRTH_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PLACE_OF_BIRTH)</td>
+							<td>@Html.DisplayFor(model => model.PLACE_OF_BIRTH)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PLACE_OF_BIRTH_BN)</td>
+							<td>@Html.DisplayFor(model => model.PLACE_OF_BIRTH_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.NATIONALITY)</td>
+							<td>@Html.DisplayFor(model => model.NATIONALITY)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.NATIONALITY_BN)</td>
+							<td>@Html.DisplayFor(model => model.NATIONALITY_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.RELIGION)</td>
+							<td>@Html.DisplayFor(model => model.RELIGION)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.RELIGION_BN)</td>
+							<td>@Html.DisplayFor(model => model.RELIGION_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.CASTE)</td>
+							<td>@Html.DisplayFor(model => model.CASTE)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.CASTE_BN)</td>
+							<td>@Html.DisplayFor(model => model.CASTE_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.IMMIGRANT)</td>
+							<td>@Html.DisplayFor(model => model.IMMIGRANT)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.IMMIGRANT_BN)</td>
+							<td>@Html.DisplayFor(model => model.IMMIGRANT_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.MARITAL_STATUS)</td>
+							<td>@Html.DisplayFor(model => model.MARITAL_STATUS)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.MARITAL_STATUS_BN)</td>
+							<td>@Html.DisplayFor(model => model.MARITAL_STATUS_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.BLOOD_GROUP)</td>
+							<td>@Html.DisplayFor(model => model.BLOOD_GROUP)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.BLOOD_GROUP_BN)</td>
+							<td>@Html.DisplayFor(model => model.BLOOD_GROUP_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.GENDER)</td>
+							<td>@Html.DisplayFor(model => model.GENDER)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.GENDER_BN)</td>
+							<td>@Html.DisplayFor(model => model.GENDER_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PASSPORT_NO)</td>
+							<td>@Html.DisplayFor(model => model.PASSPORT_NO)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PASSPORT_NO_BN)</td>
+							<td>@Html.DisplayFor(model => model.PASSPORT_NO_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.DRIVING_LICENCE_NO)</td>
+							<td>@Html.DisplayFor(model => model.DRIVING_LICENCE_NO)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.DRIVING_LICENCE_NO_BN)</td>
+							<td>@Html.DisplayFor(model => model.DRIVING_LICENCE_NO_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.IDENTIFICATION_MARK)</td>
+							<td>@Html.DisplayFor(model => model.IDENTIFICATION_MARK)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.IDENTIFICATION_MARK_BN)</td>
+							<td>@Html.DisplayFor(model => model.IDENTIFICATION_MARK_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.OTHERS)</td>
+							<td>@Html.DisplayFor(model => model.OTHERS)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.OTHERS_BN)</td>
+							<td>@Html.DisplayFor(model => model.OTHERS_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.EMAIL)</td>
+							<td>@Html.DisplayFor(model => model.EMAIL)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.ALTERNATE_EMAIL)</td>
+							<td>@Html.DisplayFor(model => model.ALTERNATE_EMAIL)</td>
+						</tr>
+						
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.LEAVE_PACKAGE)</td>
+							<td>@Html.DisplayFor(model => model.LEAVE_PACKAGE)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.NATIONAL_ID)</td>
+							<td>@Html.DisplayFor(model => model.NATIONAL_ID)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.NATIONAL_ID_BN)</td>
+							<td>@Html.DisplayFor(model => model.NATIONAL_ID_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.FIRST_NAME)</td>
+							<td>@Html.DisplayFor(model => model.FIRST_NAME)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.LAST_NAME)</td>
+							<td>@Html.DisplayFor(model => model.LAST_NAME)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.FIRST_NAME_BN)</td>
+							<td>@Html.DisplayFor(model => model.FIRST_NAME_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.LAST_NAME_BN)</td>
+							<td>@Html.DisplayFor(model => model.LAST_NAME_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.SECTION)</td>
+							<td>@Html.DisplayFor(model => model.SECTION)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.JOIN_DATE)</td>
+							<td>@Html.DisplayFor(model => model.JOIN_DATE)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.EMPLOYEE_PHOTO)</td>
+							<td>@Html.DisplayFor(model => model.EMPLOYEE_PHOTO)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.SECTION_ID)</td>
+							<td>@Html.DisplayFor(model => model.SECTION_ID)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.SUB_SECTION_ID)</td>
+							<td>@Html.DisplayFor(model => model.SUB_SECTION_ID)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.DESIGNATION_ID)</td>
+							<td>@Html.DisplayFor(model => model.DESIGNATION_ID)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.MIDDLE_NAME)</td>
+							<td>@Html.DisplayFor(model => model.MIDDLE_NAME)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.MIDDLE_NAME_BN)</td>
+							<td>@Html.DisplayFor(model => model.MIDDLE_NAME_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.DEGREE_ID)</td>
+							<td>@Html.DisplayFor(model => model.DEGREE_ID)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.INITIAL_NAME)</td>
+							<td>@Html.DisplayFor(model => model.INITIAL_NAME)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.FACULTY_TYPE)</td>
+							<td>@Html.DisplayFor(model => model.FACULTY_TYPE)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.GROSS_SALARY)</td>
+							<td>@Html.DisplayFor(model => model.GROSS_SALARY)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.WORKING_HOUR)</td>
+							<td>@Html.DisplayFor(model => model.WORKING_HOUR)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.CAMPUS_ID)</td>
+							<td>@Html.DisplayFor(model => model.CAMPUS_ID)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.SALARY_PAYMENT_TYPE)</td>
+							<td>@Html.DisplayFor(model => model.SALARY_PAYMENT_TYPE)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.BANK_ID)</td>
+							<td>@Html.DisplayFor(model => model.BANK_ID)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.BANK_ACCOUNT_NO)</td>
+							<td>@Html.DisplayFor(model => model.BANK_ACCOUNT_NO)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.CARD_NO)</td>
+							<td>@Html.DisplayFor(model => model.CARD_NO)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.MOBILE_NO)</td>
+							<td>@Html.DisplayFor(model => model.MOBILE_NO)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.EMPLOYEE_TYPE_ID)</td>
+							<td>@Html.DisplayFor(model => model.EMPLOYEE_TYPE_ID)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.POSITION_ID)</td>
+							<td>@Html.DisplayFor(model => model.POSITION_ID)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.EMP_LAST_NAME_BANGLA)</td>
+							<td>@Html.DisplayFor(model => model.EMP_LAST_NAME_BANGLA)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.EMP_MIDDLE_NAME_BANGLA)</td>
+							<td>@Html.DisplayFor(model => model.EMP_MIDDLE_NAME_BANGLA)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.EMP_FAST_NAME_BANGLA)</td>
+							<td>@Html.DisplayFor(model => model.EMP_FAST_NAME_BANGLA)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.EMP_LAST_NAME)</td>
+							<td>@Html.DisplayFor(model => model.EMP_LAST_NAME)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.EMP_MIDDLE_NAME)</td>
+							<td>@Html.DisplayFor(model => model.EMP_MIDDLE_NAME)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.EMP_FIRST_NAME)</td>
+							<td>@Html.DisplayFor(model => model.EMP_FIRST_NAME)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.DISTRICT_ID)</td>
+							<td>@Html.DisplayFor(model => model.DISTRICT_ID)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.DIVISION)</td>
+							<td>@Html.DisplayFor(model => model.DIVISION)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.DATE_OF_JOINING)</td>
+							<td>@Html.DisplayFor(model => model.DATE_OF_JOINING)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.EMPLOYEE_CATEGORY)</td>
+							<td>@Html.DisplayFor(model => model.EMPLOYEE_CATEGORY)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.COUNTRY_NAME)</td>
+							<td>@Html.DisplayFor(model => model.COUNTRY_NAME)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.FATHERS_NAME)</td>
+							<td>@Html.DisplayFor(model => model.FATHERS_NAME)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.MOTHERS_NAME)</td>
+							<td>@Html.DisplayFor(model => model.MOTHERS_NAME)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.LICENSE_NUMBERS)</td>
+							<td>@Html.DisplayFor(model => model.LICENSE_NUMBERS)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PASSPORT_NUMBER)</td>
+							<td>@Html.DisplayFor(model => model.PASSPORT_NUMBER)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.DATEOF_REGISTER)</td>
+							<td>@Html.DisplayFor(model => model.DATEOF_REGISTER)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PHONE)</td>
+							<td>@Html.DisplayFor(model => model.PHONE)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.MOBILE)</td>
+							<td>@Html.DisplayFor(model => model.MOBILE)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.MARITIAL_STATUS)</td>
+							<td>@Html.DisplayFor(model => model.MARITIAL_STATUS)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.BLOOD_GROUPH)</td>
+							<td>@Html.DisplayFor(model => model.BLOOD_GROUPH)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.NATIONLATITY)</td>
+							<td>@Html.DisplayFor(model => model.NATIONLATITY)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.SHIFT_ID)</td>
+							<td>@Html.DisplayFor(model => model.SHIFT_ID)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.EMPLOYEE_VOTER_PHOTO)</td>
+							<td>@Html.DisplayFor(model => model.EMPLOYEE_VOTER_PHOTO)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.EMPLOYEE_QUOTA_ID)</td>
+							<td>@Html.DisplayFor(model => model.EMPLOYEE_QUOTA_ID)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.GRADE_ID)</td>
+							<td>@Html.DisplayFor(model => model.GRADE_ID)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PRESENT_JOB_DESCRIPTION)</td>
+							<td>@Html.DisplayFor(model => model.PRESENT_JOB_DESCRIPTION)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.JOB_POSITION)</td>
+							<td>@Html.DisplayFor(model => model.JOB_POSITION)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.WEEKEND)</td>
+							<td>@Html.DisplayFor(model => model.WEEKEND)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.DATE_OF_RESIGN)</td>
+							<td>@Html.DisplayFor(model => model.DATE_OF_RESIGN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.REASON)</td>
+							<td>@Html.DisplayFor(model => model.REASON)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.BANNED)</td>
+							<td>@Html.DisplayFor(model => model.BANNED)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.OFFICER_DESIGNATION_ID)</td>
+							<td>@Html.DisplayFor(model => model.OFFICER_DESIGNATION_ID)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.COUNTRY_ID)</td>
+							<td>@Html.DisplayFor(model => model.COUNTRY_ID)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.THANA_ID)</td>
+							<td>@Html.DisplayFor(model => model.THANA_ID)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.LICENSE_NUMBER)</td>
+							<td>@Html.DisplayFor(model => model.LICENSE_NUMBER)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.EMPLOYEE_NAME_BN)</td>
+							<td>@Html.DisplayFor(model => model.EMPLOYEE_NAME_BN)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.PHOTO)</td>
+							<td>@Html.DisplayFor(model => model.PHOTO)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.DATE_OF_REGISTER)</td>
+							<td>@Html.DisplayFor(model => model.DATE_OF_REGISTER)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.SALARY_TYPE)</td>
+							<td>@Html.DisplayFor(model => model.SALARY_TYPE)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.REGULARIZATION_DATE)</td>
+							<td>@Html.DisplayFor(model => model.REGULARIZATION_DATE)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.DEVICE_ID)</td>
+							<td>@Html.DisplayFor(model => model.DEVICE_ID)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.OVER_TIME)</td>
+							<td>@Html.DisplayFor(model => model.OVER_TIME)</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayNameFor(model => model.ID_SERIAL)</td>
+							<td>@Html.DisplayFor(model => model.ID_SERIAL)</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

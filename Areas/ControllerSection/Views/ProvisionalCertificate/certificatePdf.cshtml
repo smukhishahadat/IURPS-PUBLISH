@@ -1,0 +1,27 @@
+﻿@model IUEMS.Areas.ControllerSection.Models.BalamViewModel
+@{
+    var std_dtls = ViewBag.std_dtls;
+    var summery = ViewBag.summery;
+}
+<table align="center">
+    <tr>
+        <td align="center">
+            <h1>Islamic University</h1>
+            <img width="80" alt="" src="@Server.MapPath("~/assets/admin/layout/img/avatar3_small.png")">
+            <h2>Provisional Certificate</h2>
+            For
+            <p>@std_dtls.PROGRAM_NAME</p>
+            
+            <p style="font-size:18px;">This is to certify that</p>
+        </td>
+        <td></td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td align="left">
+            <p style="font-size:18px;line-height: 2;"><b>@std_dtls.FULL_NAME</b> of Shahid Zia Hall Obtained the Degree of <b>@std_dtls.FACULTY_NAME</b> in <b>@std_dtls.DEPARTMENT_NAME</b> from this University at the Examination of 2001 held in the year 2020 and obtained C.G.P.A <b>@summery.AVG_POINT</b> letter grade <b>@summery.LETTER_GRADE</b></p>
+        </td>
+    </tr>
+</table>

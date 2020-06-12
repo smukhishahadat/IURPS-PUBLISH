@@ -1,0 +1,223 @@
+﻿@*@model IEnumerable<IUMS.Entities.HR_PERSONALINFO>*@
+@model IPagedList<IUEMS.Models.Hr.HrPersonalInfoModel>
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Employee List";
+    Layout = "~/Views/Shared/_LayoutPageMetronic.cshtml";
+}
+
+
+@{
+    string Create = Url.Action("Create", null, null, Request.Url.Scheme);
+    string Details = Url.Action("Details", null, null, Request.Url.Scheme);
+    string Edit = Url.Action("Edit", null, null, Request.Url.Scheme);
+    string Delete = Url.Action("Delete", null, null, Request.Url.Scheme);
+}
+@using (Html.BeginForm("Index", "Hrpersonalinfo", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-hover table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+
+                        <th scope="col">Faculty</th>
+                        <th scope="col"><label class="control-label col-md-2" for="SEMESTER_NAME">Department</label></th>
+                        <th scope="col"><label class="control-label col-md-12" for="EMPLOYEE_NAME">Employee Name</label></th>
+                        <th scope="col"><label class="control-label col-md-12" for="EMPLOYEE_ID">Employee ID</label></th>
+                    </tr>
+                    <tr>
+
+                        <td>
+                            @Html.DropDownList("FACULTY_ID", (IEnumerable<SelectListItem>)ViewData["faculty_list"], "Select Faculty", new { @class = "form-control" })
+                        </td>
+                        <td>
+                            @Html.DropDownList("DEPARTMENT_ID", Enumerable.Empty<SelectListItem>(), "Select Department", new { @class = "form-control" })
+                        </td>
+                        <td>
+                            <input type="text" name="EMPLOYEE_NAME" id="EMPLOYEE_NAME" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" name="EMPLOYEE_ID" id="EMPLOYEE_ID" class="form-control">
+                        </td>
+                    </tr>
+
+                    <tr style="text-align: right;">
+                        <td colspan="5"><input type="submit" name="btn_src" class="btn btn-info SearchReport" value="Search"></td>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+}
+
+
+<div class='row'>
+    <div class='col-md-10 text-left'>
+        <h3 class='text-info'>Employee List</h3>
+    </div>
+    <div class='col-md-2 text-right'>
+        <button class='btn btn-success btn-madd' onclick='btnAddClick($(this))' myUrl='@Create'><i class='fa fa-plus-circle'></i> Add</button>
+    </div>
+</div>
+
+@if (@Model != null)
+{
+    @(Html
+                                                        .Grid(Model)
+                                                        .Build(columns =>
+                                                        {
+
+                                                            columns.Add(model => model.EMPLOYEE_ID).Titled("Employee ID");
+                                                            columns.Add(model => model.EMPLOYEE_NAME).Titled("Employee Name");
+                                                            columns.Add(model => model.DESIGNATION_NAME).Titled("Designation");
+                                                            columns.Add(model => model.FACULTY_NAME).Titled("Faculty");
+                                                            columns.Add(model => model.DEPARTMENT_NAME).Titled("Department");
+                                                            columns.Add(model => model.MOBILE).Titled("MOBILE");
+                                                            columns.Add(model => model.EMAIL).Titled("EMAIL");
+                                            //columns.Add(model => model.JOIN_DATE).Titled("JOIN_DATE");
+                                            //columns.Add(model => model.EMPLOYEE_PHOTO).Titled("EMPLOYEE_PHOTO");
+                                            columns.Add(model => $@"<button class='btn btn-primary btn-mdetails' value='{model.ID}' onclick='btnDetailsClick($(this));' myUrl='{Details}'><i class='fa fa-info'></i> Details</button>
+<button class='btn btn-warning btn-medit'    value='{model.ID}' onclick='btnEditClick($(this))' myUrl='{Edit}'><i class='fa fa-pencil'></i> Edit</button>
+<button class='btn btn-danger  btn-mdelete'  value='{model.ID}' onclick='btnDeleteClick($(this))' myUrl='{Delete}'><i class='fa fa-times-circle'></i></button>").Encoded(false).Css("management-col").Titled("MANAGEMENT");
+
+
+                                                        })
+                                                        //.UsingFilterMode(GridFilterMode.Row)
+                                                        .Empty("No data found")
+            //.MultiFilterable()
+            //.Filterable()
+            //.Sortable()
+    )
+    @Html.PagedListPager(Model, page => Url.Action("Index", "Hrpersonalinfo", new { i = page, search = Request.QueryString["search"] }), new PagedListRenderOptions { LinkToFirstPageFormat = "First", LinkToPreviousPageFormat = "Previous", LinkToNextPageFormat = "Next", LinkToLastPageFormat = "Last" })
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/_global.js"></script>
+    <script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
+    <link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/_global.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var getUrl = window.location;
+            //Check Employee ID
+            $(document).on("change", "#EMPLOYEE_ID", function () {
+                var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/check_emp_id";
+                var EMPLOYEE_ID = $("#EMPLOYEE_ID").val();
+                var fls = { EMPLOYEE_ID: EMPLOYEE_ID }
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: fls,
+                    beforeSend: function () {
+                        $("#loader_view").show();
+                    },
+                    success: function (data) {
+                        debugger;
+                        $("#loader_view").hide();
+
+                        if (data != null) {
+                            //$("#EMPLOYEE_ID").html("Employee ID Already Exist");
+                            $('#form [data-valmsg-for="EMPLOYEE_ID"]').html("Employee ID Already Exist");
+                        }
+                        else {
+                            $('#form [data-valmsg-for="EMPLOYEE_ID"]').html("");
+                        }
+                    }
+                    //data: JSON.stringify(person)
+                });
+            });
+
+            //Check Employee Mobile
+            $(document).on("change", "#MOBILE", function () {
+                var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/check_emp_cell";
+                var MOBILE = $("#MOBILE").val();
+                var fls = { MOBILE: MOBILE }
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: fls,
+                    beforeSend: function () {
+                        $("#loader_view").show();
+                    },
+                    success: function (data) {
+                        $("#loader_view").hide();
+                        if (data != null) {
+                            //$("#EMPLOYEE_ID").html("Employee ID Already Exist");
+                            $('#form [data-valmsg-for="MOBILE"]').html("Mobile No Already Exist");
+                        }
+                        else {
+                            $('#form [data-valmsg-for="MOBILE"]').html("");
+                        }
+                    }
+                    //data: JSON.stringify(person)
+                });
+            });
+
+            //get Department
+            $(document).on("change", "#FACULTY", function () {
+                var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/get_dept";
+                var FACULTY = $(this).val();
+                var fls = { FACULTY: FACULTY }
+                
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: fls,
+                    beforeSend: function () {
+                        $("#loader_view").show();
+                    },
+                    success: function (data) {
+                      
+                        $("#loader_view").hide();
+                        $("#DEPARTMENT").html('<option value="">--Select--</option>');
+                        $.each(data, function (key, val) {
+                           
+                            var ID = val.ID;
+
+                            var tr = "<option value='" + val.ID + "'>" + val.DEPARTMENT_NAME + "</option>";
+                            $("#DEPARTMENT").append(tr);
+                        });
+                    }
+                    //data: JSON.stringify(person)
+                });
+            });
+
+            //get Designation
+            $(document).on("change", "#EMPLOYEE_TYPE", function () {
+                var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/get_designation";
+                var EMPLOYEE_TYPE = $("#EMPLOYEE_TYPE").val();
+                var fls = { EMPLOYEE_TYPE: EMPLOYEE_TYPE }
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: fls,
+                    beforeSend: function () {
+                        $("#loader_view").show();
+                    },
+                    success: function (data) {
+                        $("#loader_view").hide();
+                        $("#DESIGNATION").html('<option>--Select--</option>');
+                        $.each(data, function (key, val) {
+                            var ID = val.ID;
+
+                            var tr = "<option value='" + val.ID + "'>" + val.DESIGNATION_NAME + "</option>";
+                            $("#DESIGNATION").append(tr);
+                        });
+                    }
+                    //data: JSON.stringify(person)
+                });
+            });
+
+        });
+    </script>
+}
+

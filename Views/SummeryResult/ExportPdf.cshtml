@@ -1,0 +1,79 @@
+﻿@model IUEMS.Models.Reports.TBSViewModel
+@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<style type="text/css">
+    .page-content {
+        overflow: scroll !important;
+    }
+
+    .ui-autocomplete {
+        z-index: 2147483647;
+    }
+
+    table {
+        page-break-inside: auto
+    }
+
+    thead {
+        display: table-header-group;
+        page-break-after: always;
+    }
+
+    tbody {
+        page-break-inside: avoid;
+        page-break-after: always;
+    }
+
+    tfoot {
+        display: table-footer-group;
+    }
+
+    tr {
+        page-break-inside: avoid !important;
+        page-break-after: auto;
+    }
+
+    td {
+        page-break-inside: avoid;
+        page-break-after: auto
+    }
+</style>
+<link href="../../assets/admin/layout/css/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="../../assets/admin/layout/scripts/jquery-ui.js"></script>
+<div class="col-md-12">
+
+    <center>
+
+        <table width="70%" style="border-collapse:collapse;text-align: center;" align="center" class="short_tbl_key_info">
+            <thead id="report_head">
+                <tr><td colspan="5"><h3>Summary Result</h3></td></tr>
+                <tr>
+                    <th style="border:1px solid #000;">S.L</th>
+                    <th style="border:1px solid #000;">Roll No.</th>
+                    <th style="border:1px solid #000;">GPA</th>
+                    <th style="border:1px solid #000;">LGP</th>
+                    <th style="border:1px solid #000;">Remarks</th>
+                </tr>
+            </thead>
+            <tbody id="report_body">
+                @{ 
+                    int i = 1;
+                }
+                @foreach (var result in Model.Tabulationsummery)
+                {
+                <tr>
+                    <td style="border:1px solid #000;">@(i++)</td>
+                    <td style="border:1px solid #000;">@result.STUDENT_ID</td>
+                    <td style="border:1px solid #000;">@result.AVG_POINT</td>
+                    <td style="border:1px solid #000;">@result.GPL</td>
+                    <td style="border:1px solid #000;">@result.REMARKS</td>
+                </tr>
+                }
+
+            </tbody>
+        </table>
+    </center>
+
+</div>

@@ -1,0 +1,91 @@
+﻿@model IUMS.Entities.MASTER_MENU
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutPageMetronic.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MASTER_MENU</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MODULE_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MODULE_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SUB_MODULE_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SUB_MODULE_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MENU_TITLE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MENU_TITLE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.URL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.URL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SORTING_ORDER)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SORTING_ORDER)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.STATUS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STATUS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ACTIVE_TAB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ACTIVE_TAB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IS_DASHBOARD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IS_DASHBOARD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DASHBOARD_IMAGE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DASHBOARD_IMAGE)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

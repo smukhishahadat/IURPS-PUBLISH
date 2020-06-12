@@ -1,0 +1,76 @@
+﻿@model IUMS.Entities.HR_SECTION
+@{
+	Layout = null;
+}
+
+<div class="modal" id="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			@{string ajaxPostUrl = Url.Action("Delete", null, null, Request.Url.Scheme);}
+			@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form", ajaxPostUrl = ajaxPostUrl }))
+			{
+				@Html.AntiForgeryToken()
+				<div class="modal-header">
+					<div class="col-md-10">
+					<h3>Delete - 
+<span class="text-danger pull-right">@Model.ID</span>
+					</h3>
+					</div>
+					<div class="col-md-2">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				</div>
+				<div class="modal-body">
+					<table class="table table-striped table-hover table-bordered">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">DisplayNameFor</th>
+								<th scope="col">DisplayFor</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>@Html.DisplayNameFor(model => model.ID)</td>
+								<td>@Html.DisplayFor(model => model.ID)</td>
+							</tr>
+							<tr>
+								<td>@Html.DisplayNameFor(model => model.SECTION_NAME)</td>
+								<td>@Html.DisplayFor(model => model.SECTION_NAME)</td>
+							</tr>
+							<tr>
+								<td>@Html.DisplayNameFor(model => model.SECTION_CODE)</td>
+								<td>@Html.DisplayFor(model => model.SECTION_CODE)</td>
+							</tr>
+							<tr>
+								<td>@Html.DisplayNameFor(model => model.STATUS)</td>
+								<td>@Html.DisplayFor(model => model.STATUS)</td>
+							</tr>
+							<tr>
+								<td>@Html.DisplayNameFor(model => model.CREATED_DATE)</td>
+								<td>@Html.DisplayFor(model => model.CREATED_DATE)</td>
+							</tr>
+							<tr>
+								<td>@Html.DisplayNameFor(model => model.MODIFIED_DATE)</td>
+								<td>@Html.DisplayFor(model => model.MODIFIED_DATE)</td>
+							</tr>
+							<tr>
+								<td>@Html.DisplayNameFor(model => model.CREATED_BY)</td>
+								<td>@Html.DisplayFor(model => model.CREATED_BY)</td>
+							</tr>
+							<tr>
+								<td>@Html.DisplayNameFor(model => model.MODIFIED_BY)</td>
+								<td>@Html.DisplayFor(model => model.MODIFIED_BY)</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" onclick="formValidSend()">Delete</button>
+					<button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+				</div>
+			}
+		</div>
+	</div>
+</div>

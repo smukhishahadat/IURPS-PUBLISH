@@ -1,0 +1,171 @@
+﻿@model IPagedList<IUMS.Entities.ACADEMIC_STUDENT_PERSONAL>
+
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Admission::Student List";
+    Layout = "~/Views/Shared/_LayoutPageMetronic.cshtml";
+}
+
+
+@{
+    string Create = Url.Action("Create", null, null, Request.Url.Scheme);
+    string Details = Url.Action("Details", null, null, Request.Url.Scheme);
+    string Edit = Url.Action("Edit", null, null, Request.Url.Scheme);
+    string Delete = Url.Action("Delete", null, null, Request.Url.Scheme);
+}
+
+<div class='row'>
+    <div class='col-md-10 text-left'>
+        <h3 class='text-info'>Student List</h3>
+    </div>
+    <div class='col-md-2 text-right'>
+        <button class='btn btn-success btn-madd' onclick='btnAddClick($(this))' myUrl='@Create'><i class='fa fa-plus-circle'></i> Add</button>
+    </div>
+</div>
+@using (Html.BeginForm("Index", "Stdpersonalinfo", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-hover table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Faculty</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">Program</th>
+                        @*<th scope="col">Semester</th>*@
+                        <th scope="col">Session</th>
+                        <th scope="col">Student ID</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DropDownList("FACULTY", (IEnumerable<SelectListItem>)ViewData["faculty_list"], "Select Faculty", new { @class = "form-control FACULTY_ID" })
+                        </td>
+                        <td>
+                            @Html.DropDownList("DEPARTMENT", Enumerable.Empty<SelectListItem>(), "Select Program", new { @class = "form-control DEPARTMENT_ID" })
+                        </td>
+                        <td>
+                            @Html.DropDownList("PROGRAM", Enumerable.Empty<SelectListItem>(), "Select Program", new { @class = "form-control PROGRAM_ID" })
+                        </td>
+                        @*<td>
+                            @Html.DropDownList("SEMESTER", (IEnumerable<SelectListItem>)ViewData["semester_list"], "Select Semester", new { @class = "form-control SEMESTER_ID" })
+                        </td>*@
+                        <td>
+                            @Html.DropDownList("SESSION", (IEnumerable<SelectListItem>)ViewData["aca_session"], "Select Type", new { @class = "form-control SESSION_ID" })
+                        </td>
+                        <td>
+                            <input type="text" name="STUDENT_ID" id="STUDENT" value="" class="form-control" />
+                        </td>
+                        <td>
+                            <button class='btn btn-success btn-madd SearchStd'><i class='fa fa-search'></i> Search</button>
+                        </td>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+}
+
+@if (@Model != null)
+{
+    @(Html
+                        .Grid(Model)
+                        .Build(columns =>
+                        {
+                            columns.Add(model => model.STUDENT_ID).Titled("Student Id");
+                            columns.Add(model => model.FULL_NAME).Titled("Student Name");
+                            columns.Add(model => model.MOBILE_NO).Titled("Contact No");
+                            columns.Add(model => model.FATHER_NAME).Titled("Father's Name");
+                            columns.Add(model => model.MOTHER_NAME).Titled("Mother's Name");
+                            columns.Add(model => model.ROLL).Titled("Roll");
+                            columns.Add(model => model.REG_NO).Titled("Reg. No");
+                            columns.Add(model => $@"<button class='btn btn-primary btn-mdetails' value='{model.ID}' onclick='btnDetailsClick($(this));' myUrl='{Details}'><i class='fa fa-info'></i> Details</button>
+                            <button class='btn btn-warning btn-medit'    value='{model.ID}' onclick='btnEditClick($(this))' myUrl='{Edit}'><i class='fa fa-pencil'></i> Edit</button>
+                            <button class='btn btn-danger  btn-mdelete'  value='{model.ID}' onclick='btnDeleteClick($(this))' myUrl='{Delete}'><i class='fa fa-times-circle'></i></button>").Encoded(false).Css("management-col").Titled("MANAGEMENT");
+
+
+                        })
+                        //.Filterable(GridFilterMode.Header)
+                        .Empty("No data found")
+                        //.MultiFilterable()
+                        //.Filterable()
+                        //.Sortable()
+    )
+    @Html.PagedListPager(Model, page => Url.Action("Index", "Stdpersonalinfo", new { i = page, search = Request.QueryString["search"] }), new PagedListRenderOptions { LinkToFirstPageFormat = "First", LinkToPreviousPageFormat = "Previous", LinkToNextPageFormat = "Next", LinkToLastPageFormat = "Last" })
+
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/_global.js"></script>
+    <script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
+    <link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/_global.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var getUrl = window.location;
+
+            //Get Departments
+            $(document).on("change", ".FACULTY_ID", function () {
+
+                var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/get_dept";
+                var FACULTY_ID = $(this).val();
+                var fls = { FACULTY_ID: FACULTY_ID}
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: fls,
+                    beforeSend: function () {
+                        // $("#loader_view").show();
+                    },
+                    success: function (data) {
+                        $(".DEPARTMENT_ID").html('<option>--Select--</option>');
+                        $.each(data, function (key, val) {
+                            var ID = val.ID;
+
+                            var tr = "<option value='" + val.ID + "'>" + val.DEPARTMENT_NAME + "</option>";
+                            $(".DEPARTMENT_ID").append(tr);
+                        });
+                    }
+                    //data: JSON.stringify(person)
+                });
+            });
+
+            //Get Programe
+            $(document).on("change", ".DEPARTMENT_ID", function () {
+
+                var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/get_programme";
+               
+                var DEPARTMENT_ID = $(this).val();
+                var fls = { DEPARTMENT_ID: DEPARTMENT_ID}
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: fls,
+                    beforeSend: function () {
+                        // $("#loader_view").show();
+                    },
+                    success: function (data) {
+                        $(".PROGRAM_ID").html('<option>--Select--</option>');
+                        $.each(data, function (key, val) {
+                            var ID = val.ID;
+
+                            var tr = "<option value='" + val.ID + "'>" + val.PROGRAM_NAME + "</option>";
+                            $(".PROGRAM_ID").append(tr);
+                        });
+                    }
+                    //data: JSON.stringify(person)
+                });
+            });
+
+            
+        });
+    </script>
+}
+

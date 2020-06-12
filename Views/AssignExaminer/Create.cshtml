@@ -1,0 +1,125 @@
+﻿@model IUEMS.Models.MastersectioncourseModel
+@{
+    Layout = null;
+}
+
+<div class="modal" id="modal" tabindex="-1" role="dialog">
+    <div class="" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-md-10">
+                    <h3>Create</h3>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="close btn btn-info" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+
+            @{string ajaxPostUrl = Url.Action("Create", null, null, Request.Url.Scheme);}
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form", ajaxPostUrl = ajaxPostUrl }))
+            {
+                <table class="table table-striped table-hover table-bordered table-condensed">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Faculty</th>
+                            <th scope="col">Department</th>
+                            <th scope="col">@Html.LabelFor(model => model.PROGRAM_ID, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                            <th scope="col">@Html.LabelFor(model => model.SEMESTER_ID, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                            <th scope="col">@Html.LabelFor(model => model.YEAR, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DropDownList("FACULTY_ID1", (IEnumerable<SelectListItem>)ViewData["faculty_list"], "Select Type", new { @class = "form-control" })
+                            </td>
+                            <td>
+                                @Html.DropDownList("DEPARTMENT_ID1", (IEnumerable<SelectListItem>)ViewData["dept_list"], "Select Type", new { @class = "form-control" })
+                            </td>
+                            <td>
+                                @Html.DropDownList("PROGRAM_ID1", (IEnumerable<SelectListItem>)ViewData["program_list"], "Select Type", new { @class = "form-control" })
+                            </td>
+                            <td>
+                                @Html.DropDownList("SEMESTER_ID1", (IEnumerable<SelectListItem>)ViewData["semester_list"], "Select Type", new { @class = "form-control" })
+                            </td>
+                            <td>
+                                @Html.DropDownList("YEAR1", (IEnumerable<SelectListItem>)ViewData["exam_year"], "Select Type", new { @class = "form-control" })
+                            </td>
+                        </tr>
+                        <tr style="text-align: right;">
+                            <td colspan="5"><input type="button" name="btn_src" class="btn btn-info SearchCourses" value="Search" /></td>
+                        </tr>
+                    </thead>
+
+                </table>
+                @Html.AntiForgeryToken()
+
+                <div class="modal-body ui-front">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(model => model.COURSE_CODE, htmlAttributes: new { @class = "control-label col-md-2" })
+                                </th>
+                                <th>
+                                    @Html.LabelFor(model => model.MAIN_TEACHER, htmlAttributes: new { @class = "control-label col-md-2" })
+                                </th>
+                                <th>
+                                    @Html.LabelFor(model => model.SUB_TEACHER, htmlAttributes: new { @class = "control-label col-md-2" })
+                                </th>
+                                <th>
+                                    @Html.LabelFor(model => model.SUB_TEACHER_2, htmlAttributes: new { @class = "control-label col-md-2" })
+                                </th>
+                                @*<th>
+                                    @Html.LabelFor(model => model.SUB_TEACHER_3, htmlAttributes: new { @class = "control-label col-md-2" })
+                                </th>*@
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                            @{ var i = 0;}
+                            @foreach (var items in ViewBag.course_list)
+                            {
+                                i++;
+                                <tr>
+
+                                    <td>
+                                        <input type="hidden" name="ID[]" value="@items.ID" />
+                                        <input type="hidden" name="COURSE_CODE[]" value="@items.COURSE_CODE" />
+
+                                        @items.COURSE_CODE
+                                    </td>
+
+                                    <td>
+                                        <input class="form-control text-box single-line Examiner" id="MAIN_TEACHER_@i" name="MAIN_TEACHER[]" type="text" value="@items.MAIN_TEACHER">
+                                        @Html.ValidationMessageFor(model => model.MAIN_TEACHER, "", new { @class = "text-danger" })
+                                    </td>
+
+                                    <td>
+                                        <input class="form-control text-box single-line Examiner" id="SUB_TEACHER_@i" name="SUB_TEACHER[]" type="text" value="@items.SUB_TEACHER">
+                                        @Html.ValidationMessageFor(model => model.SUB_TEACHER, "", new { @class = "text-danger" })
+                                    </td>
+
+                                    <td>
+                                        <input class="form-control text-box single-line Examiner" id="SUB_TEACHER_2_@i" name="SUB_TEACHER_2[]" type="text" value="@items.SUB_TEACHER_2">
+                                        @Html.ValidationMessageFor(model => model.SUB_TEACHER_2, "", new { @class = "text-danger" })
+                                    </td>
+
+                                    @*<td>
+                                        <input class="form-control text-box single-line" id="SUB_TEACHER_3_@i" name="SUB_TEACHER_3[]" type="text" value="@items.SUB_TEACHER_3">
+                                        @Html.ValidationMessageFor(model => model.SUB_TEACHER_3, "", new { @class = "text-danger" })
+                                    </td>*@
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="formValidSend()">Create</button>
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

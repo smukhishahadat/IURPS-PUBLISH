@@ -1,0 +1,138 @@
+﻿@model IUEMS.Models.Reports.TBSViewModel
+    @{ 
+        var full_results = ViewBag.result_list;
+        var summery_list= ViewBag.summery_list;
+        var lg_list=ViewBag.lg_list;
+
+    }
+
+<!DOCTYPE html>
+<style type="text/css">
+    .page-content {
+        overflow: scroll !important;
+    }
+
+    .ui-autocomplete {
+        z-index: 2147483647;
+    }
+
+    table {
+        page-break-inside: auto
+    }
+
+    thead {
+        display: table-header-group;
+        page-break-after: always;
+    }
+
+    tbody {
+        page-break-inside: avoid;
+        page-break-after: always;
+    }
+
+    tfoot {
+        display: table-footer-group;
+    }
+
+    tr {
+        page-break-inside: avoid !important;
+        page-break-after: auto;
+    }
+
+    td {
+        page-break-inside: avoid;
+        page-break-after: auto
+    }
+</style>
+<link href="../../assets/admin/layout/css/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="../../assets/admin/layout/scripts/jquery-ui.js"></script>
+<table width="100%" style="border-collapse:collapse;text-align: center;" border="0" align="center" class="short_tbl_key_info">
+    <thead style="text-align:center;">
+        
+        <tr><td colspan="300"><h3>Tabulation Sheet</h3></td></tr>
+        <tr style="text-align:center;" id="tr">
+            <th style="text-align:center;border:1px solid #000;" rowspan="2">Roll No.</th>
+            @{
+                int ncc = 0;
+                int colspan = 0;
+            }
+            @foreach (var course_list in ViewBag.course_list)
+            {
+                string course_credit = course_list.COURSE_CREDIT;
+                if (course_credit != "0")
+                {
+                    colspan = colspan + 1;
+                    <th style="text-align:center;border:1px solid #000;font-size:12px;" colspan="6">@course_list.COURSE_CODE<br>Credit: @course_list.COURSE_CREDIT</th>
+                }
+                else
+                {
+                    ncc = ncc + 1;
+                    if (ncc == 2)
+                    {
+                        colspan = colspan + 1;
+                        <th style="text-align:center;border:1px solid #000;font-size:12px;" colspan="6">Non Credit<br>Credit:0</th>
+                    }
+
+                }
+            }
+
+
+            <th style="text-align:center;font-size:12px;border:1px solid #000;" colspan="6">Semester Final</th>
+        </tr>
+        <tr>
+            @for (int i = 0; i < colspan; i++)
+            {
+                <td style="text-align:center;font-size:12px;border:1px solid #000;">Theory</td>
+                <td style="text-align:center;font-size:12px;border:1px solid #000;">Internal</td>
+                <td style="text-align:center;font-size:12px;border:1px solid #000;">Total</td>
+                <td style="text-align:center;font-size:12px;border:1px solid #000;">LG</td>
+                <td style="text-align:center;font-size:12px;border:1px solid #000;">GP</td>
+                <td style="text-align:center;font-size:12px;border:1px solid #000;">PS</td>
+            }
+
+
+            <td style="text-align:center;font-size:12px;border:1px solid #000;">TPS</td>
+            <td style="text-align:center;font-size:12px;border:1px solid #000;">GPA</td>
+            <td style="text-align:center;font-size:12px;border:1px solid #000;">LG</td>
+        </tr>
+    </thead>
+    <tbody id="report_body">
+        @{ 
+            int j = 0;
+        }
+        @foreach (var mark_sheet in Model.TabulationsheetModel)
+        {
+            var my_marks = full_results[j];
+            var resut_summery = summery_list[j];
+            var result_lg = lg_list[j];
+        <tr>
+            <td style="text-align:center;font-size:12px;border:1px solid #000;">@mark_sheet.STUDENT_ID</td>
+            @foreach (var my_courses in my_marks)
+            {
+                var avg_mark = my_courses.AVG_MARKS;
+                var internal_mark = my_courses.INTERNAL_MARKS;
+                var final_mark = (avg_mark + internal_mark);
+                var gp = my_courses.GRADE_POINT;
+                var credit = my_courses.CREDIT_EARNED;
+                var lg = my_courses.LETTER_GRADE;
+                var ps = my_courses.PS;
+
+                <td style="text-align:center;font-size:12px;border:1px solid #000;">@my_courses.AVG_MARKS</td>
+                <td style="text-align:center;font-size:12px;border:1px solid #000;">@my_courses.INTERNAL_MARKS</td>
+                <td style="text-align:center;font-size:12px;border:1px solid #000;">@final_mark</td>
+                <td style="text-align:center;font-size:12px;border:1px solid #000;">@lg</td>
+                <td style="text-align:center;font-size:12px;border:1px solid #000;">@gp</td>
+                <td style="text-align:center;font-size:12px;border:1px solid #000;">@ps</td>
+            }
+            
+                <td style="text-align:center;font-size:12px;border:1px solid #000;">@resut_summery.TPS</td>
+                <td style="text-align:center;font-size:12px;border:1px solid #000;">@resut_summery.AVG_POINT</td>
+                <td style="text-align:center;font-size:12px;border:1px solid #000;">@result_lg</td>
+            
+
+        </tr>
+            j++;
+        }
+
+    </tbody>
+</table>

@@ -1,0 +1,60 @@
+﻿@model IPagedList<IUMS.Entities.TRANSCRIPT_ELIGIBLE_STD>
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageMetronic.cshtml";
+}
+
+
+@{
+    string Create = Url.Action("Create", null, null, Request.Url.Scheme);
+    string Details = Url.Action("Details", null, null, Request.Url.Scheme);
+    string Edit = Url.Action("Edit", null, null, Request.Url.Scheme);
+    string Delete = Url.Action("Delete", null, null, Request.Url.Scheme);
+}
+
+<div class='row'>
+    <div class='col-md-10 text-left'>
+        <h3 class='text-info'>Student Grade Sheet</h3>
+    </div>
+    <div class='col-md-2 text-right'>
+        <button class='btn btn-success btn-madd' onclick='btnAddClick($(this))' myUrl='@Create'><i class='fa fa-plus-circle'></i> Add</button>
+    </div>
+</div>
+
+@if (@Model != null)
+{
+    @(Html
+                        .Grid(Model)
+                        .Build(columns =>
+                        {
+                            columns.Add(model => model.STUDENT_ID).Titled("Student ID");
+                            columns.Add(model => model.STUDENT_NAME).Titled("Student Name");
+                            columns.Add(model => model.STD_CGPA).Titled("GPA");
+                            columns.Add(model => model.LETTER_GRADE).Titled("Letter Grade");
+                            columns.Add(model => model.REF_NUMBER).Titled("Ref. No");
+                            columns.Add(model => model.YEAR).Titled("Year");
+                            columns.Add(model => $@"<button class='btn btn-primary btn-mdetails' value='{model.ID}' onclick='btnDetailsClick($(this));' myUrl='{Details}'><i class='fa fa-info'></i> Details</button>
+        ").Encoded(false).Css("management-col").Titled("Action");
+
+                        })
+                        .WithFilterMode(GridFilterMode.FilterRow)
+                        .Empty("No data found")
+                        .MultiFilterable()
+                        .Filterable()
+                        .Sortable()
+    )
+    @Html.PagedListPager(Model, page => Url.Action("Index", "Generate_eligible_students", new { i = page, search = Request.QueryString["search"] }), new PagedListRenderOptions { LinkToFirstPageFormat = "First", LinkToPreviousPageFormat = "Previous", LinkToNextPageFormat = "Next", LinkToLastPageFormat = "Last" })
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/_global.js"></script>
+    <script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
+    <link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/_global.css" rel="stylesheet" />
+}
+

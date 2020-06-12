@@ -1,0 +1,77 @@
+﻿@model IEnumerable<IUMS.Entities.ACA_CLASS_ROUTINE>
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_LayoutPageMetronic.cshtml";
+}
+
+
+@{
+    string Create = Url.Action("Create", null, null, Request.Url.Scheme);
+    string Details = Url.Action("Details", null, null, Request.Url.Scheme);
+    string Edit = Url.Action("Edit", null, null, Request.Url.Scheme);
+    string Delete = Url.Action("Delete", null, null, Request.Url.Scheme);
+}
+
+<div class='row'>
+	<div class='col-md-10 text-left'>
+		<h3 class='text-info'>@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString()</h3>
+	</div>
+    <div class='col-md-2 text-right'>
+        <button class='btn btn-success btn-madd' onclick='btnAddClick($(this))' myUrl='@Create'><i class='fa fa-plus-circle'></i> Add</button>
+    </div>
+</div>
+
+@if (@Model != null)
+{
+    @(Html
+        .Grid(Model)
+        .Build(columns =>
+        {
+columns.Add(model => $@"<button class='btn btn-primary btn-mdetails' value='{model.ID}' onclick='btnDetailsClick($(this));' myUrl='{Details}'><i class='fa fa-info'></i> Details</button>
+						<button class='btn btn-warning btn-medit'    value='{model.ID}' onclick='btnEditClick($(this))' myUrl='{Edit}'><i class='fa fa-pencil'></i> Edit</button>
+						<button class='btn btn-danger  btn-mdelete'  value='{model.ID}' onclick='btnDeleteClick($(this))' myUrl='{Delete}'><i class='fa fa-times-circle'></i></button>").Encoded(false).Css("management-col").Titled("MANAGEMENT");
+			columns.Add(model => model.ID).Titled("ID");
+						columns.Add(model => model.PROGRAM_ID).Titled("PROGRAM_ID");
+						columns.Add(model => model.SEMESTER_ID).Titled("SEMESTER_ID");
+						columns.Add(model => model.YEAR).Titled("YEAR");
+						columns.Add(model => model.DEGREE_TYPE_ID).Titled("DEGREE_TYPE_ID");
+						columns.Add(model => model.SCHEDULE_ID).Titled("SCHEDULE_ID");
+						columns.Add(model => model.SECTION_ID).Titled("SECTION_ID");
+						columns.Add(model => model.COURSE_CODE).Titled("COURSE_CODE");
+						columns.Add(model => model.ROUTINE_DAY).Titled("ROUTINE_DAY");
+						columns.Add(model => model.ROUTINE_TIMESLOT).Titled("ROUTINE_TIMESLOT");
+						columns.Add(model => model.CAMPUS_ID).Titled("CAMPUS_ID");
+						columns.Add(model => model.BUILDING_ID).Titled("BUILDING_ID");
+						columns.Add(model => model.FLOOR_ID).Titled("FLOOR_ID");
+						columns.Add(model => model.ROOM_ID).Titled("ROOM_ID");
+						columns.Add(model => model.ROUTINE_TYPE).Titled("ROUTINE_TYPE");
+						columns.Add(model => model.ROUTINE_ID).Titled("ROUTINE_ID");
+						columns.Add(model => model.TIME1_INT).Titled("TIME1_INT");
+						columns.Add(model => model.TIME2_INT).Titled("TIME2_INT");
+						columns.Add(model => model.DAY_NUMBER).Titled("DAY_NUMBER");
+						columns.Add(model => model.PROGRAM_TYPE).Titled("PROGRAM_TYPE");
+						columns.Add(model => model.DEPARTMENT_ID).Titled("DEPARTMENT_ID");
+						columns.Add(model => model.SESSION_ID).Titled("SESSION_ID");
+						columns.Add(model => model.BATCH_ID).Titled("BATCH_ID");
+						columns.Add(model => model.LEVEL_ID).Titled("LEVEL_ID");
+						columns.Add(model => model.USER_ID).Titled("USER_ID");
+						
+        })
+        .WithFilterMode(GridFilterMode.FilterRow)
+        .Empty("No data found")
+        .MultiFilterable()
+        .Filterable()
+        .Sortable()
+    )
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/_global.js"></script>
+    <script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
+    <link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/_global.css" rel="stylesheet" />
+}
+

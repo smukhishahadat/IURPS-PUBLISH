@@ -1,0 +1,125 @@
+﻿@model IUMS.Entities.GRADE_SHEET_DETAIL
+@{
+	Layout = null;
+}
+
+<div class="modal" id="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			@{string ajaxPostUrl = Url.Action("Create", null, null, Request.Url.Scheme);}
+			@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form", ajaxPostUrl = ajaxPostUrl }))
+			{
+				@Html.AntiForgeryToken()				
+				<div class="modal-header">
+					<div class="col-md-10">
+						<h3>Create</h3>
+					</div>
+					<div class="col-md-2">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				</div>
+				<div class="modal-body">
+					@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+					<table class="table table-striped table-hover table-bordered">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">DisplayNameFor</th>
+								<th scope="col">DisplayFor</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.ID, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.ID, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.ID, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.MASTER_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.MASTER_ID, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.MASTER_ID, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.LETTER_GRADE, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.LETTER_GRADE, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.LETTER_GRADE, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.GRADE_POINT, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.GRADE_POINT, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.GRADE_POINT, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.MINIMUM_MARKS, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.MINIMUM_MARKS, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.MINIMUM_MARKS, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.MAXIMUM_MARKS, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.MAXIMUM_MARKS, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.MAXIMUM_MARKS, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.MINIMUM_GRADE, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.MINIMUM_GRADE, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.MINIMUM_GRADE, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.MAXIMUM_GRADE, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.MAXIMUM_GRADE, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.MAXIMUM_GRADE, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.REMARKS, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.REMARKS, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.REMARKS, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+						</tbody>
+					</table>				
+				</div>
+				<div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="formValidSend()">Create</button>
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+				</div>
+			}
+		</div>
+	</div>
+</div>

@@ -1,0 +1,264 @@
+﻿@*@model IPagedList<IUMS.Entities.MASTER_COURSE>*@
+@model IPagedList<IUEMS.Models.Master.MastercourseModel>
+
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageMetronic.cshtml";
+}
+
+@{
+    string Create = Url.Action("Create", null, null, Request.Url.Scheme);
+    string Details = Url.Action("Details", null, null, Request.Url.Scheme);
+    string Edit = Url.Action("Edit", null, null, Request.Url.Scheme);
+    string Delete = Url.Action("Delete", null, null, Request.Url.Scheme);
+}
+
+<div class='row'>
+    <div class='col-md-10 text-left'>
+        <h3 class='text-info'>Course List</h3>
+    </div>
+    <div class='col-md-2 text-right'>
+        <button class='btn btn-success btn-madd' onclick='btnAddClick($(this))' myUrl='@Create'><i class='fa fa-plus-circle'></i> Add</button>
+    </div>
+</div>
+@using (Html.BeginForm("Index", "Mastercourse", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.First().FACULTY_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.First().DEPARTMENT_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.First().PROGRAM_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.First().LEVEL_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.First().SEMESTER_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.First().YEAR, htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.DropDownList("FACULTY_ID", (IEnumerable<SelectListItem>)ViewData["faculty_list"], "Select Faculty", new { @class = "form-control" })
+                </div>
+                <div class="col-md-2">
+                    @Html.DropDownList("DEPARTMENT_ID", (IEnumerable<SelectListItem>)ViewData["dept_list"], "Select Department", new { @class = "form-control" })
+                </div>
+                <div class="col-md-2">
+                    @Html.DropDownList("PROGRAM_ID", (IEnumerable<SelectListItem>)ViewData["program_list"], "Select Program", new { @class = "form-control" })
+                </div>
+                <div class="col-md-2">
+                    @Html.DropDownList("LEVEL_ID", (IEnumerable<SelectListItem>)ViewData["level_id"], "Select Academic Year", new { @class = "form-control LEVEL_ID" })
+                </div>
+                <div class="col-md-2">
+                    @Html.DropDownList("SEMESTER_ID", (IEnumerable<SelectListItem>)ViewData["semester_list"], "Select Semester", new { @class = "form-control SEMESTER_ID" })
+                </div>
+                <div class="col-md-2">
+                    @Html.DropDownList("YEAR", (IEnumerable<SelectListItem>)ViewData["exam_year"], "Select Exam Year", new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col-md-2 pull-right" style="margin-top:20px;">
+                <input type="submit" name="btn_src" class="btn btn-success" value="Search" />
+            </div>
+        </div>
+    </div>
+}
+
+<br />
+<table class="table table-bordered table-condensed table-hover table-striped">
+    <tr>
+        <th> @Html.DisplayNameFor(model => model.First().ID)</th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().COURSE_NAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().COURSE_CODE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().COURSE_CREDIT)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.First().SEMESTER_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().YEAR)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.First().EXAMINER_QTY)
+        </th>
+        <th>Manage</th>
+    </tr>
+    @{int i = ViewBag.start_row;}
+    @foreach (var item in Model)
+    {
+        var examiner_qty = "";
+        var semester = "";
+        if (item.EXAMINER_QTY == 1)
+        {
+            examiner_qty = "Single Examiner";
+        }
+        else if (item.EXAMINER_QTY == 2)
+        {
+            examiner_qty = "Double Examiner";
+        }
+        else if (item.EXAMINER_QTY == 3)
+        {
+            examiner_qty = "Shared Examiner";
+        }
+
+        if (item.SEMESTER_ID == 1)
+        {
+            semester = "1st Semester";
+        }
+        else if (item.SEMESTER_ID == 2)
+        {
+            semester = "2nd Semester";
+        }
+        else if (item.SEMESTER_ID == 3)
+        {
+            semester = "3rd Semester";
+        }
+        else if (item.SEMESTER_ID == 4)
+        {
+            semester = "4th Semester";
+        }
+
+        <tr>
+            <td>@(i++)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COURSE_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COURSE_CODE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COURSE_CREDIT)
+            </td>
+            <td>@semester</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YEAR)
+            </td>
+
+            <td>
+                @examiner_qty
+            </td>
+            <td>
+                <button class='btn btn-primary btn-mdetails' value='@item.ID' onclick='btnDetailsClick($(this));' myUrl='@Details'><i class='fa fa-info'></i> Details</button>
+                <button class='btn btn-warning btn-medit' value='@item.ID' onclick='btnEditClick($(this))' myUrl='@Edit'><i class='fa fa-pencil'></i> Edit</button>
+                @*<button class='btn btn-danger  btn-mdelete' value='@item.ID' onclick='btnDeleteClick($(this))' myUrl='@Delete'><i class='fa fa-times-circle'></i></button>*@
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", "Mastercourse", new { i = page, search = Request.QueryString["search"] }), new PagedListRenderOptions { LinkToFirstPageFormat = "First", LinkToPreviousPageFormat = "Previous", LinkToNextPageFormat = "Next", LinkToLastPageFormat = "Last" })
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/_global.js"></script>
+    <script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
+    <link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/_global.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.validator.unobtrusive.parse("#form");
+            var getUrl = window.location;
+            //Get Departments
+            /*  $(document).on("change", "#FACULTY_ID", function () {
+                  var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/get_dept";
+                  var FACULTY_ID = $("#FACULTY_ID").val();
+                  var fls = { FACULTY_ID: FACULTY_ID}
+
+                  $.ajax({
+                      type: "POST",
+                      url: url,
+                      data: fls,
+                      beforeSend: function () {
+                           $("#loader_view").show();
+                      },
+                      success: function (data) {
+                          $("#loader_view").hide();
+                          $("#DEPARTMENT_ID").html('<option>--Select--</option>');
+                          $.each(data, function (key, val) {
+                              var ID = val.ID;
+
+                              var tr = "<option value='" + val.ID + "'>" + val.DEPARTMENT_NAME + "</option>";
+                              $("#DEPARTMENT_ID").append(tr);
+                          });
+                      }
+                      //data: JSON.stringify(person)
+                  });
+              });
+
+              //Get Programe
+              $(document).on("change", "#DEPARTMENT_ID", function () {
+
+                  var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/get_programme";
+                  var FACULTY_ID = $("#FACULTY_ID").val();
+                  var DEPARTMENT_ID = $("#DEPARTMENT_ID").val();
+                  var fls = { FACULTY_ID: FACULTY_ID, DEPARTMENT_ID: DEPARTMENT_ID }
+
+                  $.ajax({
+                      type: "POST",
+                      url: url,
+                      data: fls,
+                      beforeSend: function () {
+                           $("#loader_view").show();
+                      },
+                      success: function (data) {
+                          $("#loader_view").hide();
+                          $("#PROGRAM_ID").html('<option>--Select--</option>');
+                          $.each(data, function (key, val) {
+                              var ID = val.ID;
+
+                              var tr = "<option value='" + val.ID + "'>" + val.PROGRAM_NAME + "</option>";
+                              $("#PROGRAM_ID").append(tr);
+                          });
+                      }
+                      //data: JSON.stringify(person)
+                  });
+              });
+              */
+            //Get Semester
+            $(document).on("change", ".LEVEL_ID", function () {
+                var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/get_semester";
+                var LEVEL_ID = $(this).val();
+                var fls = { LEVEL_ID: LEVEL_ID }
+                debugger;
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: fls,
+                    beforeSend: function () {
+                        $("#loader_view").show();
+                    },
+                    success: function (data) {
+                        $("#loader_view").hide();
+                        $(".SEMESTER_ID").html('<option>--Select--</option>');
+                        $.each(data, function (key, val) {
+                            var ID = val.ID;
+
+                            var tr = "<option value='" + val.ID + "'>" + val.SEMESTER_NAME + "</option>";
+                            $(".SEMESTER_ID").append(tr);
+                        });
+                    }
+                    //data: JSON.stringify(person)
+                });
+            });
+
+
+
+        });
+    </script>
+}

@@ -1,0 +1,76 @@
+﻿@model IEnumerable<IUEMS.Models.Reports.SummeryResultModel>
+@{
+    ViewBag.Title = "Yearly Summery Result";
+    Layout = "~/Views/Shared/_LayoutPageMetronic.cshtml";
+}
+<div class='row'>
+    <div class='col-md-10 text-left'>
+        <h3 class='text-info'>Yearly Summary Result</h3>
+    </div>
+    @*<div class='col-md-2 text-right'>
+            <button class='btn btn-success btn-madd' onclick='btnAddClick($(this))' myUrl='@Create'><i class='fa fa-plus-circle'></i> Add</button>
+        </div>*@
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Faculty</th>
+                    <th scope="col">@Html.LabelFor(model => model.First().DEPARTMENT_NAME, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                    <th scope="col">@Html.LabelFor(model => model.First().PROGRAM_NAME, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                    <th scope="col">@Html.LabelFor(model => model.First().LEVEL_ID, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                    <th scope="col">@Html.LabelFor(model => model.First().YEAR, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DropDownList("FACULTY_ID", (IEnumerable<SelectListItem>)ViewData["faculty_list"], "Select Faculty", new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.DropDownList("DEPARTMENT_ID", (IEnumerable<SelectListItem>)ViewData["dept_list"], "Select Department", new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.DropDownList("PROGRAM_ID", (IEnumerable<SelectListItem>)ViewData["program_list"], "Select Program", new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.DropDownList("LEVEL_ID", (IEnumerable<SelectListItem>)ViewData["level_list"], "Select Aacademic Year", new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.DropDownList("YEAR", (IEnumerable<SelectListItem>)ViewData["exam_year"], "Select Year", new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr style="text-align: right;">
+                    <td colspan="5"><input type="button" name="btn_src" class="btn btn-info SearchReport" value="Search" /></td>
+                </tr>
+            </thead>
+
+        </table>
+    </div>
+</div>
+
+@section Scripts
+{
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/_global.js"></script>
+    <script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
+    <link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/_global.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var getUrl = window.location;
+            $(document).on("click", ".SearchReport", function () {
+                
+                var FACULTY_ID=$("#FACULTY_ID").val();
+                var DEPARTMENT_ID=$("#DEPARTMENT_ID").val();
+                var PROGRAM_ID=$("#PROGRAM_ID").val();
+                var LEVEL_ID=$("#LEVEL_ID").val();
+                var YEAR = $("#YEAR").val();
+                var pdf_url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] +"/ExportPdf/?FACULTY_ID=" + FACULTY_ID + "&DEPARTMENT_ID=" + DEPARTMENT_ID + "&PROGRAM_ID=" + PROGRAM_ID + "&LEVEL_ID=" + LEVEL_ID + "&YEAR=" + YEAR;
+                var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/Viewer/?filepath="+pdf_url;
+                window.open(url, '_blank');
+            });
+        });
+    </script>
+}

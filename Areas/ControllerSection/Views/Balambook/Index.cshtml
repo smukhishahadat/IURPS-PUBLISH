@@ -1,0 +1,144 @@
+﻿@model IUEMS.Areas.ControllerSection.Models.BalamViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageMetronic.cshtml";
+    
+}
+<style type="text/css">
+    .page-content
+    {
+        overflow:scroll !important;
+    }
+    .ui-autocomplete {
+        z-index: 2147483647;
+    }
+</style>
+<link href="../../assets/admin/layout/css/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="../../assets/admin/layout/scripts/jquery-ui.js"></script>
+
+<div class='row'>
+    <div class='col-md-10 text-left'>
+        <h3 class='text-info'>Balam Book</h3>
+    </div>
+    @*<div class='col-md-2 text-right'>
+            <button class='btn btn-success btn-madd' onclick='btnAddClick($(this))' myUrl='@Create'><i class='fa fa-plus-circle'></i> Add</button>
+        </div>*@
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm("Printpdf", "Balambook"))
+        {
+            <table class="table table-striped table-hover table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Faculty</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">Program</th>
+                        <th scope="col">Session</th>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DropDownList("FACULTY_ID", (IEnumerable<SelectListItem>)ViewData["faculty_list"], "Select Faculty", new { @class = "form-control" })
+                        </td>
+                        <td>
+                            @Html.DropDownList("DEPARTMENT_ID", (IEnumerable<SelectListItem>)ViewData["dept_list"], "Select Department", new { @class = "form-control" })
+                        </td>
+                        <td>
+                            @Html.DropDownList("PROGRAM_ID", (IEnumerable<SelectListItem>)ViewData["program_list"], "Select Program", new { @class = "form-control" })
+                        </td>
+
+                        <td>
+                            @Html.DropDownList("YEAR", (IEnumerable<SelectListItem>)ViewData["aca_session"], "Select Session", new { @class = "form-control" })
+                        </td>
+                        <td>
+                            <button class='btn btn-success btn-madd SearchExaminer'><i class='fa fa-search'></i> Search</button>
+                        </td>
+                    </tr>
+                </thead>
+
+            </table>
+        }
+
+    </div>
+</div>
+
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/_global.js"></script>
+    <script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
+    <link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/_global.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#err_message").hide();
+            var getUrl = window.location;
+            //Get Programe
+            $(document).on("change", "#DEPARTMENT_ID", function () {
+
+                var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/Balambook/get_programme";
+                var FACULTY_ID = $("#FACULTY_ID").val();
+                var DEPARTMENT_ID = $("#DEPARTMENT_ID").val();
+                var PROGRAM_ID = $("#PROGRAM_ID").val();
+                var SEMESTER_ID = $("#SEMESTER_ID").val();
+                var YEAR = $("#YEAR").val();
+                var fls = { FACULTY_ID: FACULTY_ID, DEPARTMENT_ID: DEPARTMENT_ID, PROGRAM_ID: PROGRAM_ID, SEMESTER_ID: SEMESTER_ID, YEAR: YEAR }
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: fls,
+                    beforeSend: function () {
+                        // $("#loader_view").show();
+                    },
+                    success: function (data) {
+                        $("#PROGRAM_ID").html('<option>--Select--</option>');
+                        $.each(data, function (key, val) {
+                            var ID = val.ID;
+
+                            var tr = "<option value='" + val.ID + "'>" + val.PROGRAM_NAME + "</option>";
+                            $("#PROGRAM_ID").append(tr);
+                        });
+                    }
+                    //data: JSON.stringify(person)
+                });
+            });
+
+            //Get Departments
+            $(document).on("change", "#FACULTY_ID", function () {
+               
+                var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/Balambook/get_dept";
+                var FACULTY_ID = $("#FACULTY_ID").val();
+                var DEPARTMENT_ID = $("#DEPARTMENT_ID").val();
+                var PROGRAM_ID = $("#PROGRAM_ID").val();
+                var SEMESTER_ID = $("#SEMESTER_ID").val();
+                var YEAR = $("#YEAR").val();
+                var fls = { FACULTY_ID: FACULTY_ID, DEPARTMENT_ID: DEPARTMENT_ID, PROGRAM_ID: PROGRAM_ID, SEMESTER_ID: SEMESTER_ID, YEAR: YEAR }
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: fls,
+                    beforeSend: function () {
+                        // $("#loader_view").show();
+                    },
+                    success: function (data) {
+                        $("#DEPARTMENT_ID").html('<option>--Select--</option>');
+                        $.each(data, function (key, val) {
+                            var ID = val.ID;
+
+                            var tr = "<option value='" + val.ID + "'>" + val.DEPARTMENT_NAME + "</option>";
+                            $("#DEPARTMENT_ID").append(tr);
+                        });
+                    }
+                    //data: JSON.stringify(person)
+                });
+            });
+
+        });        
+    </script>
+}
