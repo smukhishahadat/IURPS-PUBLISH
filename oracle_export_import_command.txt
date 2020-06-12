@@ -1,0 +1,27 @@
+dauble click ->SQL PLUS ->user sys as sysdba
+SQL> drop user IU_ERP cascade;
+SQL> create user IU_ERP identified by iu_2018;
+SQL> grant dba to IU_ERP;
+
+cmd command:
+
+imp IU_ERP/iu_2018@orcl1 file= C:\Users\ebssbd\Desktop\IURPS\IURPS-PUBLISH\IU_ERP.DMP fromuser= IU_ERP touser= IU_ERP
+
+
+exp anw_erp/su_123@orcl file=D:\anw_06.dmp owner = anw_erp 
+exp sau_erp1/sau_123@orcl file=sau_150316.dmp owner = sau_erp1
+
+
+
+imp prime_erp_pre2/server_prime_456@orcl file=F:\primetestdec27.dmp fromuser= prime_erp_pre2 touser= prime_test2
+
+
+
+exp IU_ERP/iu_2018@orcl file=E:\dotnet\EMS\EMS_ERP\iu_erp.dmp owner = iu_erp
+
+
+imp sau_ver3/server_sau_456@orcl file=F:\saujan15.dmp fromuser= sau_ver3 touser= sau_ver3
+
+
+
+imp su_erp_update/su_456@orcl file= G:\su02.dmp fromuser=su_erp_update touser=su_erp_update

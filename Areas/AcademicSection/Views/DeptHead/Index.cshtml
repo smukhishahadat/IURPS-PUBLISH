@@ -35,6 +35,10 @@
 
                         <th scope="col"><label class="control-label col-md-12" for="SEMESTER_NAME">Faculty</label></th>
                         <th scope="col"><label class="control-label col-md-12" for="SEMESTER_NAME">Department</label></th>
+<<<<<<< HEAD
+=======
+                        <th scope="col"><label class="control-label col-md-12" for="EMPLOYEE_NAME">Employee Name</label></th>
+>>>>>>> 017feaad63ca7ffaee1f9aafe8db07de049079d1
                         <th scope="col"><label class="control-label col-md-12" for="EMPLOYEE_ID">Employee ID</label></th>
                     </tr>
                     <tr>
@@ -111,7 +115,11 @@
                         $("#loader_view").show();
                     },
                     success: function (data) {
+<<<<<<< HEAD
 
+=======
+                       
+>>>>>>> 017feaad63ca7ffaee1f9aafe8db07de049079d1
                         $("#loader_view").hide();
 
                         if (data != null) {
@@ -130,7 +138,11 @@
                 var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/Depthead/get_dept";
                 var FACULTY = $(this).val();
                 var fls = { FACULTY: FACULTY }
+<<<<<<< HEAD
 
+=======
+              
+>>>>>>> 017feaad63ca7ffaee1f9aafe8db07de049079d1
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -153,6 +165,7 @@
                     //data: JSON.stringify(person)
                 });
             });
+<<<<<<< HEAD
         
             //Auto Complete
             $(document).on("keyup", "#EMPLOYEE_ID", function () {
@@ -178,6 +191,8 @@
                     }
                 });
             });
+=======
+>>>>>>> 017feaad63ca7ffaee1f9aafe8db07de049079d1
         });
     </script>
 }
