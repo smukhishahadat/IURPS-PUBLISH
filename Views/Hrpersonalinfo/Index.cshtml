@@ -1,7 +1,10 @@
-﻿@model IEnumerable<IUMS.Entities.HR_PERSONALINFO>
+﻿@*@model IEnumerable<IUMS.Entities.HR_PERSONALINFO>*@
+@model IPagedList<IUEMS.Models.Hr.HrPersonalInfoModel>
+@using PagedList;
+@using PagedList.Mvc;
 @{
-	ViewBag.Title = "Index";
-	Layout = "~/Views/Shared/_LayoutPageMetronic.cshtml";
+    ViewBag.Title = "Employee List";
+    Layout = "~/Views/Shared/_LayoutPageMetronic.cshtml";
 }
 
 
@@ -11,11 +14,50 @@
     string Edit = Url.Action("Edit", null, null, Request.Url.Scheme);
     string Delete = Url.Action("Delete", null, null, Request.Url.Scheme);
 }
+@using (Html.BeginForm("Index", "Hrpersonalinfo", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-hover table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+
+                        <th scope="col">Faculty</th>
+                        <th scope="col"><label class="control-label col-md-2" for="SEMESTER_NAME">Department</label></th>
+                        <th scope="col"><label class="control-label col-md-12" for="EMPLOYEE_NAME">Employee Name</label></th>
+                        <th scope="col"><label class="control-label col-md-12" for="EMPLOYEE_ID">Employee ID</label></th>
+                    </tr>
+                    <tr>
+
+                        <td>
+                            @Html.DropDownList("FACULTY_ID", (IEnumerable<SelectListItem>)ViewData["faculty_list"], "Select Faculty", new { @class = "form-control" })
+                        </td>
+                        <td>
+                            @Html.DropDownList("DEPARTMENT_ID", Enumerable.Empty<SelectListItem>(), "Select Department", new { @class = "form-control" })
+                        </td>
+                        <td>
+                            <input type="text" name="EMPLOYEE_NAME" id="EMPLOYEE_NAME" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" name="EMPLOYEE_ID" id="EMPLOYEE_ID" class="form-control">
+                        </td>
+                    </tr>
+
+                    <tr style="text-align: right;">
+                        <td colspan="5"><input type="submit" name="btn_src" class="btn btn-info SearchReport" value="Search"></td>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+}
+
 
 <div class='row'>
-	<div class='col-md-10 text-left'>
-		<h3 class='text-info'>@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString()</h3>
-	</div>
+    <div class='col-md-10 text-left'>
+        <h3 class='text-info'>Employee List</h3>
+    </div>
     <div class='col-md-2 text-right'>
         <button class='btn btn-success btn-madd' onclick='btnAddClick($(this))' myUrl='@Create'><i class='fa fa-plus-circle'></i> Add</button>
     </div>
@@ -24,157 +66,32 @@
 @if (@Model != null)
 {
     @(Html
-        .Grid(Model)
-        .Build(columns =>
-        {
-columns.Add(model => $@"<button class='btn btn-primary btn-mdetails' value='{model.ID}' onclick='btnDetailsClick($(this));' myUrl='{Details}'><i class='fa fa-info'></i> Details</button>
-						<button class='btn btn-warning btn-medit'    value='{model.ID}' onclick='btnEditClick($(this))' myUrl='{Edit}'><i class='fa fa-pencil'></i> Edit</button>
-						<button class='btn btn-danger  btn-mdelete'  value='{model.ID}' onclick='btnDeleteClick($(this))' myUrl='{Delete}'><i class='fa fa-times-circle'></i></button>").Encoded(false).Css("management-col").Titled("MANAGEMENT");
-			columns.Add(model => model.ID).Titled("ID");
-						columns.Add(model => model.EMPLOYEE_ID).Titled("EMPLOYEE_ID");
-						columns.Add(model => model.EMPLOYEE_TYPE).Titled("EMPLOYEE_TYPE");
-						columns.Add(model => model.TITLE).Titled("TITLE");
-						columns.Add(model => model.TITLE_BN).Titled("TITLE_BN");
-						columns.Add(model => model.EMPLOYEE_NAME).Titled("EMPLOYEE_NAME");
-						columns.Add(model => model.NAME_BN).Titled("NAME_BN");
-						columns.Add(model => model.DESIGNATION).Titled("DESIGNATION");
-						columns.Add(model => model.DESIGNATION_BN).Titled("DESIGNATION_BN");
-						columns.Add(model => model.FACULTY).Titled("FACULTY");
-						columns.Add(model => model.FACULTY_BN).Titled("FACULTY_BN");
-						columns.Add(model => model.DEPARTMENT).Titled("DEPARTMENT");
-						columns.Add(model => model.DEPARTMENT_BN).Titled("DEPARTMENT_BN");
-						columns.Add(model => model.FATHER_NAME).Titled("FATHER_NAME");
-						columns.Add(model => model.FATHER_NAME_BN).Titled("FATHER_NAME_BN");
-						columns.Add(model => model.MOTHER_NAME).Titled("MOTHER_NAME");
-						columns.Add(model => model.MOTHER_NAME_BN).Titled("MOTHER_NAME_BN");
-						columns.Add(model => model.PRESENT_HOUSE_NO).Titled("PRESENT_HOUSE_NO");
-						columns.Add(model => model.PRESENT_HOUSE_NO_BN).Titled("PRESENT_HOUSE_NO_BN");
-						columns.Add(model => model.PRESENT_POST_OFFICE).Titled("PRESENT_POST_OFFICE");
-						columns.Add(model => model.PRESENT_POST_OFFICE_BN).Titled("PRESENT_POST_OFFICE_BN");
-						columns.Add(model => model.PRESENT_THANA).Titled("PRESENT_THANA");
-						columns.Add(model => model.PRESENT_THANA_BN).Titled("PRESENT_THANA_BN");
-						columns.Add(model => model.PRESENT_ZILA).Titled("PRESENT_ZILA");
-						columns.Add(model => model.PRESENT_ZILA_BN).Titled("PRESENT_ZILA_BN");
-						columns.Add(model => model.PRESENT_POST_CODE).Titled("PRESENT_POST_CODE");
-						columns.Add(model => model.PRESENT_POST_CODE_BN).Titled("PRESENT_POST_CODE_BN");
-						columns.Add(model => model.PERMANENT_HOUSE_NO).Titled("PERMANENT_HOUSE_NO");
-						columns.Add(model => model.PERMANENT_HOUSE_NO_BN).Titled("PERMANENT_HOUSE_NO_BN");
-						columns.Add(model => model.PERMANENT_POST_OFFICE).Titled("PERMANENT_POST_OFFICE");
-						columns.Add(model => model.PERMANENT_POST_OFFICE_BN).Titled("PERMANENT_POST_OFFICE_BN");
-						columns.Add(model => model.PERMANENT_THANA).Titled("PERMANENT_THANA");
-						columns.Add(model => model.PERMANENT_THANA_BN).Titled("PERMANENT_THANA_BN");
-						columns.Add(model => model.PERMANENT_ZILA).Titled("PERMANENT_ZILA");
-						columns.Add(model => model.PERMANENT_ZILA_BN).Titled("PERMANENT_ZILA_BN");
-						columns.Add(model => model.PERMANENT_POST_CODE).Titled("PERMANENT_POST_CODE");
-						columns.Add(model => model.PERMANENT_POST_CODE_BN).Titled("PERMANENT_POST_CODE_BN");
-						columns.Add(model => model.DATE_OF_BIRTH).Titled("DATE_OF_BIRTH");
-						columns.Add(model => model.DATE_OF_BIRTH_BN).Titled("DATE_OF_BIRTH_BN");
-						columns.Add(model => model.PLACE_OF_BIRTH).Titled("PLACE_OF_BIRTH");
-						columns.Add(model => model.PLACE_OF_BIRTH_BN).Titled("PLACE_OF_BIRTH_BN");
-						columns.Add(model => model.NATIONALITY).Titled("NATIONALITY");
-						columns.Add(model => model.NATIONALITY_BN).Titled("NATIONALITY_BN");
-						columns.Add(model => model.RELIGION).Titled("RELIGION");
-						columns.Add(model => model.RELIGION_BN).Titled("RELIGION_BN");
-						columns.Add(model => model.CASTE).Titled("CASTE");
-						columns.Add(model => model.CASTE_BN).Titled("CASTE_BN");
-						columns.Add(model => model.IMMIGRANT).Titled("IMMIGRANT");
-						columns.Add(model => model.IMMIGRANT_BN).Titled("IMMIGRANT_BN");
-						columns.Add(model => model.MARITAL_STATUS).Titled("MARITAL_STATUS");
-						columns.Add(model => model.MARITAL_STATUS_BN).Titled("MARITAL_STATUS_BN");
-						columns.Add(model => model.BLOOD_GROUP).Titled("BLOOD_GROUP");
-						columns.Add(model => model.BLOOD_GROUP_BN).Titled("BLOOD_GROUP_BN");
-						columns.Add(model => model.GENDER).Titled("GENDER");
-						columns.Add(model => model.GENDER_BN).Titled("GENDER_BN");
-						columns.Add(model => model.PASSPORT_NO).Titled("PASSPORT_NO");
-						columns.Add(model => model.PASSPORT_NO_BN).Titled("PASSPORT_NO_BN");
-						columns.Add(model => model.DRIVING_LICENCE_NO).Titled("DRIVING_LICENCE_NO");
-						columns.Add(model => model.DRIVING_LICENCE_NO_BN).Titled("DRIVING_LICENCE_NO_BN");
-						columns.Add(model => model.IDENTIFICATION_MARK).Titled("IDENTIFICATION_MARK");
-						columns.Add(model => model.IDENTIFICATION_MARK_BN).Titled("IDENTIFICATION_MARK_BN");
-						columns.Add(model => model.OTHERS).Titled("OTHERS");
-						columns.Add(model => model.OTHERS_BN).Titled("OTHERS_BN");
-						columns.Add(model => model.EMAIL).Titled("EMAIL");
-						columns.Add(model => model.ALTERNATE_EMAIL).Titled("ALTERNATE_EMAIL");
-						columns.Add(model => model.PASSWORD).Titled("PASSWORD");
-						columns.Add(model => model.LEAVE_PACKAGE).Titled("LEAVE_PACKAGE");
-						columns.Add(model => model.NATIONAL_ID).Titled("NATIONAL_ID");
-						columns.Add(model => model.NATIONAL_ID_BN).Titled("NATIONAL_ID_BN");
-						columns.Add(model => model.FIRST_NAME).Titled("FIRST_NAME");
-						columns.Add(model => model.LAST_NAME).Titled("LAST_NAME");
-						columns.Add(model => model.FIRST_NAME_BN).Titled("FIRST_NAME_BN");
-						columns.Add(model => model.LAST_NAME_BN).Titled("LAST_NAME_BN");
-						columns.Add(model => model.SECTION).Titled("SECTION");
-						columns.Add(model => model.JOIN_DATE).Titled("JOIN_DATE");
-						columns.Add(model => model.EMPLOYEE_PHOTO).Titled("EMPLOYEE_PHOTO");
-						columns.Add(model => model.SECTION_ID).Titled("SECTION_ID");
-						columns.Add(model => model.SUB_SECTION_ID).Titled("SUB_SECTION_ID");
-						columns.Add(model => model.DESIGNATION_ID).Titled("DESIGNATION_ID");
-						columns.Add(model => model.MIDDLE_NAME).Titled("MIDDLE_NAME");
-						columns.Add(model => model.MIDDLE_NAME_BN).Titled("MIDDLE_NAME_BN");
-						columns.Add(model => model.DEGREE_ID).Titled("DEGREE_ID");
-						columns.Add(model => model.INITIAL_NAME).Titled("INITIAL_NAME");
-						columns.Add(model => model.FACULTY_TYPE).Titled("FACULTY_TYPE");
-						columns.Add(model => model.GROSS_SALARY).Titled("GROSS_SALARY");
-						columns.Add(model => model.WORKING_HOUR).Titled("WORKING_HOUR");
-						columns.Add(model => model.CAMPUS_ID).Titled("CAMPUS_ID");
-						columns.Add(model => model.SALARY_PAYMENT_TYPE).Titled("SALARY_PAYMENT_TYPE");
-						columns.Add(model => model.BANK_ID).Titled("BANK_ID");
-						columns.Add(model => model.BANK_ACCOUNT_NO).Titled("BANK_ACCOUNT_NO");
-						columns.Add(model => model.CARD_NO).Titled("CARD_NO");
-						columns.Add(model => model.MOBILE_NO).Titled("MOBILE_NO");
-						columns.Add(model => model.EMPLOYEE_TYPE_ID).Titled("EMPLOYEE_TYPE_ID");
-						columns.Add(model => model.POSITION_ID).Titled("POSITION_ID");
-						columns.Add(model => model.EMP_LAST_NAME_BANGLA).Titled("EMP_LAST_NAME_BANGLA");
-						columns.Add(model => model.EMP_MIDDLE_NAME_BANGLA).Titled("EMP_MIDDLE_NAME_BANGLA");
-						columns.Add(model => model.EMP_FAST_NAME_BANGLA).Titled("EMP_FAST_NAME_BANGLA");
-						columns.Add(model => model.EMP_LAST_NAME).Titled("EMP_LAST_NAME");
-						columns.Add(model => model.EMP_MIDDLE_NAME).Titled("EMP_MIDDLE_NAME");
-						columns.Add(model => model.EMP_FIRST_NAME).Titled("EMP_FIRST_NAME");
-						columns.Add(model => model.DISTRICT_ID).Titled("DISTRICT_ID");
-						columns.Add(model => model.DIVISION).Titled("DIVISION");
-						columns.Add(model => model.DATE_OF_JOINING).Titled("DATE_OF_JOINING");
-						columns.Add(model => model.EMPLOYEE_CATEGORY).Titled("EMPLOYEE_CATEGORY");
-						columns.Add(model => model.COUNTRY_NAME).Titled("COUNTRY_NAME");
-						columns.Add(model => model.FATHERS_NAME).Titled("FATHERS_NAME");
-						columns.Add(model => model.MOTHERS_NAME).Titled("MOTHERS_NAME");
-						columns.Add(model => model.LICENSE_NUMBERS).Titled("LICENSE_NUMBERS");
-						columns.Add(model => model.PASSPORT_NUMBER).Titled("PASSPORT_NUMBER");
-						columns.Add(model => model.DATEOF_REGISTER).Titled("DATEOF_REGISTER");
-						columns.Add(model => model.PHONE).Titled("PHONE");
-						columns.Add(model => model.MOBILE).Titled("MOBILE");
-						columns.Add(model => model.MARITIAL_STATUS).Titled("MARITIAL_STATUS");
-						columns.Add(model => model.BLOOD_GROUPH).Titled("BLOOD_GROUPH");
-						columns.Add(model => model.NATIONLATITY).Titled("NATIONLATITY");
-						columns.Add(model => model.SHIFT_ID).Titled("SHIFT_ID");
-						columns.Add(model => model.EMPLOYEE_VOTER_PHOTO).Titled("EMPLOYEE_VOTER_PHOTO");
-						columns.Add(model => model.EMPLOYEE_QUOTA_ID).Titled("EMPLOYEE_QUOTA_ID");
-						columns.Add(model => model.GRADE_ID).Titled("GRADE_ID");
-						columns.Add(model => model.PRESENT_JOB_DESCRIPTION).Titled("PRESENT_JOB_DESCRIPTION");
-						columns.Add(model => model.JOB_POSITION).Titled("JOB_POSITION");
-						columns.Add(model => model.WEEKEND).Titled("WEEKEND");
-						columns.Add(model => model.DATE_OF_RESIGN).Titled("DATE_OF_RESIGN");
-						columns.Add(model => model.REASON).Titled("REASON");
-						columns.Add(model => model.BANNED).Titled("BANNED");
-						columns.Add(model => model.OFFICER_DESIGNATION_ID).Titled("OFFICER_DESIGNATION_ID");
-						columns.Add(model => model.COUNTRY_ID).Titled("COUNTRY_ID");
-						columns.Add(model => model.THANA_ID).Titled("THANA_ID");
-						columns.Add(model => model.LICENSE_NUMBER).Titled("LICENSE_NUMBER");
-						columns.Add(model => model.EMPLOYEE_NAME_BN).Titled("EMPLOYEE_NAME_BN");
-						columns.Add(model => model.PHOTO).Titled("PHOTO");
-						columns.Add(model => model.DATE_OF_REGISTER).Titled("DATE_OF_REGISTER");
-						columns.Add(model => model.SALARY_TYPE).Titled("SALARY_TYPE");
-						columns.Add(model => model.REGULARIZATION_DATE).Titled("REGULARIZATION_DATE");
-						columns.Add(model => model.DEVICE_ID).Titled("DEVICE_ID");
-						columns.Add(model => model.OVER_TIME).Titled("OVER_TIME");
-						columns.Add(model => model.ID_SERIAL).Titled("ID_SERIAL");
-						
-        })
-        .WithFilterMode(GridFilterMode.FilterRow)
-        .Empty("No data found")
-        .MultiFilterable()
-        .Filterable()
-        .Sortable()
+                                                        .Grid(Model)
+                                                        .Build(columns =>
+                                                        {
+
+                                                            columns.Add(model => model.EMPLOYEE_ID).Titled("Employee ID");
+                                                            columns.Add(model => model.EMPLOYEE_NAME).Titled("Employee Name");
+                                                            columns.Add(model => model.DESIGNATION_NAME).Titled("Designation");
+                                                            columns.Add(model => model.FACULTY_NAME).Titled("Faculty");
+                                                            columns.Add(model => model.DEPARTMENT_NAME).Titled("Department");
+                                                            columns.Add(model => model.MOBILE).Titled("MOBILE");
+                                                            columns.Add(model => model.EMAIL).Titled("EMAIL");
+                                            //columns.Add(model => model.JOIN_DATE).Titled("JOIN_DATE");
+                                            //columns.Add(model => model.EMPLOYEE_PHOTO).Titled("EMPLOYEE_PHOTO");
+                                            columns.Add(model => $@"<button class='btn btn-primary btn-mdetails' value='{model.ID}' onclick='btnDetailsClick($(this));' myUrl='{Details}'><i class='fa fa-info'></i> Details</button>
+<button class='btn btn-warning btn-medit'    value='{model.ID}' onclick='btnEditClick($(this))' myUrl='{Edit}'><i class='fa fa-pencil'></i> Edit</button>
+<button class='btn btn-danger  btn-mdelete'  value='{model.ID}' onclick='btnDeleteClick($(this))' myUrl='{Delete}'><i class='fa fa-times-circle'></i></button>").Encoded(false).Css("management-col").Titled("MANAGEMENT");
+
+
+                                                        })
+                                                        //.UsingFilterMode(GridFilterMode.Row)
+                                                        .Empty("No data found")
+            //.MultiFilterable()
+            //.Filterable()
+            //.Sortable()
     )
+    @Html.PagedListPager(Model, page => Url.Action("Index", "Hrpersonalinfo", new { i = page, search = Request.QueryString["search"] }), new PagedListRenderOptions { LinkToFirstPageFormat = "First", LinkToPreviousPageFormat = "Previous", LinkToNextPageFormat = "Next", LinkToLastPageFormat = "Last" })
 }
 
 @section Scripts
@@ -185,5 +102,122 @@ columns.Add(model => $@"<button class='btn btn-primary btn-mdetails' value='{mod
     <link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
     <link href="~/Content/_global.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var getUrl = window.location;
+            //Check Employee ID
+            $(document).on("change", "#EMPLOYEE_ID", function () {
+                var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/check_emp_id";
+                var EMPLOYEE_ID = $("#EMPLOYEE_ID").val();
+                var fls = { EMPLOYEE_ID: EMPLOYEE_ID }
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: fls,
+                    beforeSend: function () {
+                        $("#loader_view").show();
+                    },
+                    success: function (data) {
+                        debugger;
+                        $("#loader_view").hide();
+
+                        if (data != null) {
+                            //$("#EMPLOYEE_ID").html("Employee ID Already Exist");
+                            $('#form [data-valmsg-for="EMPLOYEE_ID"]').html("Employee ID Already Exist");
+                        }
+                        else {
+                            $('#form [data-valmsg-for="EMPLOYEE_ID"]').html("");
+                        }
+                    }
+                    //data: JSON.stringify(person)
+                });
+            });
+
+            //Check Employee Mobile
+            $(document).on("change", "#MOBILE", function () {
+                var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/check_emp_cell";
+                var MOBILE = $("#MOBILE").val();
+                var fls = { MOBILE: MOBILE }
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: fls,
+                    beforeSend: function () {
+                        $("#loader_view").show();
+                    },
+                    success: function (data) {
+                        $("#loader_view").hide();
+                        if (data != null) {
+                            //$("#EMPLOYEE_ID").html("Employee ID Already Exist");
+                            $('#form [data-valmsg-for="MOBILE"]').html("Mobile No Already Exist");
+                        }
+                        else {
+                            $('#form [data-valmsg-for="MOBILE"]').html("");
+                        }
+                    }
+                    //data: JSON.stringify(person)
+                });
+            });
+
+            //get Department
+            $(document).on("change", "#FACULTY", function () {
+                var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/get_dept";
+                var FACULTY = $(this).val();
+                var fls = { FACULTY: FACULTY }
+                
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: fls,
+                    beforeSend: function () {
+                        $("#loader_view").show();
+                    },
+                    success: function (data) {
+                      
+                        $("#loader_view").hide();
+                        $("#DEPARTMENT").html('<option value="">--Select--</option>');
+                        $.each(data, function (key, val) {
+                           
+                            var ID = val.ID;
+
+                            var tr = "<option value='" + val.ID + "'>" + val.DEPARTMENT_NAME + "</option>";
+                            $("#DEPARTMENT").append(tr);
+                        });
+                    }
+                    //data: JSON.stringify(person)
+                });
+            });
+
+            //get Designation
+            $(document).on("change", "#EMPLOYEE_TYPE", function () {
+                var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/get_designation";
+                var EMPLOYEE_TYPE = $("#EMPLOYEE_TYPE").val();
+                var fls = { EMPLOYEE_TYPE: EMPLOYEE_TYPE }
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: fls,
+                    beforeSend: function () {
+                        $("#loader_view").show();
+                    },
+                    success: function (data) {
+                        $("#loader_view").hide();
+                        $("#DESIGNATION").html('<option>--Select--</option>');
+                        $.each(data, function (key, val) {
+                            var ID = val.ID;
+
+                            var tr = "<option value='" + val.ID + "'>" + val.DESIGNATION_NAME + "</option>";
+                            $("#DESIGNATION").append(tr);
+                        });
+                    }
+                    //data: JSON.stringify(person)
+                });
+            });
+
+        });
+    </script>
 }
 

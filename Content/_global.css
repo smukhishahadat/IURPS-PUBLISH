@@ -5,7 +5,7 @@
 
 .mvc-grid thead th,
 .mvc-grid tbody td {
-    padding: 5px 20px !important;
+    padding: 0px !important;
     margin: 0 !important;
     text-align: center !important;
 }

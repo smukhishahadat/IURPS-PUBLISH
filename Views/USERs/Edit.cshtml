@@ -12,8 +12,7 @@
 				@Html.AntiForgeryToken()
 				<div class="modal-header">
 					<div class="col-md-10">
-					<h3>Edit - 
-<span class="text-warning pull-right">(PK) @Model.ID</span>
+					<h3>Edit -User Information
 					</h3>				
 					</div>
 					<div class="col-md-2">
@@ -26,15 +25,10 @@
 					@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 					<table class="table table-striped table-hover table-bordered">
-						<thead class="thead-dark">
-							<tr>
-								<th scope="col">DisplayNameFor</th>
-								<th scope="col">DisplayFor</th>
-							</tr>
-						</thead>
+						
 						<tbody>
-							@Html.HiddenFor(model => model.ID)
-							<tr>
+							@Html.HiddenFor(model => model.ID)  
+							@*<tr>
 								<td>
 									@Html.LabelFor(model => model.ROLE_ID, htmlAttributes: new { @class = "control-label col-md-2" })
 								</td>
@@ -42,10 +36,10 @@
 									@Html.EditorFor(model => model.ROLE_ID, new { htmlAttributes = new { @class = "form-control" } })
 									@Html.ValidationMessageFor(model => model.ROLE_ID, "", new { @class = "text-danger" })
 								</td>
-							</tr>
+							</tr>*@
 							<tr>
 								<td>
-									@Html.LabelFor(model => model.FULL_NAME, htmlAttributes: new { @class = "control-label col-md-2" })
+									@Html.LabelFor(model => model.FULL_NAME, htmlAttributes: new { @class = "control-label col-md-12" })
 								</td>
 								<td>
 									@Html.EditorFor(model => model.FULL_NAME, new { htmlAttributes = new { @class = "form-control" } })
@@ -66,7 +60,7 @@
 									@Html.LabelFor(model => model.PASSWORD, htmlAttributes: new { @class = "control-label col-md-2" })
 								</td>
 								<td>
-									@Html.EditorFor(model => model.PASSWORD, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.EditorFor(model => model.PASSWORD, new { htmlAttributes = new { @class = "form-control", @Value = "" } })
 									@Html.ValidationMessageFor(model => model.PASSWORD, "", new { @class = "text-danger" })
 								</td>
 							</tr>
@@ -79,7 +73,7 @@
 									@Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
 								</td>
 							</tr>
-							<tr>
+							@*<tr>
 								<td>
 									@Html.LabelFor(model => model.SESSION_ID, htmlAttributes: new { @class = "control-label col-md-2" })
 								</td>
@@ -123,8 +117,8 @@
 									@Html.EditorFor(model => model.NEWPASS, new { htmlAttributes = new { @class = "form-control" } })
 									@Html.ValidationMessageFor(model => model.NEWPASS, "", new { @class = "text-danger" })
 								</td>
-							</tr>
-							<tr>
+							</tr>*@
+							@*<tr>
 								<td>
 									@Html.LabelFor(model => model.NEWPASS_KEY, htmlAttributes: new { @class = "control-label col-md-2" })
 								</td>
@@ -186,8 +180,8 @@
 									@Html.EditorFor(model => model.MODIFIED_DATE, new { htmlAttributes = new { @class = "form-control" } })
 									@Html.ValidationMessageFor(model => model.MODIFIED_DATE, "", new { @class = "text-danger" })
 								</td>
-							</tr>
-							<tr>
+							</tr>*@
+							@*<tr>
 								<td>
 									@Html.LabelFor(model => model.USER_MODULE, htmlAttributes: new { @class = "control-label col-md-2" })
 								</td>
@@ -321,7 +315,7 @@
 									@Html.EditorFor(model => model.FILE_PREV, new { htmlAttributes = new { @class = "form-control" } })
 									@Html.ValidationMessageFor(model => model.FILE_PREV, "", new { @class = "text-danger" })
 								</td>
-							</tr>
+							</tr>*@
 							<tr>
 								<td>
 									@Html.LabelFor(model => model.MOBILE, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -331,7 +325,7 @@
 									@Html.ValidationMessageFor(model => model.MOBILE, "", new { @class = "text-danger" })
 								</td>
 							</tr>
-							<tr>
+							@*<tr>
 								<td>
 									@Html.LabelFor(model => model.ACCOUNTS_PREV, htmlAttributes: new { @class = "control-label col-md-2" })
 								</td>
@@ -456,8 +450,8 @@
 									@Html.EditorFor(model => model.UNDERGRADUATE_GPA, new { htmlAttributes = new { @class = "form-control" } })
 									@Html.ValidationMessageFor(model => model.UNDERGRADUATE_GPA, "", new { @class = "text-danger" })
 								</td>
-							</tr>
-							<tr>
+							</tr>*@
+							@*<tr>
 								<td>
 									@Html.LabelFor(model => model.FACULTY_ID, htmlAttributes: new { @class = "control-label col-md-2" })
 								</td>
@@ -483,7 +477,7 @@
 									@Html.EditorFor(model => model.PROGRAM_ID, new { htmlAttributes = new { @class = "form-control" } })
 									@Html.ValidationMessageFor(model => model.PROGRAM_ID, "", new { @class = "text-danger" })
 								</td>
-							</tr>
+							</tr>*@
 						</tbody>
 					</table>				
 				</div>

@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+@{
+    Layout = "";
+}
+<center>
+    <table width="60%" style="border-collapse:collapse;text-align: center;" align="center" class="short_tbl_key_info">
+        <tbody>
+            <tr style="border:0px !important;">
+                <td valign="top">
+                    <img style="vertical-align:middle" width="50" alt="Logo" src="@Server.MapPath("~/assets/admin/layout/img/avatar3_small.png")">
+                    <span style="font-weight:bold;font-size:34px;text-align:center;margin-left:0px;">@ViewBag.uniname</span>
+                </td>
+            </tr>
+            <tr>
+                <td>@ViewBag.address</td>
+            </tr>
+            <tr><td>@ViewBag.faculty</td></tr>
+            <tr><td>@ViewBag.dept_name</td></tr>
+            <tr><td>@ViewBag.program </td></tr>
+            <tr><td>@ViewBag.semester - @ViewBag.exam_year</td></tr>
+        </tbody>
+    </table>
+</center>
+

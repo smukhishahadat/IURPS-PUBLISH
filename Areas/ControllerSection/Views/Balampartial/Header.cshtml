@@ -1,0 +1,320 @@
+﻿@{ 
+    //Courses
+    var courses = ViewBag.course_list;
+    var courses_1st = courses[0];
+    var courses_2nd = courses[1];
+    var courses_3rd = courses[2];
+    var courses_4th = courses[3];
+    var courses_5th = courses[4];
+    var courses_6th = courses[5];
+    var courses_7th = courses[6];
+    var courses_8th = courses[7];
+
+    int courses_1st_cnt = courses_1st.Count;
+    int courses_2nd_cnt = courses_2nd.Count;
+    int courses_3rd_cnt = courses_3rd.Count;
+    int courses_4th_cnt = courses_4th.Count;
+    int courses_5th_cnt = courses_5th.Count;
+    int courses_6th_cnt = courses_6th.Count;
+    int courses_7th_cnt = courses_7th.Count;
+    int courses_8th_cnt = courses_8th.Count;
+}
+<!DOCTYPE html>
+<table class="" style="border-collapse:collapse;text-align: center;font-size:12px;width:100%;" border="0">
+    <tr style="border:0px !important;">
+        <td valign="top" colspan="300" style="border:0 !important;">
+            <table style="width:100%;border:0;" align="center">
+                <tr>
+                    <td valign="top" style="border:0px !important;">
+                        <table class="short_tbl_key_info" style="border-collapse:collapse;text-align: center;font-size:10px;" border="1">
+
+                            <tr>
+                                <td colspan="4" style="text-align:center;"><b>GRADING SYSTEM</b></td>
+                            </tr>
+                            <tr>
+                                <th style="text-align:center;">Marks Range</th>
+                                <th style="text-align:center;">LG</th>
+                                <th style="text-align:center;">GP</th>
+                                <th style="text-align:center;">Remarks</th>
+                            </tr>
+
+                            @{
+                                var min_marks = "";
+                                int i = 0;
+                            }
+
+                            @foreach (var val in Model.GRADE_SHEET_DETAIL)
+                            {
+                                if (i == 0)
+                                {
+                                    min_marks = val.MINIMUM_MARKS + "% and above ";
+                                }
+                                else
+                                {
+                                    min_marks = val.MINIMUM_MARKS + "% less than ";
+                                }
+                                var max_marks = val.MAXIMUM_MARKS;
+                                var numerical_mark = min_marks + max_marks + "%";
+                                var lg = val.LETTER_GRADE;
+                                var gp = val.GRADE_POINT;
+                                var remarks = val.REMARKS;
+                                <tr>
+                                    <td style="padding:5px;">@numerical_mark</td>
+                                    <td style="padding:5px;">@lg</td>
+                                    <td style="padding:5px;">@gp</td>
+                                    <td style="padding:5px;">@remarks</td>
+                                </tr>
+                                i++;
+                            }
+
+                        </table>
+                    </td>
+                    <td valign="top" style="width:70%;float:left;border:0px !important;">
+                        <table style="border-collapse:collapse;text-align: center;" align="center" class="short_tbl_key_info">
+                            <tr>
+                                <td><img alt="" src="@Server.MapPath("~/assets/admin/layout/img/avatar3_small.png")"></td>
+                                <td>
+                                    <span style="font-weight:bold;font-size:55px;text-align:center;margin-left:10px;">ISLAMIC UNIVERSITY</span>
+                                    <br />
+                                    Kushtia-Jhenidah, Bangladesh
+
+                                </td>
+                            </tr>
+                            <tr><td colspan="4"><span id="faculty_name">Faculty@*@Html.DisplayFor(model => model.MarksheetStdInfo.FACULTY_NAME)*@</span></td></tr>
+                            <tr><td colspan="4"><span id="dept_name">Dept@*@Html.DisplayFor(model => model.MarksheetStdInfo.DEPARTMENT_NAME)*@</span></td></tr>
+                            <tr><td colspan="4"><span id="program_name">Program@*@Html.DisplayFor(model => model.MarksheetStdInfo.PROGRAM_NAME)*@</span> </td></tr>
+                            <tr>
+                                <td colspan="4">
+                                    <b>Admission Session: </b><span id="session_year">@*@Html.DisplayFor(model => model.MarksheetStdInfo.APPLICANT_SESSION)*@</span>
+                                    <span id="semester"></span>
+                                    <br />
+                                    <span id="academic_year">@*@Html.DisplayFor(model => model.MarksheetStdInfo.LEVEL_NAME)*@</span>-<span id="exam_year">@*@ViewBag.exam_year*@</span>
+
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                    <td valign="top" style="width:5%;float:left;">
+                        <table class="" style="border-collapse:collapse;text-align: center;font-size:8px;" border="1">
+
+                            <tr>
+                                <td colspan="6">
+                                    <b>RESULT STATISTICS</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Particulars</td>
+                                <td>Male</td>
+                                <td>Female</td>
+                                <td>Total</td>
+                                <td>Awarded</td>
+                            </tr>
+                            <tr>
+                                <td>No. of Examinees</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Present</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Absent</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            @foreach (var res_statis in ViewBag.res_statistics)
+                            {
+                                <tr>
+                                    <td>@res_statis.LETTER_GRADE</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>>@res_statis.LETTER_GRADE</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            }
+
+
+                        </table>
+                    </td>
+                    <td valign="top" style="width:10%;float:right;">
+                        <table class="" style="border-collapse:collapse;text-align: center;font-size:8px;" border="1">
+                            <tr>
+                                <td colspan="4">
+                                    COURSE NUMBER AND TITLES
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>First Year</b>
+                                </td>
+                                <td><b>Second Year</b></td>
+                                <td><b>Third Year</b></td>
+                                <td><b>Fourth Year</b></td>
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <table>
+                                        <tr>
+                                            <td colspan="3">
+                                                <b style="text-decoration:underline;">1st Semester</b>
+                                            </td>
+                                        </tr>
+                                        @if (courses_1st_cnt > 0)
+                                        {
+                                            foreach (var first_sem_c in courses_1st)
+                                            {
+                                                <tr>
+                                                    <th>@first_sem_c.COURSE_CODE</th>
+                                                    <td>:</td>
+                                                    <td style="text-align:left;">@first_sem_c.COURSE_NAME</td>
+                                                </tr>
+                                            }
+                                        }
+
+                                        <tr>
+                                            <td colspan="3">
+                                                <b style="text-decoration:underline;">2nd Semester</b>
+                                            </td>
+                                        </tr>
+                                        @if (courses_2nd_cnt > 0)
+                                        {
+                                            foreach (var first_sem_c in courses_2nd)
+                                            {
+                                                <tr>
+                                                    <th>@first_sem_c.COURSE_CODE</th>
+                                                    <td>:</td>
+                                                    <td style="text-align:left;">@first_sem_c.COURSE_NAME</td>
+                                                </tr>
+                                            }
+                                        }
+                                    </table>
+                                </td>
+                                <td valign="top">
+                                    <table>
+                                        <tr>
+                                            <td colspan="3">
+                                                <b style="text-decoration:underline;">1st Semester</b>
+                                            </td>
+                                        </tr>
+                                        @if (courses_3rd_cnt > 0)
+                                        {
+                                            foreach (var first_sem_c in courses_3rd)
+                                            {
+                                                <tr>
+                                                    <th>@first_sem_c.COURSE_CODE</th>
+                                                    <td>:</td>
+                                                    <td style="text-align:left;">@first_sem_c.COURSE_NAME</td>
+                                                </tr>
+                                            }
+                                        }
+                                        <tr>
+                                            <td colspan="3">
+                                                <b style="text-decoration:underline;">2nd Semester</b>
+                                            </td>
+                                        </tr>
+                                        @if (courses_4th_cnt > 0)
+                                        {
+                                            foreach (var first_sem_c in courses_4th)
+                                            {
+                                                <tr>
+                                                    <th>@first_sem_c.COURSE_CODE</th>
+                                                    <td>:</td>
+                                                    <td style="text-align:left;">@first_sem_c.COURSE_NAME</td>
+                                                </tr>
+                                            }
+                                        }
+                                    </table>
+                                </td>
+                                <td valign="top">
+                                    <table>
+                                        <tr>
+                                            <td colspan="3">
+                                                <b style="text-decoration:underline;">1st Semester</b>
+                                            </td>
+                                        </tr>
+                                        @if (courses_5th_cnt > 0)
+                                        {
+                                            foreach (var first_sem_c in courses_5th)
+                                            {
+                                                <tr>
+                                                    <th>@first_sem_c.COURSE_CODE</th>
+                                                    <td>:</td>
+                                                    <td style="text-align:left;">@first_sem_c.COURSE_NAME</td>
+                                                </tr>
+                                            }
+                                        }
+                                        <tr>
+                                            <td colspan="3">
+                                                <b style="text-decoration:underline;">2nd Semester</b>
+                                            </td>
+                                        </tr>
+                                        @if (courses_6th_cnt > 0)
+                                        {
+                                            foreach (var first_sem_c in courses_6th)
+                                            {
+                                                <tr>
+                                                    <th>@first_sem_c.COURSE_CODE</th>
+                                                    <td>:</td>
+                                                    <td style="text-align:left;">@first_sem_c.COURSE_NAME</td>
+                                                </tr>
+                                            }
+                                        }
+                                    </table>
+
+                                </td>
+                                <td valign="top">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <b style="text-decoration:underline;">1st Semester</b>
+                                            </td>
+                                        </tr>
+                                        @if (courses_7th_cnt > 0)
+                                        {
+                                            foreach (var first_sem_c in courses_7th)
+                                            {
+                                                <tr>
+                                                    <th>@first_sem_c.COURSE_CODE</th>
+                                                    <td>:</td>
+                                                    <td style="text-align:left;">@first_sem_c.COURSE_NAME</td>
+                                                </tr>
+                                            }
+                                        }
+                                        <tr>
+                                            <td>
+                                                <b style="text-decoration:underline;">2nd Semester</b>
+                                            </td>
+                                        </tr>
+                                        @if (courses_8th_cnt > 0)
+                                        {
+                                            foreach (var first_sem_c in courses_8th)
+                                            {
+                                                <tr>
+                                                    <th>@first_sem_c.COURSE_CODE</th>
+                                                    <td>:</td>
+                                                    <td style="text-align:left;">@first_sem_c.COURSE_NAME</td>
+                                                </tr>
+                                            }
+                                        }
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    
+    
+    
+</table>

@@ -1,0 +1,62 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "Provisional Certificate";
+    Layout = "~/Views/Shared/_LayoutPageMetronic.cshtml";
+}
+<style type="text/css">
+    .page-content {
+        overflow: scroll !important;
+    }
+
+    .ui-autocomplete {
+        z-index: 2147483647;
+    }
+</style>
+<link href="../../assets/admin/layout/css/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="../../assets/admin/layout/scripts/jquery-ui.js"></script>
+<div class="row">
+    <div class="col-md-10 text-left">
+        <h3 class="text-info">Provisional Certificate</h3>
+    </div>
+
+</div>
+<hr />.
+@using (Html.BeginForm("Viewer", "ProvisionalCertificate"))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+
+            <label class="control-label col-md-2">Student ID <span class="font-red">*</span></label>
+            <div class="col-md-2">
+                <input type="text" name="student_id" id="student_id" class="form-control">
+            </div>
+            <div class="col-md-2">
+                <button class='btn btn-success btn-madd SearchExaminer'><i class='fa fa-search'></i> Search</button>
+            </div>
+        </div>
+
+    </div>
+    <hr />
+}
+
+
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/_global.js"></script>
+    <script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
+    <link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/_global.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var getUrl = window.location;
+        });
+    </script>
+}

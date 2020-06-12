@@ -22,32 +22,76 @@
         <h3 class='text-info'>Semester Final Marks</h3>
     </div>
     @*<div class='col-md-2 text-right'>
-        <button class='btn btn-success btn-madd' onclick='btnAddClick($(this))' myUrl='@Create'><i class='fa fa-plus-circle'></i> Add</button>
-    </div>*@
+            <button class='btn btn-success btn-madd' onclick='btnAddClick($(this))' myUrl='@Create'><i class='fa fa-plus-circle'></i> Add</button>
+        </div>*@
 </div>
+@using (Html.BeginForm("Index", "Exammarksentry", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.First().FACULTY_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.First().DEPARTMENT_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.First().PROGRAM_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.First().LEVEL_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.First().SEMESTER_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.First().YEAR, htmlAttributes: new { @class = "control-label col-md-2" })
+            </div>
+
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.DropDownList("FACULTY_ID", (IEnumerable<SelectListItem>)ViewData["faculty_list"], "Select Faculty", new { @class = "form-control" })
+                </div>
+                <div class="col-md-2">
+                    @Html.DropDownList("DEPARTMENT_ID", (IEnumerable<SelectListItem>)ViewData["dept_list"], "Select Department", new { @class = "form-control" })
+                </div>
+                <div class="col-md-2">
+                    @Html.DropDownList("PROGRAM_ID", (IEnumerable<SelectListItem>)ViewData["program_list"], "Select Program", new { @class = "form-control" })
+                </div>
+                <div class="col-md-2">
+                    @Html.DropDownList("LEVEL_ID", (IEnumerable<SelectListItem>)ViewData["level_id"], "Select Academic Year", new { @class = "form-control" })
+                </div>
+                <div class="col-md-2">
+                    @Html.DropDownList("SEMESTER_ID", (IEnumerable<SelectListItem>)ViewData["semester_list"], "Select Semester", new { @class = "form-control" })
+                </div>
+                <div class="col-md-2">
+                    @Html.DropDownList("YEAR", (IEnumerable<SelectListItem>)ViewData["exam_year"], "Select Exam Year", new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col-md-2 pull-right" style="margin-top:20px;">
+                <input type="submit" name="btn_src" class="btn btn-success" value="Search" />
+            </div>
+        </div>
+    </div>
+}
+
+<br />
 
 @if (@Model != null)
 {
     @(Html
-        .Grid(Model)
-        .Build(columns =>
-        {
-            columns.Add(model => model.COURSE_CODE).Titled("Course Code");
-            columns.Add(model => model.COURSE_NAME).Titled("Course Code");
-            columns.Add(model=>$@"<button class='btn btn-success btn-medit' value='{model.ID}' onclick='btnEditClick($(this))' myUrl='{Create}'><i class='fa fa-pencil'></i> Entry</button>").Encoded(false).Css("management-col").Titled("Entry");
-            columns.Add(model => $@"<a class='btn btn-info' href='/Exammarksentry/Importmarks/" + model.ID + "'><i class='fa fa-file-excel-o'></i> Import</a>").Encoded(false).Css("management-col").Titled("Import");
-            columns.Add(model => $@"<a class='btn btn-info' href='/Exammarksentry/ExportExcel/"+model.ID+"'><i class='fa fa-file-excel-o'></i> Export</a>").Encoded(false).Css("management-col").Titled("Export");
+                        .Grid(Model)
+                        .Build(columns =>
+                        {
+                            columns.Add(model => model.COURSE_CODE).Titled("Course Code");
+                            columns.Add(model => model.COURSE_NAME).Titled("Course Code");
+                            columns.Add(model => $@"<button class='btn btn-success btn-medit' value='{model.ID}' onclick='btnEditClick($(this))' myUrl='{Create}'><i class='fa fa-pencil'></i> Entry</button>").Encoded(false).Css("management-col").Titled("Entry");
+                            columns.Add(model => $@"<a class='btn btn-info' href='/Exammarksentry/Importmarks/" + model.ID + "'><i class='fa fa-file-excel-o'></i> Import</a>").Encoded(false).Css("management-col").Titled("Import");
+                            columns.Add(model => $@"<a class='btn btn-info' href='/Exammarksentry/ExportExcel/" + model.ID + "'><i class='fa fa-file-excel-o'></i> Export</a>").Encoded(false).Css("management-col").Titled("Export");
             //            columns.Add(model => $@"<button class='btn btn-primary btn-mdetails' value='{model.ID}' onclick='btnDetailsClick($(this));' myUrl='{Details}'><i class='fa fa-info'></i> Details</button>
             //<button class='btn btn-warning btn-medit'    value='{model.ID}' onclick='btnEditClick($(this))' myUrl='{Edit}'><i class='fa fa-pencil'></i> Edit</button>
             //<button class='btn btn-danger  btn-mdelete'  value='{model.ID}' onclick='btnDeleteClick($(this))' myUrl='{Delete}'><i class='fa fa-times-circle'></i></button>").Encoded(false).Css("management-col").Titled("MANAGEMENT");
 
         })
-        //.WithFilterMode(GridFilterMode.FilterRow)
-        .Empty("No data found")
-//.MultiFilterable()
-//.Filterable()
-//.Sortable()
-)
+                        //.WithFilterMode(GridFilterMode.FilterRow)
+                        .Empty("No data found")
+            //.MultiFilterable()
+            //.Filterable()
+            //.Sortable()
+    )
     @Html.PagedListPager(Model, page => Url.Action("Index", "Exammarksentry", new { i = page, search = Request.QueryString["search"] }), new PagedListRenderOptions { LinkToFirstPageFormat = "First", LinkToPreviousPageFormat = "Previous", LinkToNextPageFormat = "Next", LinkToLastPageFormat = "Last" })
 }
 
@@ -62,6 +106,33 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            var getUrl = window.location;
+            //Get Semester
+            $(document).on("change", "#LEVEL_ID", function () {
+                var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/get_semester";
+                var LEVEL_ID = $("#LEVEL_ID").val();
+                var fls = { LEVEL_ID: LEVEL_ID }
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: fls,
+                    beforeSend: function () {
+                        $("#loader_view").show();
+                    },
+                    success: function (data) {
+                        $("#loader_view").hide();
+                        $("#SEMESTER_ID").html('<option>--Select--</option>');
+                        $.each(data, function (key, val) {
+                            var ID = val.ID;
+
+                            var tr = "<option value='" + val.ID + "'>" + val.SEMESTER_NAME + "</option>";
+                            $("#SEMESTER_ID").append(tr);
+                        });
+                    }
+                    //data: JSON.stringify(person)
+                });
+            });
 
             $(document).on("keyup", ".internal_marks", function () {
                 var ck_internal_marks = Number($("#ck_internal_marks").val());

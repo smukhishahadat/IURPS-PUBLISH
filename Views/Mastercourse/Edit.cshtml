@@ -33,7 +33,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.FACULTY_ID, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.DropDownList("FACULTY_ID", (IEnumerable<SelectListItem>)ViewData["faculty_list"], "Select Type", new { @class = "form-control" })
+                                @Html.DropDownList("FACULTY_ID", (IEnumerable<SelectListItem>)ViewData["faculty_list"], "Select Faculty", new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.FACULTY_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.DEPARTMENT_ID, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.DropDownList("DEPARTMENT_ID", (IEnumerable<SelectListItem>)ViewData["dept_list"], "Select Type", new { @class = "form-control" })
+                                @Html.DropDownList("DEPARTMENT_ID", (IEnumerable<SelectListItem>)ViewData["dept_list"], "Select Department", new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.DEPARTMENT_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.LEVEL_ID, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.DropDownList("LEVEL_ID", (IEnumerable<SelectListItem>)ViewData["level_id"], "Select Program", new { @class = "form-control" })
+                                @Html.DropDownList("LEVEL_ID", (IEnumerable<SelectListItem>)ViewData["level_id"], "Select Academic Year", new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.LEVEL_ID, "", new { @class = "text-danger" })
                             </div>
                         </div>

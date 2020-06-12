@@ -83,11 +83,11 @@
                             //<button class='btn btn-danger  btn-mdelete'  value='{model.ID}' onclick='btnDeleteClick($(this))' myUrl='{Delete}'><i class='fa fa-times-circle'></i></button>").Encoded(false).Css("management-col").Titled("MANAGEMENT");
 
                         })
-                                        .WithFilterMode(GridFilterMode.FilterRow)
+                                       // .WithFilterMode(GridFilterMode.FilterRow)
                                         .Empty("No data found")
-                    .MultiFilterable()
-                    .Filterable()
-                    .Sortable()
+                    //.MultiFilterable()
+                    //.Filterable()
+                    //.Sortable()
     )
     @Html.PagedListPager(Model, page => Url.Action("Index", "AssignExaminer", new { i = page, search = Request.QueryString["search"] }), new PagedListRenderOptions { LinkToFirstPageFormat = "First", LinkToPreviousPageFormat = "Previous", LinkToNextPageFormat = "Next", LinkToLastPageFormat = "Last" })
 }

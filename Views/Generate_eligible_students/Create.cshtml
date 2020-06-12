@@ -1,0 +1,55 @@
+﻿@model IUMS.Entities.TRANSCRIPT_ELIGIBLE_STD
+@{
+	Layout = null;
+}
+
+<div class="modal" id="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			@{string ajaxPostUrl = Url.Action("Create", null, null, Request.Url.Scheme);}
+			@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form", ajaxPostUrl = ajaxPostUrl }))
+			{
+				@Html.AntiForgeryToken()				
+				<div class="modal-header">
+					<div class="col-md-10">
+						<h3>Create</h3>
+					</div>
+					<div class="col-md-2">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				</div>
+				<div class="modal-body">
+					@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Faculty</th>
+                                <th scope="col">Department</th>
+                                <th scope="col">Program</th>
+                                <th scope="col">Semester</th>
+                                <th scope="col">Year</th>
+                                
+                            </tr>
+                            <tr>
+                                <td> @Html.DropDownList("FACULTY_ID", (IEnumerable<SelectListItem>)ViewData["faculty_list"], "Select Faculty", new { @class = "form-control" })</td>
+                                <td> @Html.DropDownList("DEPARTMENT_ID", (IEnumerable<SelectListItem>)ViewData["dept_list"], "Select Department", new { @class = "form-control" })</td>
+                                <td> @Html.DropDownList("PROGRAM_ID", (IEnumerable<SelectListItem>)ViewData["program_list"], "Select Program", new { @class = "form-control" })</td>
+                                <td> @Html.DropDownList("SEMESTER_ID", (IEnumerable<SelectListItem>)ViewData["semester_list"], "Select Semester", new { @class = "form-control" })</td>
+                                <td>@Html.DropDownList("YEAR", (IEnumerable<SelectListItem>)ViewData["exam_year"], "Select Exam Year", new { @class = "form-control" })</td>
+                                
+                            </tr>
+                        </thead>
+
+                    </table>				
+				</div>
+				<div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="formValidSend()">Create</button>
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+				</div>
+			}
+		</div>
+	</div>
+</div>

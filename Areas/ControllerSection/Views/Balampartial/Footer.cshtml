@@ -1,0 +1,238 @@
+﻿@{
+    //Exam committee
+    var exam_committee_list = ViewBag.exam_committee_list;
+    var exam_comit_1st = exam_committee_list[0];
+    var exam_comit_2nd = exam_committee_list[1];
+    var exam_comit_3rd = exam_committee_list[2];
+    var exam_comit_4th = exam_committee_list[3];
+    var exam_comit_5th = exam_committee_list[4];
+    var exam_comit_6th = exam_committee_list[5];
+    var exam_comit_7th = exam_committee_list[6];
+    var exam_comit_8th = exam_committee_list[7];
+}
+<!DOCTYPE html>
+<table class="" style="border-collapse:collapse;text-align: center;font-size:12px;width:100%;" border="0">
+    <tr>
+        <td colspan="300">
+            <table style="width:100%;" align="center">
+                <tr>
+                    <td valign="top" style="padding:10px;">
+                        <table class="" style="border-collapse:collapse;text-align: center;font-size:12px;width:100%;" border="1">
+
+                            <tr style="text-align:center; font-weight:bold;">
+                                <td colspan="9" align="center">Examination Committee as well as Tabulators</td>
+                            </tr>
+                            <tr style="text-align:center; font-weight:bold;">
+                                <td colspan="2" rowspan="1">FIRST YEAR</td>
+                                <td colspan="2" rowspan="1">SECOND YEAR</td>
+                                <td colspan="2" rowspan="1">THIRD YEAR</td>
+                                <td colspan="2" rowspan="1">FOURTH YEAR</td>
+                            </tr>
+                            <tr style="text-align:center; font-weight:bold;">
+                                <td>1st Semester</td>
+                                <td>2nd Semester</td>
+                                <td>1st Semester</td>
+                                <td>2nd Semester</td>
+                                <td>1st Semester</td>
+                                <td>2nd Semester</td>
+                                <td>1st Semester</td>
+                                <td>2nd Semester</td>
+                            </tr>
+                            <tr style="text-align:center; font-weight:bold;">
+                                <td>Regular</td>
+                                <td>Regular</td>
+                                <td>Regular</td>
+                                <td>Regular</td>
+                                <td>Regular</td>
+                                <td>Regular</td>
+                                <td>Regular</td>
+                                <td>Regular</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @foreach (var exam_com_list in exam_comit_1st)
+                                    {
+                                        <p>1. @exam_com_list.COMMITTEE_HEAD</p>
+                                        <p>2. @exam_com_list.MEMBER1</p>
+                                        <p>3. @exam_com_list.MEMBER2</p>
+                                        <p>4. @exam_com_list.MEMBER3</p>
+                                        <p>Date -&nbsp;</p>
+                                    }
+                                </td>
+                                <td>
+                                    @foreach (var exam_com_list in exam_comit_2nd)
+                                    {
+                                        <p>1. @exam_com_list.COMMITTEE_HEAD</p>
+                                        <p>2. @exam_com_list.MEMBER1</p>
+                                        <p>3. @exam_com_list.MEMBER2</p>
+                                        <p>4. @exam_com_list.MEMBER3</p>
+                                        <p>Date -&nbsp;</p>
+                                    }
+                                </td>
+                                <td>
+                                    @foreach (var exam_com_list in exam_comit_3rd)
+                                    {
+                                        <p>1. @exam_com_list.COMMITTEE_HEAD</p>
+                                        <p>2. @exam_com_list.MEMBER1</p>
+                                        <p>3. @exam_com_list.MEMBER2</p>
+                                        <p>4. @exam_com_list.MEMBER3</p>
+                                        <p>Date -&nbsp;</p>
+                                    }
+                                </td>
+                                <td>
+                                    @foreach (var exam_com_list in exam_comit_4th)
+                                    {
+                                        <p>1. @exam_com_list.COMMITTEE_HEAD</p>
+                                        <p>2. @exam_com_list.MEMBER1</p>
+                                        <p>3. @exam_com_list.MEMBER2</p>
+                                        <p>4. @exam_com_list.MEMBER3</p>
+                                        <p>Date -&nbsp;</p>
+                                    }
+                                </td>
+                                <td>
+                                    @foreach (var exam_com_list in exam_comit_5th)
+                                    {
+                                        <p>1. @exam_com_list.COMMITTEE_HEAD</p>
+                                        <p>2. @exam_com_list.MEMBER1</p>
+                                        <p>3. @exam_com_list.MEMBER2</p>
+                                        <p>4. @exam_com_list.MEMBER3</p>
+                                        <p>Date -&nbsp;</p>
+                                    }
+                                </td>
+                                <td>
+                                    @foreach (var exam_com_list in exam_comit_6th)
+                                    {
+                                        <p>1. @exam_com_list.COMMITTEE_HEAD</p>
+                                        <p>2. @exam_com_list.MEMBER1</p>
+                                        <p>3. @exam_com_list.MEMBER2</p>
+                                        <p>4. @exam_com_list.MEMBER3</p>
+                                        <p>Date -&nbsp;</p>
+                                    }
+                                </td>
+                                <td>
+                                    @foreach (var exam_com_list in exam_comit_7th)
+                                    {
+                                        <p>1. @exam_com_list.COMMITTEE_HEAD</p>
+                                        <p>2. @exam_com_list.MEMBER1</p>
+                                        <p>3. @exam_com_list.MEMBER2</p>
+                                        <p>4. @exam_com_list.MEMBER3</p>
+                                        <p>Date -&nbsp;</p>
+                                    }
+                                </td>
+                                <td>
+                                    @foreach (var exam_com_list in exam_comit_8th)
+                                    {
+                                        <p>1. @exam_com_list.COMMITTEE_HEAD</p>
+                                        <p>2. @exam_com_list.MEMBER1</p>
+                                        <p>3. @exam_com_list.MEMBER2</p>
+                                        <p>4. @exam_com_list.MEMBER3</p>
+                                        <p>Date -&nbsp;</p>
+                                    }
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                    <td valign="top" style="padding:10px;">
+                        <table class="" style="border-collapse:collapse;text-align: center;font-size:12px;width:100%;" border="1">
+
+                            <tr style="text-align:center; font-weight:bold;">
+                                <td colspan="5">CHECKED BY</td>
+                            </tr>
+                            <tr style="text-align:center; font-weight:bold;">
+                                <td>&nbsp;</td>
+                                <td colspan="2" rowspan="1">1st Semester</td>
+                                <td colspan="2" rowspan="1">1st Semester</td>
+                            </tr>
+                            <tr style="text-align:center; font-weight:bold;">
+                                <td>&nbsp;</td>
+                                <td>Regular</td>
+                                <td>Retake</td>
+                                <td>Regular</td>
+                                <td>Retake</td>
+                            </tr>
+                            <tr>
+                                <td>1st Yr.</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>2nd Yr.</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>3rd Yr.</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>4th Yr.</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+
+                        </table>
+                    </td>
+                    <td valign="top" style="padding:10px;">
+                        <table class="" style="border-collapse:collapse;text-align: center;font-size:12px;width:100%;" border="1">
+
+                            <tr style="text-align:center; font-weight:bold;">
+                                <td colspan="5">CONTROLLER OF EXAMINATIONS</td>
+                            </tr>
+                            <tr style="text-align:center; font-weight:bold;">
+                                <td>&nbsp;</td>
+                                <td colspan="2" rowspan="1">1st Semester</td>
+                                <td colspan="2" rowspan="1">1st Semester</td>
+                            </tr>
+                            <tr style="text-align:center; font-weight:bold;">
+                                <td>&nbsp;</td>
+                                <td>Regular</td>
+                                <td>Retake</td>
+                                <td>Regular</td>
+                                <td>Retake</td>
+                            </tr>
+                            <tr>
+                                <td>1st Yr.</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>2nd Yr.</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>3rd Yr.</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>4th Yr.</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,586 @@
+﻿@model IUEMS.Areas.ControllerSection.Models.BalamViewModel
+@{
+    //Courses
+    var courses = ViewBag.course_list;
+    int total_courses = courses.Count;
+
+    var courses_1st = courses[0];
+    var courses_2nd = courses[1];
+    var courses_3rd = courses[2];
+    var courses_4th = courses[3];
+    var courses_5th = courses[4];
+    var courses_6th = courses[5];
+    var courses_7th = courses[6];
+    var courses_8th = courses[7];
+
+    int courses_1st_cnt = courses_1st.Count;
+    int courses_2nd_cnt = courses_2nd.Count;
+    int courses_3rd_cnt = courses_3rd.Count;
+    int courses_4th_cnt = courses_4th.Count;
+    int courses_5th_cnt = courses_5th.Count;
+    int courses_6th_cnt = courses_6th.Count;
+    int courses_7th_cnt = courses_7th.Count;
+    int courses_8th_cnt = courses_8th.Count;
+
+    //Marks Sheet
+    var marks = ViewBag.marks_list;
+    var marks_1st = marks[0];
+    var marks_2nd = marks[1];
+    var marks_3rd = marks[2];
+    var marks_4th = marks[3];
+    var marks_5th = marks[4];
+    var marks_6th = marks[5];
+    var marks_7th = marks[6];
+    var marks_8th = marks[7];
+
+    int cmarks_1st_cnt = marks_1st.Count;
+    int cmarks_2nd_cnt = marks_2nd.Count;
+    int cmarks_3rd_cnt = marks_3rd.Count;
+    int cmarks_4th_cnt = marks_4th.Count;
+    int cmarks_5th_cnt = marks_5th.Count;
+    int cmarks_6th_cnt = marks_6th.Count;
+    int cmarks_7th_cnt = marks_7th.Count;
+    int cmarks_8th_cnt = marks_8th.Count;
+
+    //Mark Summery
+    var mark_summery = ViewBag.mark_summery;
+    var summery_1st = mark_summery[0];
+    var summery_2nd = mark_summery[1];
+    var summery_3rd = mark_summery[2];
+    var summery_4th = mark_summery[3];
+    var summery_5th = mark_summery[4];
+    var summery_6th = mark_summery[5];
+    var summery_7th = mark_summery[6];
+    var summery_8th = mark_summery[7];
+
+    //yearly_mark_summery
+    var yearly_mark_summery = ViewBag.yearly_mark_summery;
+    var summery_1st_year = yearly_mark_summery[0];
+    var summery_2nd_year = yearly_mark_summery[1];
+    var summery_3rd_year = yearly_mark_summery[2];
+    var summery_4th_year = yearly_mark_summery[3];
+
+    //Exam committee
+    var exam_committee_list = ViewBag.exam_committee_list;
+    var exam_comit_1st = exam_committee_list[0];
+    var exam_comit_2nd = exam_committee_list[1];
+    var exam_comit_3rd = exam_committee_list[2];
+    var exam_comit_4th = exam_committee_list[3];
+    var exam_comit_5th = exam_committee_list[4];
+    var exam_comit_6th = exam_committee_list[5];
+    var exam_comit_7th = exam_committee_list[6];
+    var exam_comit_8th = exam_committee_list[7];
+
+}
+<!DOCTYPE html>
+<style type="text/css">
+    .page-content {
+        overflow: scroll !important;
+    }
+    .ui-autocomplete {
+        z-index: 2147483647;
+    }
+    table {
+        page-break-inside: auto
+    }
+    thead {
+        display: table-header-group;
+        page-break-after: always;
+    }
+    tbody {
+        page-break-inside: avoid;
+        page-break-after: always;
+    }
+    tfoot {
+        display: table-footer-group;
+    }
+
+    tr {
+        page-break-inside: avoid !important;
+        page-break-after: auto;
+    }
+    td {
+        page-break-inside: avoid;
+        page-break-after: auto
+    }
+    
+</style>
+<link href="../../assets/admin/layout/css/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="../../assets/admin/layout/scripts/jquery-ui.js"></script>
+
+    @*Final Result Table*@
+    
+<table class="" style="border-collapse:collapse;text-align: center;font-size:12px;width:100%;" border="0">
+    <thead id="thead">
+
+        <tr>
+            <td rowspan="5" style="border:1px solid #000000;">Student Information</td>
+            <td rowspan="2" style="border:1px solid #000000;">&nbsp;</td>
+            <td colspan="@(courses_1st_cnt+courses_2nd_cnt+10)">First Year</td>
+            <td colspan="2" style="border:1px solid #000000;">Second Year</td>
+            <td colspan="2" style="border:1px solid #000000;">Third Year</td>
+            <td colspan="2" style="border:1px solid #000000;">Fourth Year</td>
+        </tr>
+        <tr>
+            <td colspan="@(courses_1st_cnt+4)" style="border:1px solid #000000;">First Semester</td>
+            <td colspan="@(courses_2nd_cnt+6)" style="border:1px solid #000000;">Second Semester</td>
+
+            <td style="border:1px solid #000000;">First Semester</td>
+            <td style="border:1px solid #000000;">Second Semester</td>
+
+            <td style="border:1px solid #000000;">First Semester</td>
+            <td style="border:1px solid #000000;">Second Semester</td>
+
+            <td style="border:1px solid #000000;">First Semester</td>
+            <td style="border:1px solid #000000;">Second Semester</td>
+        </tr>
+        <tr>
+            <td style="border:1px solid #000000;">Course Code</td>
+            @foreach (var cours_list in courses_1st)
+            {
+                <td style="border:1px solid #000000;">@cours_list.COURSE_CODE</td>
+            }
+            <td colspan="4" style="border:1px solid #000000;">Result</td>
+            @foreach (var cours_list in courses_2nd)
+            {
+                <td style="border:1px solid #000000;">@cours_list.COURSE_CODE</td>
+            }
+            <td colspan="6" style="border:1px solid #000000;">Result</td>
+        </tr>
+        <tr>
+            <td style="border:1px solid #000000;">Full Marks</td>
+            @foreach (var cours_list in courses_1st)
+            {
+                <td style="border:1px solid #000000;">@cours_list.FULL_MARKS</td>
+            }
+            <td rowspan="2" style="border:1px solid #000000;">Total Earned Credits</td>
+            <td rowspan="2" style="border:1px solid #000000;">Total Points Secured</td>
+            <td rowspan="2" style="border:1px solid #000000;">Grade Point Average(GPA)</td>
+            <td rowspan="2" style="border:1px solid #000000;">Letter Grade(LG)</td>
+            @foreach (var cours_list in courses_2nd)
+            {
+                <td style="border:1px solid #000000;">@cours_list.FULL_MARKS</td>
+            }
+            <td rowspan="2" style="border:1px solid #000000;">Total Earned Credits</td>
+            <td rowspan="2" style="border:1px solid #000000;">Total Points Secured</td>
+            <td rowspan="2" style="border:1px solid #000000;">Grade Point Average (GPA)</td>
+            <td rowspan="2" style="border:1px solid #000000;">Letter Grade (LG)</td>
+            <td rowspan="2" style="border:1px solid #000000;">LGPA</td>
+            <td rowspan="2" style="border:1px solid #000000;">Remarks</td>
+        </tr>
+        <tr>
+            <td style="border:1px solid #000000;">Credit</td>
+            @foreach (var cours_list in courses_1st)
+            {
+                <td style="border:1px solid #000000;">@cours_list.COURSE_CREDIT</td>
+            }
+            @foreach (var cours_list in courses_2nd)
+            {
+                <td style="border:1px solid #000000;">@cours_list.COURSE_CREDIT</td>
+            }
+        </tr>
+    </thead>
+
+    @{
+        var ij = 0;
+        var loop = 1;
+    }
+
+    @foreach (var std_list in Model.MarksheetStdInfo)
+    {
+        decimal earn_credit = 0;
+        decimal tps_sems = 0;
+        decimal gpa = 0;
+        decimal lgpa = 0;
+        var remarks = "";
+        var lg = "";
+
+        <tr>
+            <td rowspan="10" style="border:1px solid #000000;">
+
+                @(ij+1)
+                .
+                @std_list.FULL_NAME
+                <br />
+                @std_list.STUDENT_ID
+                <br />
+                @std_list.REG_NO
+                <br />
+            </td>
+            <td style="border:1px solid #000000;">Internal Evalution</td>
+            @for (int k = 0; k < marks.Count; k++)
+            {
+                decimal internal_mark = 0;
+
+
+                if (marks[k].Count > ij)
+                {
+                    internal_mark = marks[k][ij].INTERNAL_MARKS;
+                }
+
+                <td style="border:1px solid #000000;">@internal_mark</td>
+
+                //First year Summery
+                //1st Semester Summery
+                if (courses_1st_cnt == (k + 1))
+                {
+                    if (summery_1st.Count > 0)
+                    {
+                        var summery_arr1 = summery_1st[ij];
+                        //summery_1st
+                        earn_credit = summery_arr1.EC;
+                        lg = summery_arr1.GPL;
+                        tps_sems = summery_arr1.TPS;
+                        gpa = tps_sems / earn_credit;
+                    }
+
+                    <td rowspan="10" style="border:1px solid #000000;">@earn_credit</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@tps_sems</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@gpa</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@lg</td>
+                }
+
+                //2nd Semester Summery
+                if ((courses_2nd_cnt + courses_1st_cnt) == (k + 1))
+                {
+                    if (summery_2nd.Count > 0)
+                    {
+                        var summery_1st_year_arr = summery_1st_year[ij];
+                        var summery_arr2 = summery_2nd[ij];
+                        earn_credit = summery_arr2.EC;
+                        lg = summery_arr2.GPL;
+                        tps_sems = summery_arr2.TPS;
+                        gpa = tps_sems / earn_credit;
+                        lgpa = summery_1st_year_arr.LGPA;
+                        remarks = summery_1st_year_arr.REMARKS;
+                    }
+                    //summery_1st
+
+                    <td rowspan="10" style="border:1px solid #000000;">@earn_credit</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@tps_sems</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@gpa</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@lg</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@lgpa</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@remarks</td>
+                }
+
+
+
+                //1st Semester Summery
+                if ((courses_2nd_cnt + courses_1st_cnt + courses_3rd_cnt) == (k + 1))
+                {
+                    if (summery_3rd.Count > 0)
+                    {
+                        var summery_arr3 = summery_3rd[ij];
+                        //summery_1st
+                        earn_credit = summery_arr3.EC;
+                        lg = summery_arr3.GPL;
+                        tps_sems = summery_arr3.TPS;
+                        gpa = tps_sems / earn_credit;
+                    }
+
+                    <td rowspan="10" style="border:1px solid #000000;">@earn_credit</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@tps_sems</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@gpa</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@lg</td>
+                }
+
+                //2nd Semester Summery
+                if ((courses_2nd_cnt + courses_1st_cnt + courses_3rd_cnt + courses_4th_cnt) == (k + 1))
+                {
+                    if (summery_4th.Count > 0)
+                    {
+                        //Second year Summery
+                        var summery_2nd_year_arr = summery_2nd_year[ij];
+                        var summery_arr4 = summery_4th[ij];
+                        earn_credit = summery_arr4.EC;
+                        lg = summery_arr4.GPL;
+                        tps_sems = summery_arr4.TPS;
+                        gpa = tps_sems / earn_credit;
+                        lgpa = summery_2nd_year_arr.LGPA;
+                        remarks = summery_2nd_year_arr.REMARKS;
+                    }
+                    //summery_2nd
+
+                    <td rowspan="10" style="border:1px solid #000000;">@earn_credit</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@tps_sems</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@gpa</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@lg</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@lgpa</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@remarks</td>
+                }
+
+                //Third year Summery
+
+
+                //1st Semester Summery
+                if ((courses_2nd_cnt + courses_1st_cnt + courses_3rd_cnt + courses_4th_cnt + courses_5th_cnt) == (k + 1))
+                {
+                    if (summery_5th.Count > 0)
+                    {
+                        var summery_arr5 = summery_5th[ij];
+                        //summery_1st
+                        earn_credit = summery_arr5.EC;
+                        lg = summery_arr5.GPL;
+                        tps_sems = summery_arr5.TPS;
+                        gpa = tps_sems / earn_credit;
+                    }
+
+                    <td rowspan="10" style="border:1px solid #000000;">@earn_credit</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@tps_sems</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@gpa</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@lg</td>
+                }
+
+                //2nd Semester Summery
+                if ((courses_2nd_cnt + courses_1st_cnt + courses_3rd_cnt + courses_4th_cnt + courses_5th_cnt + courses_6th_cnt) == (k + 1))
+                {
+                    if (summery_6th.Count > 0)
+                    {
+                        var summery_3rd_year_arr = summery_3rd_year[ij];
+                        var summery_arr6 = summery_6th[ij];
+                        earn_credit = summery_arr6.EC;
+                        lg = summery_arr6.GPL;
+                        tps_sems = summery_arr6.TPS;
+                        gpa = tps_sems / earn_credit;
+                        lgpa = summery_3rd_year_arr.LGPA;
+                        remarks = summery_3rd_year_arr.REMARKS;
+                    }
+                    //summery_1st
+
+                    <td rowspan="10" style="border:1px solid #000000;">@earn_credit</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@tps_sems</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@gpa</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@lg</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@lgpa</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@remarks</td>
+                }
+
+
+                //Fourth year Summery
+
+                if (summery_7th.Count > 0)
+                {
+                    var summery_arr7 = summery_7th[ij];
+                }
+                if (summery_8th.Count > 0)
+                {
+                    var summery_arr8 = summery_8th[ij];
+                }
+                //1st Semester Summery
+                if ((courses_2nd_cnt + courses_1st_cnt + courses_3rd_cnt + courses_4th_cnt + courses_5th_cnt + courses_6th_cnt + courses_7th_cnt) == (k + 1))
+                {
+                    if (summery_7th.Count > 0)
+                    {
+                        var summery_arr7 = summery_7th[ij];
+                        //summery_1st
+                        earn_credit = summery_arr7.EC;
+                        lg = summery_arr7.GPL;
+                        tps_sems = summery_arr7.TPS;
+                        gpa = tps_sems / earn_credit;
+                    }
+
+                    <td rowspan="10" style="border:1px solid #000000;">@earn_credit</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@tps_sems</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@gpa</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@lg</td>
+                }
+
+                //2nd Semester Summery
+                if ((courses_2nd_cnt + courses_1st_cnt + courses_3rd_cnt + courses_4th_cnt + courses_5th_cnt + courses_6th_cnt + courses_7th_cnt + courses_8th_cnt) == (k + 1))
+                {
+                    if (summery_8th.Count > 0)
+                    {
+                        var summery_4th_year_arr = summery_4th_year[ij];
+                        var summery_arr8 = summery_8th[ij];
+                        earn_credit = summery_arr8.EC;
+                        lg = summery_arr8.GPL;
+                        tps_sems = summery_arr8.TPS;
+                        gpa = tps_sems / earn_credit;
+                        lgpa = summery_4th_year_arr.LGPA;
+                        remarks = summery_4th_year_arr.REMARKS;
+                    }
+                    //summery_1st
+
+                    <td rowspan="10" style="border:1px solid #000000;">@earn_credit</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@tps_sems</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@gpa</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@lg</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@lgpa</td>
+                    <td rowspan="10" style="border:1px solid #000000;">@remarks</td>
+                }
+
+            }
+
+        </tr>
+        <tr>
+            <td style="border:1px solid #000000;">Written Marks</td>
+
+            @for (int k = 0; k < marks.Count; k++)
+            {
+                decimal internal_mark = 0;
+                if (marks[k].Count > ij)
+                {
+                    internal_mark = marks[k][ij].AVG_MARKS;
+                }
+
+                <td style="border:1px solid #000000;">@internal_mark</td>
+            }
+        </tr>
+        <tr>
+            <td style="border:1px solid #000000;">Total Marks</td>
+
+            @for (int k = 0; k < marks.Count; k++)
+            {
+                decimal internal_mark = 0;
+                if (marks[k].Count > ij)
+                {
+                    internal_mark = marks[k][ij].TOTAL_MARKS;
+                }
+
+                <td style="border:1px solid #000000;">@internal_mark</td>
+            }
+        </tr>
+        <tr>
+            <td style="border:1px solid #000000;">Letter Grade</td>
+
+            @for (int k = 0; k < marks.Count; k++)
+            {
+                string internal_mark = "";
+                if (marks[k].Count > ij)
+                {
+                    internal_mark = marks[k][ij].LETTER_GRADE;
+                }
+
+                <td style="border:1px solid #000000;">@internal_mark</td>
+            }
+        </tr>
+        <tr>
+            <td style="border:1px solid #000000;">Grade Point</td>
+            @for (int k = 0; k < marks.Count; k++)
+            {
+                decimal internal_mark = 0;
+                if (marks[k].Count > ij)
+                {
+                    if (marks[k][ij].GRADE_POINT != null)
+                    {
+                        internal_mark = marks[k][ij].GRADE_POINT;
+                    }
+
+                }
+
+                <td style="border:1px solid #000000;">@internal_mark</td>
+            }
+        </tr>
+        <tr>
+            <td style="border:1px solid #000000;">Retake Marks</td>
+
+            @for (int k = 0; k < marks.Count; k++)
+            {
+                decimal internal_mark = 0;
+                if (marks[k].Count > ij)
+                {
+                    if (marks[k][ij].SUPL_AVG_MARKS != null)
+                    {
+                        internal_mark = marks[k][ij].SUPL_AVG_MARKS;
+                    }
+                }
+
+                <td style="border:1px solid #000000;">@internal_mark</td>
+            }
+        </tr>
+        <tr>
+            <td style="border:1px solid #000000;">Countable Marks</td>
+
+            @for (int k = 0; k < marks.Count; k++)
+            {
+                decimal internal_mark = 0;
+                if (marks[k].Count > ij)
+                {
+                    if (marks[k][ij].COUNTED_MARK != null)
+                    {
+                        internal_mark = marks[k][ij].COUNTED_MARK;
+                    }
+
+                }
+
+                <td style="border:1px solid #000000;">@internal_mark</td>
+            }
+        </tr>
+        <tr>
+            <td style="border:1px solid #000000;">Letter Grade</td>
+
+            @for (int k = 0; k < marks.Count; k++)
+            {
+                string internal_mark = "";
+                if (marks[k].Count > ij)
+                {
+                    internal_mark = marks[k][ij].LETTER_GRADE;
+                }
+
+                <td style="border:1px solid #000000;">@internal_mark</td>
+            }
+        </tr>
+        <tr>
+            <td style="border:1px solid #000000;">Grade Point</td>
+            @for (int k = 0; k < marks.Count; k++)
+            {
+                decimal internal_mark = 0;
+                if (marks[k].Count > ij)
+                {
+                    if (marks[k][ij].GRADE_POINT != null)
+                    {
+                        internal_mark = marks[k][ij].GRADE_POINT;
+                    }
+
+                }
+
+                <td style="border:1px solid #000000;">@internal_mark</td>
+            }
+        </tr>
+        <tr>
+            <td style="border:1px solid #000000;">Point Secured</td>
+            @{
+                decimal tps = 0;
+            }
+            @for (int k = 0; k < marks.Count; k++)
+            {
+                decimal ps = 0;
+
+                if (marks[k].Count > ij)
+                {
+                    if (marks[k][ij].GRADE_POINT != null && marks[k][ij].CREDIT_EARNED != null)
+                    {
+                        ps = marks[k][ij].GRADE_POINT * marks[k][ij].CREDIT_EARNED;
+                    }
+                }
+
+                <td style="border:1px solid #000000;">@ps</td>
+            }
+
+        </tr>
+
+        if (loop == 8)
+        {
+            loop = 1;
+            <tr style="border:1px solid #FFFFFF;"><td style="border:1px solid #FFFFFF !important;">&nbsp;</td></tr>
+        }
+        else { loop++; }
+        ij++;
+
+
+    }
+
+</table>
+    
+
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/_global.js"></script>
+    <script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
+    <link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/_global.css" rel="stylesheet" />     
+}

@@ -5,6 +5,15 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutPageMetronic.cshtml";
 }
+<style type="text/css">
+    .page-content {
+        overflow: scroll !important;
+    }
+
+    .ui-autocomplete {
+        z-index: 2147483647;
+    }
+</style>
 <div class='row'>
     <div class='col-md-10 text-left'>
     <h3 class='text-info'>Tabulation Sheet</h3>
@@ -51,15 +60,18 @@
 </div>
 
 <div class="row" id="div_result" style="display:none;width:100%;">
+    <div class="col-md-2">
+        <a href="" id="pdf" class="btn btn-success" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
+    </div>
     <div class="col-md-12">
         <table width="60%" style="border-collapse:collapse;text-align: center;" align="center" class="short_tbl_key_info">
             <tr>
-                <td><img height="50px" src="" /><span style="font-weight:bold;font-size:34px;text-align:center;margin-left:10px;">ISLAMIC UNIVERSITY</span></td>
+                <td><img width="50" alt="" src="~/assets/admin/layout/img/avatar3_small.png"><span style="font-weight:bold;font-size:34px;text-align:center;margin-left:10px;">ISLAMIC UNIVERSITY</span></td>
             </tr>
             <tr><td colspan="4"><span id="faculty_name"></span></td></tr>
             <tr><td colspan="4"><span id="dept_name"></span></td></tr>
             <tr><td colspan="4"><span id="program_name"></span> </td></tr>
-            <tr><td colspan="4"><span id="session_year"></span>,<span id="semester"></span><span id="exam_year"></span></td></tr>
+            <tr><td colspan="4"><span id="session_year"></span>-<span id="semester"></span><span id="exam_year"></span></td></tr>
             <tr><td colspan="4"><h3>Tabulation Sheet</h3></td></tr>
         </table>
 
@@ -97,20 +109,30 @@
                 var DEPARTMENT_ID=$("#DEPARTMENT_ID").val();
                 var PROGRAM_ID=$("#PROGRAM_ID").val();
                 var SEMESTER_ID=$("#SEMESTER_ID").val();
-                var YEAR=$("#YEAR").val();
-
+                var YEAR = $("#YEAR").val();
+                var pdf_url = "/TabulationSheet/Viewer?FACULTY_ID=" + FACULTY_ID + "&DEPARTMENT_ID=" + DEPARTMENT_ID + "&PROGRAM_ID=" + PROGRAM_ID + "&SEMESTER_ID=" + SEMESTER_ID + "&YEAR=" + YEAR;
+                
+                $("#pdf").attr("href", pdf_url);
                 var fls = { FACULTY_ID: FACULTY_ID, DEPARTMENT_ID: DEPARTMENT_ID, PROGRAM_ID: PROGRAM_ID, SEMESTER_ID: SEMESTER_ID, YEAR: YEAR }
                 $.ajax({
                     type: "POST",
                     url: url,
                     data: fls,
                     beforeSend: function () {
-                        // $("#loader_view").show();
+                        $("#loader_view").show();
                     },
                     success: function (data) {
+                        $("#loader_view").hide();
                         $("#div_result").show();
                         $("#report_head").html('');
                         $("#report_body").html('');
+
+
+                        $("#faculty_name").html($("#FACULTY_ID option:selected").text());
+                        $("#dept_name").html($("#DEPARTMENT_ID option:selected").text());
+                        $("#program_name").html($("#PROGRAM_ID option:selected").text());
+                        $("#session_year").html($("#SEMESTER_ID option:selected").text());
+                        $("#exam_year").html($("#YEAR option:selected").text());
                         
                         var courses = data.courses;
                         
