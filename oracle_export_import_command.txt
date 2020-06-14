@@ -7,8 +7,8 @@ cmd command:
 
 imp IU_ERP/iu_2018@orcl1 file= C:\Users\ebssbd\Desktop\IURPS\IURPS-PUBLISH\IU_ERP.DMP fromuser= IU_ERP touser= IU_ERP
 
+exp IU_ERP/iu_2018@orcl1 file=C:\Users\ebssbd\Desktop\IURPS\IURPS-PUBLISH\IU_ERP.DMP owner = IU_ERP
 
-exp anw_erp/su_123@orcl file=D:\anw_06.dmp owner = anw_erp 
 exp sau_erp1/sau_123@orcl file=sau_150316.dmp owner = sau_erp1
 
 
