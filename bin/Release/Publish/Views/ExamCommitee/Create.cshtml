@@ -1,0 +1,117 @@
+﻿@*@model IUMS.Entities.ACA_EXAM_COMMITTEE*@
+@model IUEMS.Models.Exam.ExamCommitteeModel
+@{
+	Layout = null;
+}
+
+<div class="modal" id="modal" tabindex="-1" role="dialog">
+	<div class="" stuyle="width:650px !important;" role="document">
+		<div class="modal-content">
+			@{string ajaxPostUrl = Url.Action("Create", null, null, Request.Url.Scheme);}
+			@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form", ajaxPostUrl = ajaxPostUrl }))
+			{
+				@Html.AntiForgeryToken()				
+            
+				<div class="modal-header">
+					<div class="col-md-10">
+						<h3>Create</h3>
+					</div>
+					<div class="col-md-2">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				</div>
+                <div class="modal-body ui-front">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">@Html.LabelFor(model => model.FACULTY_ID, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                                <th scope="col">@Html.LabelFor(model => model.DEPARTMENT_ID, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                                <th scope="col">@Html.LabelFor(model => model.PROGRAM_ID, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                                <th scope="col">@Html.LabelFor(model => model.SEMESTER_ID, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                                <th scope="col">@Html.LabelFor(model => model.YEAR, htmlAttributes: new { @class = "control-label col-md-2" })</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DropDownList("FACULTY_ID", (IEnumerable<SelectListItem>)ViewData["faculty_list"], "Select Faculty", new { @class = "form-control" })
+                                </td>
+                                <td>
+                                    @Html.DropDownList("DEPARTMENT_ID", (IEnumerable<SelectListItem>)ViewData["dept_list"], "Select Department", new { @class = "form-control" })
+                                </td>
+                                <td>
+                                    @Html.DropDownList("PROGRAM_ID", (IEnumerable<SelectListItem>)ViewData["program_list"], "Select Program", new { @class = "form-control" })
+                                </td>
+                                <td>
+                                    @Html.DropDownList("SEMESTER_ID", (IEnumerable<SelectListItem>)ViewData["semester_list"], "Select Semester", new { @class = "form-control" })
+                                </td>
+                                <td>
+                                    @Html.DropDownList("YEAR", (IEnumerable<SelectListItem>)ViewData["exam_year"], "Select Type", new { @class = "form-control" })
+                                </td>
+                            </tr>
+                        </thead>
+                        
+                    </table>
+                    
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>
+                                    @Html.LabelFor(model => model.COMMITTEE_HEAD, htmlAttributes: new { @class = "control-label col-md-2" })
+                                </th>
+                                <th>
+                                    @Html.LabelFor(model => model.MEMBER1, htmlAttributes: new { @class = "control-label col-md-2" })
+                                </th>
+                                <th>
+                                    @Html.LabelFor(model => model.MEMBER2, htmlAttributes: new { @class = "control-label col-md-2" })
+                                </th>
+                                <th>
+                                    @Html.LabelFor(model => model.MEMBER3, htmlAttributes: new { @class = "control-label col-md-2" })
+                                </th>
+                                <th>
+                                    @Html.LabelFor(model => model.MEMBER4, htmlAttributes: new { @class = "control-label col-md-2" })
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr>
+                                
+                                <td>
+                                    @Html.EditorFor(model => model.COMMITTEE_HEAD, new { htmlAttributes = new { @class = "form-control Examiner" } })
+                                    @Html.ValidationMessageFor(model => model.COMMITTEE_HEAD, "", new { @class = "text-danger" })
+                                </td>
+                           
+                                <td>
+                                    @Html.EditorFor(model => model.MEMBER1, new { htmlAttributes = new { @class = "form-control Examiner" } })
+                                    @Html.ValidationMessageFor(model => model.MEMBER1, "", new { @class = "text-danger" })
+                                </td>
+                           
+                                <td>
+                                    @Html.EditorFor(model => model.MEMBER2, new { htmlAttributes = new { @class = "form-control Examiner" } })
+                                    @Html.ValidationMessageFor(model => model.MEMBER2, "", new { @class = "text-danger" })
+                                </td>
+                           
+                                <td>
+                                    @Html.EditorFor(model => model.MEMBER3, new { htmlAttributes = new { @class = "form-control Examiner" } })
+                                    @Html.ValidationMessageFor(model => model.MEMBER3, "", new { @class = "text-danger" })
+                                </td>
+                            
+                                <td>
+                                    @Html.EditorFor(model => model.MEMBER4, new { htmlAttributes = new { @class = "form-control Examiner" } })
+                                    @Html.ValidationMessageFor(model => model.MEMBER4, "", new { @class = "text-danger" })
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+				<div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="formValidSend()">Create</button>
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+				</div>
+			}
+		</div>
+	</div>
+</div>

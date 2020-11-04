@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "Import Marks";
+    Layout = "~/Views/Shared/_LayoutPageMetronic.cshtml";
+}
+<style type="text/css">
+ 
+       .fileinput-button {
+           position: relative;
+           overflow: hidden;
+           display: inline-block;
+       }
+
+           .fileinput-button input {
+               position: absolute;
+               top: 0;
+               right: 0;
+               margin: 0;
+               opacity: 0;
+               -ms-filter: 'alpha(opacity=0)';
+               font-size: 200px;
+               direction: ltr;
+               cursor: pointer;
+           }
+       }
+</style>
+<h2>Upload Result From Excel File</h2>
+<hr />
+<p class="font-red">* Please add a file from your computer</p>
+@using (Html.BeginForm("Importmarks", "Exammarksentry", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <table>
+        <tr>
+            <td> File: </td>
+            <td>
+                <span class="btn btn-info fileinput-button">
+                    <i class="fa fa-plus"></i>
+                    <span> Add file </span>
+                    <input type="file" id="file" name="file">
+                </span>
+            </td>
+            <td>
+                <input type="submit" id="Subnitbtn" class="btn btn-success hidden" value="Upload File" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><span id="file_name" class="clearBoth clearfix" style="font-weight:bold;"></span></td>
+        </tr>
+    </table>
+}
+<div class="col-md-12 clearBoth clearfix">
+    <div class="bg bg-warning">@ViewBag.Message</div>
+</div>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('input[type="file"]').change(function (e) {
+                var fileName = e.target.files[0].name;
+                var fileNameExt = fileName.substr(fileName.lastIndexOf('.') + 1);
+                var fileExtension = ['xls', 'xlsx'];
+                if (fileExtension.lastIndexOf(fileNameExt) == -1) {
+
+                    $("#file_name").html("Please select file with .xls/.xlsx extension!");
+                    $("#Subnitbtn").addClass("hidden");
+                    $("#Subnitbtn").removeClass("font-blue");
+                    $("#file_name").addClass("font-red");
+                }
+                else {
+                    $("#file_name").html("Thanks! You selected " + fileName);
+                    $("#Subnitbtn").removeClass("hidden");
+                    $("#file_name").removeClass("font-red");
+                    $("#file_name").addClass("font-green");
+                }
+            });
+        });
+    </script>
+}

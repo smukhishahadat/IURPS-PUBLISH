@@ -1,0 +1,324 @@
+﻿@model IUEMS.Areas.ControllerSection.Models.ViewModel
+
+@using System.Text.RegularExpressions;
+@{
+    /**/
+
+    Layout = "";
+    var first_semester_marks = Model.TabulationSheetModel;
+    var second_semester_marks = Model.TabulationSheetModel1;
+    int cnt_f_s_c = first_semester_marks.Count();
+    int cnt_s_s_c = second_semester_marks.Count();
+    int total_colsp = cnt_s_s_c + cnt_f_s_c;
+    var semesters = ViewBag.semester_names;
+    var first_sem = semesters[0];
+    var second_sem = 0;
+    if (cnt_s_s_c>0)
+    {
+        second_sem = semesters[1];
+    }
+
+}
+
+<div class="row" id="div_result" style="">
+    <div class="col-md-12">
+        <table style="width:100%;" align="center">
+            <tr>
+                <td valign="top" style="width:30%;">
+                    <table class="short_tbl_key_info" style="border-collapse:collapse;text-align: center;font-size:10px;" border="1">
+                        <thead>
+                            <tr>
+                                <th>@cnt_f_s_c Numerical Grade</th>
+                                <th>Letter Grade</th>
+                                <th>GP</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        @{
+                            var min_marks = "";
+                            int i = 0;
+                        }
+                        <tbody id="grade_list">
+                            @foreach (var val in Model.GRADE_SHEET_DETAIL)
+                            {
+                                if (i == 0)
+                                {
+                                    min_marks = val.MINIMUM_MARKS + "% and above ";
+                                }
+                                else
+                                {
+                                    min_marks = val.MINIMUM_MARKS + "% less than ";
+                                }
+                                var max_marks = val.MAXIMUM_MARKS;
+                                var numerical_mark = min_marks + max_marks + "%";
+                                var lg = val.LETTER_GRADE;
+                                var gp = val.GRADE_POINT;
+                                var remarks = val.REMARKS;
+                                <tr>
+                                    <td style="padding:5px;">@numerical_mark</td>
+                                    <td style="padding:5px;">@lg</td>
+                                    <td style="padding:5px;">@gp</td>
+                                    <td style="padding:5px;">@remarks</td>
+                                </tr>
+                                i++;
+                            }
+                        </tbody>
+                    </table>
+                </td>
+                <td valign="top">
+                    <table style="border-collapse:collapse;text-align: center;" align="center" class="short_tbl_key_info">
+                        <tr>
+                            <td>
+                                <span style="font-weight:bold;font-size:34px;text-align:center;margin-left:10px;">ISLAMIC UNIVERSITY</span>
+                                <br />
+                                Kushtia-Jhenidah, Bangladesh
+                                <br />
+                                <img width="80" alt="" src="@Server.MapPath("~/assets/admin/layout/img/avatar3_small.png")">
+                            </td>
+                        </tr>
+                        <tr><td colspan="4"><span id="faculty_name">@Html.DisplayFor(model => model.MarksheetStdInfo.FACULTY_NAME)</span></td></tr>
+                        <tr><td colspan="4"><span id="dept_name">@Html.DisplayFor(model => model.MarksheetStdInfo.DEPARTMENT_NAME)</span></td></tr>
+                        <tr><td colspan="4"><span id="program_name">@Html.DisplayFor(model => model.MarksheetStdInfo.PROGRAM_NAME)</span> </td></tr>
+                        <tr>
+                            <td colspan="4">
+                                <b>Session: </b><span id="session_year">@Html.DisplayFor(model => model.MarksheetStdInfo.APPLICANT_SESSION)</span>
+                                <span id="semester"></span>
+                                <br />
+                                <span id="academic_year">@Html.DisplayFor(model => model.MarksheetStdInfo.LEVEL_NAME)</span>-<span id="exam_year">@ViewBag.exam_year</span>
+                                <br />
+                                <br />
+                                <span style="border: 3px solid black !important;font-weight:bold;width:40%;padding:10px;font-size:20px;">MARKS SHEET</span>
+                            </td>
+                        </tr>
+
+                    </table>
+                </td>
+                <td valign="top" style="font-size:10px;width:30%;">
+                    <div class="col-md-12 pull-right">
+                        <table style="width:100%;" align="right">
+                            <tr>
+                                <td valign="top" align="center">
+                                    <b style="font-size:8px;">@first_sem</b>
+                                    <table class="short_tbl_key_info" style="border-collapse:collapse;text-align: center;font-size:8px;" border="1">
+                                        <thead>
+                                            <tr>
+                                                <th>Code</th>
+                                                <th>Course Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="semester1_body">
+                                            @foreach (var f_s_c_ar in first_semester_marks)
+                                            {
+                                                <tr>
+                                                    <td>@f_s_c_ar.COURSE_CODE</td>
+                                                    <td>@f_s_c_ar.COURSE_NAME</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </td>
+                                @if (cnt_s_s_c > 0)
+                                {
+                                    <td valign="top" align="center">
+                                        <b style="font-size:8px;">@second_sem</b>
+                                        <table class="short_tbl_key_info" style="border-collapse:collapse;text-align: center;font-size:8px;" border="1">
+                                            <thead>
+                                                <tr>
+                                                    <th>Code</th>
+                                                    <th>Course Name</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="semester2_body">
+                                                @foreach (var s_s_c_ar in second_semester_marks)
+                                                {
+                                                    <tr>
+                                                        <td>@s_s_c_ar.COURSE_CODE</td>
+                                                        <td>@s_s_c_ar.COURSE_NAME</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                }
+
+                            </tr>
+                        </table>
+                        
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+
+        <table cellpadding="5px" style="border-collapse:collapse;text-align: center;padding:5px; border:0 !important;">
+            <tbody id="std_info">
+                <tr>
+                    <td><b>Student Name:</b> @Html.DisplayFor(model => model.MarksheetStdInfo.FULL_NAME)</td>
+                    <td><b>Roll No:</b> @Html.DisplayFor(model => model.MarksheetStdInfo.ROLL)</td>
+                    <td><b>Reg. No:</b> @Html.DisplayFor(model => model.MarksheetStdInfo.REG_NO)</td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <center>
+            <table class="short_tbl_key_info" style="border-collapse:collapse;text-align: center;font-size:14px;" width="98%" border="1">
+                <thead id="report_head">
+                    <tr>
+                        <td colspan="@(cnt_f_s_c+1)"><b>@first_sem</b></td>
+                        @{
+                            if (cnt_s_s_c > 0)
+                            {
+                                <td colspan="@(cnt_s_s_c)"><b>@second_sem</b></td>
+                            }
+                        }
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        @foreach (var f_s_c_ar in first_semester_marks)
+                        {
+                            <th>@f_s_c_ar.COURSE_CODE<br />Credit: @f_s_c_ar.COURSE_CREDIT</th>
+                        }
+
+                        @foreach (var s_s_c_ar in second_semester_marks)
+                        {
+                            <th>@s_s_c_ar.COURSE_CODE<br />Credit: @s_s_c_ar.COURSE_CREDIT</th>
+                        }
+                    </tr>
+                    @{
+                        //string[] theory = { "Theory" };
+                        //string[] Internal = { "Internal" };
+                        //string[] total_mark = { "Total Marks" };
+                        //string[] lgrade = { "Letter Grade" };
+                        //string[] gpoint = { "Grade Point" };
+                        //string[] ps = { "PS" };
+                        string[] head_arr = { "Theory", "Internal", "Total Marks", "Letter Grade", "Grade Point", "PS" };
+
+                        string[] myarr = { "" };
+                        string avg_mark = "<tr><td>Theory</td>";
+                        string Internal = "";
+                        string total_mark = "";
+                        string lgrade = "";
+                        string gpoint = "";
+                        string ps = "";
+                        decimal ec = 0;
+
+                        decimal tps1 = 0;
+                        decimal tps2 = 0;
+                        decimal ec1 = 0;
+                        decimal ec2 = 0;
+                        decimal tps = 0;
+
+                        foreach (var f_s_c_ar in first_semester_marks)
+                        {
+                            var my_total = (f_s_c_ar.INTERNAL_MARKS + f_s_c_ar.AVG_MARKS).ToString();
+                            decimal my_ps = (f_s_c_ar.GRADE_POINT * f_s_c_ar.CREDIT_EARNED);
+                            ec1 = ec1 + f_s_c_ar.CREDIT_EARNED;
+                            tps1 = tps1 + my_ps;
+                            avg_mark = avg_mark + "<td>" + f_s_c_ar.AVG_MARKS.ToString() + "</td>";
+                            Internal = Internal + "<td>" + f_s_c_ar.INTERNAL_MARKS.ToString() + "</td>";
+                            total_mark = total_mark + "<td>" + my_total + "</td>";
+                            lgrade = lgrade + "<td>" + f_s_c_ar.LETTER_GRADE + "</td>";
+                            gpoint = gpoint + "<td>" + f_s_c_ar.GRADE_POINT.ToString() + "</td>";
+                            ps = ps + "<td>" + my_ps + "</td>";
+                        }
+
+                        foreach (var f_s_c_ar in second_semester_marks)
+                        {
+                            var my_total = (f_s_c_ar.INTERNAL_MARKS + f_s_c_ar.AVG_MARKS).ToString();
+                            decimal my_ps = (f_s_c_ar.GRADE_POINT * f_s_c_ar.CREDIT_EARNED);
+                            ec2 = ec2 + f_s_c_ar.CREDIT_EARNED;
+                            tps2 = tps2 + my_ps;
+                            avg_mark = avg_mark + "<td>" + f_s_c_ar.AVG_MARKS.ToString() + "</td>";
+                            Internal = Internal + "<td>" + f_s_c_ar.INTERNAL_MARKS.ToString() + "</td>";
+                            total_mark = total_mark + "<td>" + my_total + "</td>";
+                            lgrade = lgrade + "<td>" + f_s_c_ar.LETTER_GRADE + "</td>";
+                            gpoint = gpoint + "<td>" + f_s_c_ar.GRADE_POINT.ToString() + "</td>";
+                            ps = ps + "<td>" + my_ps + "</td>";
+                        }
+
+                        avg_mark = avg_mark + "</tr>";
+
+                        if (cnt_s_s_c > 0)
+                        {
+                            ec = (ec1 + ec2);
+                            tps = tps2 + tps1;
+                        }
+                        else
+                        {
+                            ec = ec1;
+                            tps = tps1;
+                        }
+                        decimal final_gpa = tps / ec;
+                    }
+
+                    @Html.Raw(avg_mark)
+                    <tr>
+                        <td>Internal</td>
+                        @Html.Raw(Internal)
+                    </tr>
+                    <tr>
+                        <td>Total Marks</td>
+                        @Html.Raw(total_mark)
+                    </tr>
+                    <tr>
+                        <td>Letter Grade</td>
+                        @Html.Raw(lgrade)
+                    </tr>
+                    <tr>
+                        <td>Grade Point</td>
+                        @Html.Raw(gpoint)
+                    </tr>
+                    <tr>
+                        <td>PS</td>
+                        @Html.Raw(ps)
+                    </tr>
+                    <tr>
+                        <td>TPS</td>
+                        <td colspan="@total_colsp">@tps</td>
+                    </tr>
+                    <tr>
+                        <td>EC</td>
+                        <td colspan="@total_colsp">@ec</td>
+                    </tr>
+                    <tr>
+                        <td>GPA</td>
+                        <td colspan="@total_colsp">@final_gpa.ToString("0.00")</td>
+                    </tr>
+                    <tr>
+                        <td>Remarks</td>
+                        <td colspan="@total_colsp">@ViewBag.remarks</td>
+                    </tr>
+
+                </thead>
+                    <tbody id="report_body"></tbody>
+                </table>
+        </center>
+
+    </div>
+</div>
+<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/idautomationhc39m-code-39-barcode" type="text/css" />
+<style type="text/css">
+    #barcode {
+        font-family: 'IDAHC39MCode39BarcodeRegular';
+        font-weight: normal;
+        font-style: normal;
+    }
+</style>
+<table style="margin-top:10px;width:100%;">
+    <tr>
+        <td>
+            <img style="width:100px;" src="@ViewBag.qr_img" />
+        </td>
+        <td align="right">
+            <span id="barcode">@Html.DisplayFor(model => model.MarksheetStdInfo.ROLL)</span>
+        </td>
+    </tr>
+</table>
+
+

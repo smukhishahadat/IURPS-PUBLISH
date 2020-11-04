@@ -1,0 +1,88 @@
+﻿@model IEnumerable<IUMS.Entities.MASTER_ACADEMIC_PROGRAM>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageMetronic.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PROGRAM_NAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CREATED_DATE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MODIFIED_DATE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CREATED_BY)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MODIFIED_BY)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.STATUS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FACULTY_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DEPARTMENT_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PROGRAM_CODE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PROGRAM_TYPE)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PROGRAM_NAME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CREATED_DATE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MODIFIED_DATE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CREATED_BY)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MODIFIED_BY)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.STATUS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FACULTY_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DEPARTMENT_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PROGRAM_CODE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PROGRAM_TYPE)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

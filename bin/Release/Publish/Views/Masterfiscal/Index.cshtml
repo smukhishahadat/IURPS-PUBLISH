@@ -1,0 +1,52 @@
+﻿@model IEnumerable<IUMS.Entities.MASTER_FISCAL>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageMetronic.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FYSCAL_YEAR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OPENING_DATE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CLOSING_DATE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.STATUS)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FYSCAL_YEAR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OPENING_DATE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CLOSING_DATE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.STATUS)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

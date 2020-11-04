@@ -1,0 +1,72 @@
+﻿@model IUMS.Entities.HALL
+@{
+	Layout = null;
+}
+
+<div class="modal" id="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			@{string ajaxPostUrl = Url.Action("Create", null, null, Request.Url.Scheme);}
+			@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form", ajaxPostUrl = ajaxPostUrl }))
+			{
+				@Html.AntiForgeryToken()	
+				<div class='row'>
+					<div class="modal-header">
+						<div class="col-md-10">
+							<h3>Add New Hall</h3>
+						</div>
+						<div class="col-md-2">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body">
+					@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+					
+					<div class="form-horizontal">
+						<div class='col-md-12'>
+							<div class="form-group">
+								@Html.LabelFor(model => model.HALL_CODE,"Hall Code", htmlAttributes: new { @class = "control-label col-md-4" })
+								<div class="col-md-8">
+									@Html.EditorFor(model => model.HALL_CODE, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.HALL_CODE, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class='col-md-12'>
+							<div class="form-group">
+								@Html.LabelFor(model => model.HALL_NAME,"Hall Name", htmlAttributes: new { @class = "control-label col-md-4" })
+								<div class="col-md-8">
+									@Html.EditorFor(model => model.HALL_NAME, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.HALL_NAME, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class='col-md-12'>
+							<div class="form-group">
+								@Html.LabelFor(model => model.STATUS,"Status", htmlAttributes: new { @class = "control-label col-md-4" })
+								<div class="col-md-8">
+									<select class="form-control" id="STATUS" name="STATUS">
+										<option value="1">Active</option>
+										<option value="0">Inactive</option>
+										
+									</select>
+									@Html.ValidationMessageFor(model => model.STATUS, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>	
+						
+					</div>
+					
+								
+				</div>
+				<div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="formValidSend()">Create</button>
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+				</div>
+			}
+		</div>
+	</div>
+</div>

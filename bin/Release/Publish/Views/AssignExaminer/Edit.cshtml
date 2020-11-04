@@ -1,0 +1,182 @@
+﻿@model IUMS.Entities.ACA_TEACHER_ASSIGN_TEMP
+@{
+	Layout = null;
+}
+
+<div class="modal" id="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			@{string ajaxPostUrl = Url.Action("Edit", null, null, Request.Url.Scheme);}
+			@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form", ajaxPostUrl = ajaxPostUrl }))
+			{
+				@Html.AntiForgeryToken()
+				<div class="modal-header">
+					<div class="col-md-10">
+					<h3>Edit - 
+<span class="text-warning pull-right">(PK) @Model.ID</span>
+					</h3>				
+					</div>
+					<div class="col-md-2">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				</div>
+				<div class="modal-body">
+					@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+					<table class="table table-striped table-hover table-bordered">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">DisplayNameFor</th>
+								<th scope="col">DisplayFor</th>
+							</tr>
+						</thead>
+						<tbody>
+							@Html.HiddenFor(model => model.ID)
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.PROGRAM_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.PROGRAM_ID, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.PROGRAM_ID, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.SESSION_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.SESSION_ID, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.SESSION_ID, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.YEAR, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.YEAR, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.YEAR, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.BATCH_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.BATCH_ID, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.BATCH_ID, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.LEVEL_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.LEVEL_ID, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.LEVEL_ID, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.SEMESTER_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.SEMESTER_ID, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.SEMESTER_ID, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.SCHEDULE_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.SCHEDULE_ID, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.SCHEDULE_ID, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.SECTION_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.SECTION_ID, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.SECTION_ID, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.COURSE_CODE, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.COURSE_CODE, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.COURSE_CODE, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.MAIN_TEACHER, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.MAIN_TEACHER, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.MAIN_TEACHER, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.SUB_TEACHER, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.SUB_TEACHER, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.SUB_TEACHER, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.SUB_TEACHER_2, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.SUB_TEACHER_2, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.SUB_TEACHER_2, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.SUB_TEACHER_3, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.SUB_TEACHER_3, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.SUB_TEACHER_3, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.PREVIOUS_MARK, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.PREVIOUS_MARK, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.PREVIOUS_MARK, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.USER_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.USER_ID, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.USER_ID, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+						</tbody>
+					</table>				
+				</div>
+				<div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="formValidSend()">Save</button>
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+				</div>
+			}
+		</div>
+	</div>
+</div>

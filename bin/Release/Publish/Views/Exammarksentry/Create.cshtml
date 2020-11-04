@@ -1,0 +1,207 @@
+﻿@*@model IUEMS.Models.ExammarksModel*@
+@model IEnumerable<IUEMS.Models.ExammarksModel>
+@{
+    Layout = null;
+}
+
+<div class="modal" id="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @{string ajaxPostUrl = Url.Action("Create", null, null, Request.Url.Scheme);}
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form", ajaxPostUrl = ajaxPostUrl }))
+            {
+                var examinar_qty = ViewBag.course_details.EXAMINER_QTY;
+                var examiner_no = ViewBag.examinar_no;
+                var internal_marks = ViewBag.course_details.INTERNAL_MARKS;
+                var theory_marks = ViewBag.course_details.THEORY_MARKS;
+
+                int isfinal = 0;
+                if (ViewBag.is_final == 2)
+                {
+                    isfinal = 1;
+                }
+
+
+                <input type="hidden" name="ck_internal_marks" id="ck_internal_marks" value="@internal_marks" />
+                <input type="hidden" name="ck_theory_marks" id="ck_theory_marks" value="@theory_marks" />
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <div class="col-md-10">
+                        <h3>
+                            Semester Final Mark
+                        </h3>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Program</th>
+                                <th scope="col">Term</th>
+                                <th scope="col">Year</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@ViewBag.course_details.PROGRAM_NAME</td>
+                                <td>@ViewBag.course_details.SEMESTER_NAME</td>
+                                <td>@ViewBag.course_details.YEAR</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-md-12" style="padding:0 0 10px 0;">
+                        <b>Course Code:</b> @ViewBag.course_details.COURSE_CODE <br /><b>Course Name:</b> @ViewBag.course_details.COURSE_NAME
+                        @*<br />
+                    Teacher Name: @ViewBag.course_details.COURSE_CODE*@
+                        <br />
+                    </div>
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">SL</th>
+                                <th scope="col">Student ID</th>
+                                @if (ViewBag.examinar_no == 1 || examinar_qty == 3)
+                                {
+                                    <th scope="col">Internal Marks</th>
+                                }
+                                @if (ViewBag.examinar_no == 1)
+                                {
+                                    <th scope="col">First Examiner</th>
+                                }
+                                @if (ViewBag.examinar_no == 2)
+                                {
+                                    <th scope="col">Second Examiner</th>
+                                }
+                                @if (ViewBag.examinar_no == 3)
+                                {
+                                    <th scope="col">Third Examiner</th>
+                                }
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (@Model != null)
+                            {
+                                <input type="hidden" name="examinar_qty" value="@examinar_qty" />
+                                <input type="hidden" name="examiner_no" value="@examiner_no" />
+                                int i = 1;
+                                foreach (var item in Model)
+                                {
+                                    var is_final = item.IS_FINAL;
+
+                                    <tr>
+                                        <td>@(i++)</td>
+                                        <td>
+                                            @item.STUDENT_ID
+                                            <input type="hidden" name="ID[]" value="@item.ID" />
+                                        </td>
+
+                                        @if (ViewBag.examinar_no == 1 && examinar_qty == 3)
+                                        {
+                                            <td>
+                                                @if (ViewBag.first_examiner_final == 2)
+                                                {
+                                                    @item.INTERNAL_MARKS_FIRST_EXAMINER
+                                                }
+                                                else
+                                                {
+                                                    @ViewBag.first_examiner_final
+                                                    <input class="form-control text-box single-line internal_marks" data-val="true" data-val-number="The field INTERNAL_MARKS_FIRST_EXAMINER must be a number." data-val-required="The INTERNAL_MARKS_FIRST_EXAMINER field is required." id="" name="INTERNAL_MARKS_FIRST_EXAMINER[]" type="text" value="@item.INTERNAL_MARKS_FIRST_EXAMINER">
+                                                }
+                                            </td>
+                                        }
+                                        else if (ViewBag.examinar_no == 1)
+                                        {
+                                            <td>
+                                                @if (ViewBag.first_examiner_final == 2)
+                                                {
+                                                    @item.INTERNAL_MARKS
+                                                }
+                                                else
+                                                {
+                                                    <input class="form-control text-box single-line internal_marks" type="text" name="INTERNAL_MARKS[]" value="@item.INTERNAL_MARKS" />
+                                                }
+                                            </td>
+                                        }
+                                        @if (ViewBag.examinar_no == 2 && examinar_qty == 3)
+                                        {
+                                            <td>
+                                                @if (ViewBag.second_examiner_final == 2)
+                                                {
+                                                    @item.INTERNAL_MARKS_SECOND_EXAMINER
+                                                }
+                                                else
+                                                {
+                                                    <input class="form-control text-box single-line internal_marks" data-val="true" data-val-number="The field item_INTERNAL_MARKS_SECOND_EXAMINER must be a number." data-val-required="The INTERNAL_MARKS_SECOND_EXAMINER field is required." id="" name="INTERNAL_MARKS_SECOND_EXAMINER[]" type="text" value="@item.INTERNAL_MARKS_SECOND_EXAMINER">
+                                                }
+                                            </td>
+                                        }
+                                        <td>
+                                            @if (ViewBag.examinar_no == 1)
+                                            {
+                                                if (ViewBag.is_final == 2)
+                                                {
+                                                    @item.FIRST_EXAMINER_MARKS
+                                                }
+                                                else
+                                                {
+                                                    <input class="form-control text-box single-line theory_marks" type="text" name="FIRST_EXAMINER_MARKS[]" value="@item.FIRST_EXAMINER_MARKS" />
+                                                }
+                                            }
+                                            @if (ViewBag.examinar_no == 2)
+                                            {
+                                                if (ViewBag.is_final == 2)
+                                                {
+                                                    @item.SECOND_EXAMINER_MARKS
+                                                }
+                                                else
+                                                {
+                                                    <input class="form-control text-box single-line theory_marks" type="text" name="SECOND_EXAMINER_MARKS[]" value="@item.SECOND_EXAMINER_MARKS" />
+                                                }
+                                            }
+                                            @if (ViewBag.examinar_no == 3)
+                                            {
+                                                if (ViewBag.is_final == 2)
+                                                {
+                                                    @item.THIRD_EXAMINER_MARKS
+                                                }
+                                                else
+                                                {
+                                                    <input class="form-control text-box single-line theory_marks" type="text" name="THIRD_EXAMINER_MARKS[]" value="@item.THIRD_EXAMINER_MARKS" />
+                                                }
+                                            }
+
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <input type="hidden" name="is_final" id="is_final" value="1" />
+                if (isfinal == 0)
+                {
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="btn_submit" onclick="formValidSend()">Save</button>
+                    <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Close</button>
+                    @if(ViewBag.is_final==1)
+                    {
+                        <button type="button" class="btn btn-primary pull-right is_final">Final Save</button>
+                    }
+
+                </div>
+                }
+
+            }
+        </div>
+    </div>
+</div>
