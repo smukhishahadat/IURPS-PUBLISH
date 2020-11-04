@@ -1,0 +1,146 @@
+﻿@model IUMS.Entities.ACA_EXAM_COMMITTEE
+@{
+	Layout = null;
+}
+
+<div class="modal" id="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			@{string ajaxPostUrl = Url.Action("Edit", null, null, Request.Url.Scheme);}
+			@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form", ajaxPostUrl = ajaxPostUrl }))
+			{
+				@Html.AntiForgeryToken()
+				<div class="modal-header">
+					<div class="col-md-10">
+					<h3>Edit - 
+<span class="text-warning pull-right">(PK) @Model.ID</span>
+					</h3>				
+					</div>
+					<div class="col-md-2">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				</div>
+				<div class="modal-body">
+					@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+					<table class="table table-striped table-hover table-bordered">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">DisplayNameFor</th>
+								<th scope="col">DisplayFor</th>
+							</tr>
+						</thead>
+						<tbody>
+							@Html.HiddenFor(model => model.ID)
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.STATUS, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.STATUS, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.STATUS, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.COMMITTEE_HEAD, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.COMMITTEE_HEAD, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.COMMITTEE_HEAD, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.PROGRAM_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.PROGRAM_ID, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.PROGRAM_ID, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.SEMESTER_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.SEMESTER_ID, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.SEMESTER_ID, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.YEAR, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.YEAR, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.YEAR, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.MEMBER1, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.MEMBER1, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.MEMBER1, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.MEMBER2, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.MEMBER2, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.MEMBER2, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.MEMBER3, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.MEMBER3, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.MEMBER3, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.MEMBER4, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.MEMBER4, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.MEMBER4, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.USER_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.USER_ID, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.USER_ID, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+							<tr>
+								<td>
+									@Html.LabelFor(model => model.CREATE_DATE, htmlAttributes: new { @class = "control-label col-md-2" })
+								</td>
+								<td>
+									@Html.EditorFor(model => model.CREATE_DATE, new { htmlAttributes = new { @class = "form-control" } })
+									@Html.ValidationMessageFor(model => model.CREATE_DATE, "", new { @class = "text-danger" })
+								</td>
+							</tr>
+						</tbody>
+					</table>				
+				</div>
+				<div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="formValidSend()">Save</button>
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
+				</div>
+			}
+		</div>
+	</div>
+</div>

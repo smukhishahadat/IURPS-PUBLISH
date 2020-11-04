@@ -1,0 +1,115 @@
+﻿@model LCMS.Entities.tbl_notification
+
+@{
+    ViewBag.Title = "MessageInboxDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Scripts.Render("~/Content/ckeditorjs")
+<div class="main_content_title">
+    <div class="main_content_title00">
+        <i class="fa fa-suitcase"></i>
+        @Html.DisplayFor(model => model.title)
+    </div>
+    <div class="main_content_title01">
+        <!-- <a href=""><i class="fa fa-tasks"></i>&nbsp;Tasks</a> -->
+    </div>
+</div>
+
+<div class="main_content_details">
+    <br>
+    <strong>@Html.DisplayFor(model => model.title)</strong>
+    <span>&nbsp;&nbsp;&nbsp;</span><i class="fa fa-arrow-right"></i><span>&nbsp;&nbsp;&nbsp;</span> Inbox
+
+    <span style="padding-left:250px">
+        @Html.DisplayFor(model => model.datetime)
+    </span>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1">
+            <span><img style="height:35px; margin-top:10px;" src="~/uploads/lcms_logo.gif"></span>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11" style="text-align:justify !important">
+            <p>@Html.Raw(Model.description)</p>
+        </div>
+    </div>
+
+    <hr style="margin:5px 0px 5px 0px;">
+
+    <br>
+    <div class="row">
+        <div class="col-md-11 col-md-offset-1"> <span style="color:#F00;"></span> </div>
+        <div class="clearfix"></div>
+        <div class="col-md-1">
+            <img src="~/uploads/Chamber_logo_img/@Session["Chamberlogo"]" style="height:35px; margin-bottom:10px;">
+        </div>
+        <div class="col-md-8">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group required">
+                    @*<input id="editor1" type="text" value="" name="description" />*@
+                    <textarea style="width: 50%;" rows="3" cols="10" title="Description" class="" id="editor1" placeholder="Click here to Reply," name="description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="submit" value="Send" class="btn btn-success" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script>
+        CKEDITOR.replace( 'editor1' );
+</script>
+
+@*<div>
+
+    <dl class="dl-horizontal">
+        <dd>
+            @Html.DisplayFor(model => model.title)
+
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+
+        <dd>
+            @Html.DisplayFor(model => model.datetime)
+        </dd>
+    </dl>
+
+    <table class="table table-bordered table-striped table-condensed">
+       
+        <tbody id="databody">
+            
+            @foreach (var item in ViewBag.SentMessageInbox)
+            {
+                <tr>
+                   
+                    <td>
+                        @item.description
+                    </td>
+                    <td>
+                        @item.datetime
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group required">
+        <input id="description" type="text" value="" name="description" />
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+}*@
+

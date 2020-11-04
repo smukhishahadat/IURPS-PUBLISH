@@ -1,0 +1,83 @@
+﻿@model IEnumerable<LCMS.Entities.tbl_case>
+
+@{
+    ViewBag.Title = "total_case_result";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main_content_title">
+    <div class="main_content_title00" style="padding-bottom: 3px; font-size: 16px; font-weight: bold;">
+        <i class="fa fa-suitcase"></i>
+        Case Result (As Per Supreme Court Website)
+    </div>
+    <div class="main_content_title01">
+    </div>
+</div>
+<div class="main_content_details">
+    <div class="main_content_search">
+        <form method="post" action="" id="frm_total_case_list" class="form-inline">
+            &nbsp;&nbsp;&nbsp;Court/&nbsp;Division&nbsp;:&nbsp;
+            @Html.DropDownList("court_division_id", (IEnumerable<SelectListItem>)ViewData["court_division"], "Select Courts/Division", new { @class = "form-control kt-select2", @id = "kt_select2_2" })
+
+            &nbsp;&nbsp;Case Type&nbsp;:&nbsp;
+            @*@Html.DropDownList("case_name", (IEnumerable<SelectListItem>)ViewData["case_name"], "Select Courts/Division", new { @class = "form-control kt-select2", @id = "kt_select2_5" })*@
+            <select name="case_name" style="width:200px !important" class="case_name kt-select2 form-control" id="kt_select2_5">
+                <option value="">Select Case Type</option>
+                <option value="">All</option>
+                @foreach (var case_list in ViewBag.case_name_list)
+            {
+                    <option value="@case_list.id">@case_list.case_name</option>
+                }
+            </select>
+
+
+            &nbsp;Case No.&nbsp;:&nbsp;
+            <input type="text" name="case_number" class="name_of_case_no form-control" style="width:100px !important" placeholder="Case No" id="case_number" value="">
+            <input type="text" class="name_of_year form-control" style="width:60px !important" placeholder="Year" name="case_year" id="case_year" value="">
+            <br>
+            <div class="gap_in_middle"></div>
+            
+            Court&nbsp;Name/&nbsp;No.&nbsp;:&nbsp; @*@Html.DropDownList("court_id", (IEnumerable<SelectListItem>)ViewData["jurisdiction"], "Select Court name", new { @class = "form-control kt-select2", @id = "kt_select2_4" })*@
+            @Html.DropDownList("court_id", (IEnumerable<SelectListItem>)ViewData["CourtName"], "Select Court Name", new { @class = "form-control kt-select2", @id = "kt_select2_4" })
+            
+            &nbsp; Search&nbsp;by&nbsp;:&nbsp;
+            <input type="text" name="description" class="matter_of_case form-control " style="width: 323px !important;" placeholder="Any Word, Any Matter or Any Sentence" id="description" value="">
+            <!--<button id="case_list">Search</button>-->
+
+            <button type="submit" data-id="0" class="btn btn-success btn-sm btn_middle total_case_list" id="">Search</button>&nbsp;
+            <button type="reset" class="btn btn-danger btn-sm btn_middle" id="case_list2">Clear</button>
+        </form>
+    </div>
+</div>
+<div class="col-md-12" style="padding:0px !important; margin:0px !important;">
+    @Html.Partial("PreviousCaseRes")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $("#kt_select2_2").attr("data-placeholder", "Select Court/ Division");
+        $("#kt_select2_2").select2();
+
+        $("#kt_select2_5").attr("data-placeholder", "Select Case Type");
+        $("#kt_select2_5").select2();
+
+        $("#kt_select2_4").attr("data-placeholder", "Select Courts");
+        $("#kt_select2_4").select2();
+    </script>
+}
+
+<style>
+    .custom_links.btn-add {
+	    color: #000 !important;
+    }
+    .gap_in_middle {
+        width:200px !important;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+	    position: relative;
+	    padding: 0.65rem 3rem 0.65rem 1rem;
+	    line-height: 0.5 !important;
+    }
+</style>

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<LCMS.Controllers.HomeController.MessageTransaction>
+
+@{
+    ViewBag.Title = "LCMS : Message Inbox";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main_content_title">
+    <div class="main_content_title00">
+        <i class="fa fa-suitcase"></i>
+        Message Inbox
+    </div>
+    <div class="main_content_title01">
+        <!-- <a href=""><i class="fa fa-tasks"></i>&nbsp;Tasks</a> -->
+    </div>
+</div>
+<br />
+<table class="table table-bordered table-striped table-condensed">
+    <tr>
+        <th>
+            SL.
+        </th>
+        <th>
+            Subject
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Action
+        </th>
+    </tr>
+    <tbody id="databody">
+        @{int i = 1;}
+        @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @(i++)
+                </td>
+                <td>
+                    <a href="/home/MessageInboxDetails/8_76?cid=@item.id">@item.title</a>
+                </td>
+                <td>
+                    <a href="/home/MessageInboxDetails/8_76?cid=@item.id">@Html.Raw(item.description)</a>
+                </td>
+                <td>
+                    <a href="/home/MessageInboxDetails/8_76?cid=@item.id">@item.DateTime</a>
+                </td>
+                <td>
+                    @*@Html.ActionLink("Delete", "MessageInboxDelete", new { id = item.id })*@
+                    <a style="color:#f00;" href="/home/MessageInboxDelete/4">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
