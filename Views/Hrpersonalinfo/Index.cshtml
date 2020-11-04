@@ -162,7 +162,7 @@
             });
 
             //get Department
-            $(document).on("change", "#FACULTY", function () {
+            $(document).on("change", "#FACULTY_ID", function () {
                 var url = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1] + "/get_dept";
                 var FACULTY = $(this).val();
                 var fls = { FACULTY: FACULTY }
@@ -177,13 +177,13 @@
                     success: function (data) {
                       
                         $("#loader_view").hide();
-                        $("#DEPARTMENT").html('<option value="">--Select--</option>');
+                        $("#DEPARTMENT_ID").html('<option value="">--Select--</option>');
                         $.each(data, function (key, val) {
                            
                             var ID = val.ID;
 
                             var tr = "<option value='" + val.ID + "'>" + val.DEPARTMENT_NAME + "</option>";
-                            $("#DEPARTMENT").append(tr);
+                            $("#DEPARTMENT_ID").append(tr);
                         });
                     }
                     //data: JSON.stringify(person)
