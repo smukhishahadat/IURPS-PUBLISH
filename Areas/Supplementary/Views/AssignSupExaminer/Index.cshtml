@@ -3,7 +3,7 @@
 @using PagedList;
 @using PagedList.Mvc;
 @{
-    ViewBag.Title = "IURPS::Assign Examineer";
+    ViewBag.Title = "IURPS::Assign Supply Examineer";
     Layout = "~/Views/Shared/_LayoutPageMetronic.cshtml";
 }
 <style type="text/css">
@@ -83,9 +83,9 @@
                                     //<button class='btn btn-danger  btn-mdelete'  value='{model.ID}' onclick='btnDeleteClick($(this))' myUrl='{Delete}'><i class='fa fa-times-circle'></i></button>").Encoded(false).Css("management-col").Titled("MANAGEMENT");
 
                                 })
-                                                .WithFilterMode(GridFilterMode.FilterRow)
+                                                //.WithFilterMode(GridFilterMode.FilterRow)
                                                 .Empty("No data found")
-                            .MultiFilterable()
+                            //.MultiFilterable()
                             .Filterable()
                             .Sortable()
     )
